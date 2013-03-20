@@ -111,4 +111,4 @@ If there is any doubt, feel free to have a look at the sample apps provided.
 This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra), and Abhijith (@redshift13).
 
 ### Support or Contact
-Having trouble with integration? Please contact us at adv-support@notiphi.com and we’ll help you sort it out in a jiffy.
+Having trouble with integration? Please contact us at dev-support@notiphi.com and we’ll help you sort it out in a jiffy.
