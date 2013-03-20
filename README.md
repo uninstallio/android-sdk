@@ -1,9 +1,25 @@
-notiphi-android-sdk
+Notiphi Android SDK
 ===================
 
-Notiphi Android SDK
+Notiphi Android SDK allows you to monetise your Android app (2.3.3 and above) by receiving contextual notifications. 
+This guide will help you to integrate in a few minutes.
+
+Please follow the following steps in order to integrate the Notiphi Android SDK into your android app:
 
 ### Steps to integrate the sdk to your Android project.
+
+Clone this repository or download the zipped package.
+
+Add the downloaded jar file to your project path. If you are using Eclipse then you could use these following steps if you are unfamiliar with the process of adding jar files.
+
+The following instructions are for adding JAR files to your project.
+
+Create new folder in your project called libs and move the Notify jar file, android-async-http-1.4.2.jar, gcm.jar , android-support-v4.jar into this folder.
+Select your project
+Right Click -> Select Properties
+Choose Java Build Path
+Select libraries tab
+Choose Add JARS and browse to the notify jar file which is in libs folder into your project. In a similar way add jars async-http-1.4.2.jar, gcm.jar to the project path.
 
 After adding the JAR’s into your project, modify your AndroidManifest.xml file using these steps:
 
