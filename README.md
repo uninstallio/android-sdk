@@ -60,7 +60,7 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 
 ```
 <receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver">
-    </receiver>
+</receiver>
 <receiver android:name="com.notikum.notifypassive.receivers.BootCompleteReceiver">
     <intent-filter>
     		<action android:name="android.intent.action.BOOT_COMPLETED" />
