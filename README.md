@@ -8,7 +8,13 @@ Please follow the following steps in order to integrate the Notiphi Android SDK 
 
 ### Steps to integrate the sdk to your Android project.
 
-Clone this repository or download the zipped package.
+Clone this repository 
+
+```
+git clone https://github.com/alokmishra/notiphi-android-sdk.git
+```
+
+or download the zipped package.
 
 Add the downloaded jar file to your project path. If you are using Eclipse then you could use these following steps if you are unfamiliar with the process of adding jar files.
 
