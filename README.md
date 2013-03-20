@@ -99,4 +99,4 @@ Set the Icons:  We provide you with a resource file (of our logo) named notiphi_
 This library owes its existence to the hard work of Arjun (@defunkt), Nagendra (@pjhyett), and Abhijith (@mojombo).
 
 ### Support or Contact
-Having trouble with integration? Please contact us at support@notiphi.com and we’ll help you sort it out in a jiffy.
+Having trouble with integration? Please contact us at adv-support@notiphi.com and we’ll help you sort it out in a jiffy.
