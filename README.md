@@ -1,10 +1,7 @@
 Notiphi Android SDK
 ===================
 
-Notiphi Android SDK allows you to monetise your Android app (2.3.3 and above) by receiving contextual notifications. 
-This guide will help you to integrate in a few minutes.
-
-Please follow the following steps in order to integrate the Notiphi Android SDK into your android app:
+Notiphi Android SDK allows you to monetise your Android app (2.3.3 and above) by receiving contextual notifications. This guide will help you to integrate in a few minutes. Please follow the following steps in order to integrate the Notiphi Android SDK into your android app.
 
 ### Steps to integrate the sdk to your Android project.
 ####Setup
@@ -96,7 +93,8 @@ Context context = this;
 NotiphiSession.init(context);
 ```
 ####Resource files
-Edit the string.xml: Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.
+#####string.xml
+Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.
 The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at dev-support@notiphi.com to get these.
 
 ```
@@ -104,12 +102,13 @@ The app_token and app_secret is provided by us on registration of your app with 
 <string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_NOTIPHI_SEPARATELY</string>
 ```
 
-Set the Icons:  We provide you with a resource file (of our logo) named notiphi_notification_icon.png. Appropriate sized versions should be copied to drawable, drawable-hdpi,drawable-mdpi and drawable-xhdpi folder under your project’s res directory.
+#####Set the Icons 
+We provide you with a resource file (of our logo) named notiphi_notification_icon.png. Appropriate sized versions should be copied to drawable, drawable-hdpi,drawable-mdpi and drawable-xhdpi folder under your project’s res directory.
 
 If there is any doubt, feel free to have a look at the sample apps provided.
 
 ### Authors and Contributors
-This library owes its existence to the hard work of Arjun (@defunkt), Nagendra (@pjhyett), and Abhijith (@mojombo).
+This library owes its existence to the hard work of Arjun (@arjunrn), Nagendra (@sanu-nagendra), and Abhijith (@redshift13).
 
 ### Support or Contact
 Having trouble with integration? Please contact us at adv-support@notiphi.com and we’ll help you sort it out in a jiffy.
