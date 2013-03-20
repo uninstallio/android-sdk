@@ -108,7 +108,7 @@ We provide you with a resource file (of our logo) named notiphi_notification_ico
 If there is any doubt, feel free to have a look at the sample apps provided.
 
 ### Authors and Contributors
-This library owes its existence to the hard work of Arjun (@arjunrn), Nagendra (@sanu-nagendra), and Abhijith (@redshift13).
+This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra), and Abhijith (@redshift13).
 
 ### Support or Contact
 Having trouble with integration? Please contact us at adv-support@notiphi.com and we’ll help you sort it out in a jiffy.
