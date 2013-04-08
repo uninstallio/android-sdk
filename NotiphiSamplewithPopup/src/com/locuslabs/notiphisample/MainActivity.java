@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
 	public void startNotify() {
 		Boolean notiphiEnabled = mPrefs.getBoolean("notiphi_enabled", true);
 		if (notiphiEnabled) {
-			NotiphiSession.init(MainActivity.this);
+			NotiphiSession.init(MainActivity.this,1);
 			Toast.makeText(this, "Notify Started", Toast.LENGTH_SHORT).show();
 		} else {
 			Toast.makeText(this, "Disabled Notify", Toast.LENGTH_SHORT).show();

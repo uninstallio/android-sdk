@@ -97,7 +97,7 @@ Inside the onCreate method of your Main Activity, add the following lines of cod
 
 ```
 Context context = this;
-NotiphiSession.init(context);
+NotiphiSession.init(context,1);
 ```
 
 ####Resource files

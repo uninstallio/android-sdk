@@ -4,7 +4,7 @@
     <string name="app_name">NotiphiSample</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="notiphi_app_token">your_app_token_here</string>
-    <string name="notiphi_app_secret">your_app_secret_here</string>
+    <string name="notiphi_app_token"></string>
+    <string name="notiphi_app_secret"></string>
 	
 </resources>
