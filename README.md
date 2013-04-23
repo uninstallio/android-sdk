@@ -1,7 +1,7 @@
-Notiphi Android SDK
+[Notiphi](http://www.notiphi.com) Android SDK
 ===================
 
-Notiphi Android SDK allows you to monetise your Android apps (2.3.3 and above) by receiving contextual notifications. This guide will help you integrate it in a few minutes. Following steps outline the integration process.
+[Notiphi SDK (www.notiphi.com)](http://www.notiphi.com) allows you to monetise your Android apps (2.3.3 and above) by receiving contextual notifications. This guide will help you integrate it in a few minutes. Following steps outline the integration process.
 
 ### Steps to integrate the sdk to your Android project.
 
