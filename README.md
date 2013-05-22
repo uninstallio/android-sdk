@@ -59,7 +59,9 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 3. Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
-<receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver">
+<receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver"
+     android:enabled="true"
+     android:exported="true">
 </receiver>
 <receiver android:name="com.notikum.notifypassive.receivers.BootCompleteReceiver">
     <intent-filter>
