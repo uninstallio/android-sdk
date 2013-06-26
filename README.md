@@ -27,6 +27,8 @@ are using Eclipse then you could use the following steps if you are unfamiliar w
 3. Choose Java Build Path
 4. Select libraries tab
 5. Choose Add JARS and browse to the jars directory in cloned/unzipped files. Select all the jars one by one.
+6. Add "notiphi_app_token" and  notiphi_app_secret provided by us, in string.xml file inside res directory of your android project
+7. Put notiphi_notification_icon.png in drawable directory of your android project
 
 ####Manifest file
 
