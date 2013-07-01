@@ -23,12 +23,13 @@ Unzip the files (if downloaded as a zip) and then add the files in jars director
 are using Eclipse then you could use the following steps if you are unfamiliar with the process of adding jar files.
 
 1. Select your project
-2. Right Click -> Select Properties
-3. Choose Java Build Path
-4. Select libraries tab
-5. Choose Add JARS and browse to the jars directory in cloned/unzipped files. Select all the jars one by one.
-6. Add "notiphi_app_token" and  notiphi_app_secret provided by us, in string.xml file inside res->values directory of your android project
-7. Copy notiphi_notification_icon.png from each directory in Drawables and paste it into respective each drawable directory of your android project
+2. Copy all the jar file from jars directory and paste it into libs directory of your project
+3. Right Click -> Select Properties
+4. Choose Java Build Path
+5. Select libraries tab
+6. Choose Add JARS and browse to the jars directory in cloned/unzipped files. Select all the jars one by one.
+7. Add "notiphi_app_token" and  notiphi_app_secret provided by us, in string.xml file inside res->values directory of your android project
+8. Copy notiphi_notification_icon.png from each directory in Drawables and paste it into respective each drawable directory of your android project
 
 ####Manifest file
 
