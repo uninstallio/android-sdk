@@ -57,6 +57,7 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.VIBRATE"/>
+<uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
 ```
 
 3. Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
@@ -88,8 +89,14 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <service android:name="com.notikum.notifypassive.services.GCMIntentService"></service>
 <service android:name="com.notikum.notifypassive.services.NotiphiService"></service>
 <service android:name="com.notikum.notifypassive.services.GCMInformService"></service>
+<service android:name="com.notikum.notifypassive.NewApiActivityRecognization"></service>
+<service android:name="com.notikum.notifypassive.NotiphiClusterSyncIntentService"></service>
+<service android:name="com.notikum.notifypassive.services.DiscardedNotificationService"></service>
 ```
-
+4. Reference Google Play Services Library:  In eclipse goto file -> new -> other and from the list select "Android Project from Existing Code" then browse to androidsdk folder then extras folder then google folder and then 
+	google_play_services and select libproject and click ok .
+	
+	now select your project then right click select properties then android then click add and add the above library then click ok . 
 ####Main Activity
 
 After the configuration changes, in your main Activity of your application  add this import statement
