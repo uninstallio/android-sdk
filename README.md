@@ -93,10 +93,10 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <service android:name="com.notikum.notifypassive.NotiphiClusterSyncIntentService"></service>
 <service android:name="com.notikum.notifypassive.services.DiscardedNotificationService"></service>
 ```
-4. Reference Google Play Services Library:  In eclipse goto file -> new -> other and from the list select "Android Project from Existing Code" then browse to androidsdk folder then extras folder then google folder and then 
-	google_play_services and select libproject and click ok .
+4. Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
+	google_play_services -> libproject directory and click Ok .
 	
-	now select your project then right click select properties then android then click add and add the above library then click ok . 
+	Now select your project, right click then select properties -> android, click add and select the above library then click ok. 
 ####Main Activity
 
 After the configuration changes, in your main Activity of your application  add this import statement
