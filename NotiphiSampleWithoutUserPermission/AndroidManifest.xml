@@ -24,7 +24,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.VIBRATE"/>
-
+	<uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
+	
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -39,8 +40,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+		<!-- Declaration required to use Notiphi Services -->
+      <service android:name="com.notikum.notifypassive.services.GCMIntentService" >
+        </service>
 
-        <receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver" >
+        <receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver"
+            	  android:enabled="true"
+            	  android:exported="true" >
         </receiver>
         <receiver android:name="com.notikum.notifypassive.receivers.BootCompleteReceiver" >
             <intent-filter>
@@ -63,12 +69,14 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.notikum.notifypassive.services.NotiphiService" >
+        <service android:name="com.notikum.notifypassive.services.NotiphiService">
         </service>
         <service android:name="com.notikum.notifypassive.services.GCMInformService" >
         </service>
-        <service android:name="com.notikum.notifypassive.services.GCMIntentService" >
-        </service>
+	<service android:name="com.notikum.notifypassive.NewApiActivityRecognization"></service>
+    <service android:name="com.notikum.notifypassive.NotiphiClusterSyncIntentService"></service>
+    <service android:name="com.notikum.notifypassive.services.DiscardedNotificationService"></service>
+    
     </application>
 
 </manifest>
