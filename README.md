@@ -142,16 +142,31 @@ We provide the way to capture user event from your app so that we can identify p
 To capture event create a json object and add information in key and value format 
 
 For Example : 
-
+```
 JSONObject jsonObject = new JSONObject();
 jsonObject.put(key, value);
 jsonObject.put(key, value);
-
+```
 Once  json object is packed with data , call the below method and pass json obejct and context of the application
-
+```
 new NotiphiEventReceiver(jsonObject, context);
-
+```
 Chill out , You are done with event capture implementation, now events from your app will be captured
+
+#### Support to send push message from your server as well as from our server
+
+To send push message from your server just copy and paste the below line into string.xml file of your project
+
+```
+<string name="vendor_gcm_sender_id" translatable="false">YOUR GCM SENDER ID </string>
+```
+
+If you are also regitering for GCM then please pass our GCM sender id while registering for GCM using below step
+```
+import com.notikum.notifypassive.utils.Constants
+
+GCMRegistrar.register(context, YOUR GCM SENDER ID +","+Constants.GCM_SENDER_ID);
+```
 
 ### Support or Contact
 
