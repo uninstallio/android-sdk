@@ -135,6 +135,24 @@ If there is any doubt, feel free to have a look at the sample apps provided.
 
 This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra), and Abhijith (@redshift13).
 
+#### Capture Event
+
+We provide the way to capture user event from your app so that we can identify potential and interested users for your business 
+
+To capture event create a json object and add information in key and value format 
+
+For Example : 
+
+JSONObject jsonObject = new JSONObject();
+jsonObject.put(key, value);
+jsonObject.put(key, value);
+
+Once  json object is packed with data , call the below method and pass json obejct and context of the application
+
+new NotiphiEventReceiver(jsonObject, context);
+
+Chill out , You are done with event capture implementation, now events from your app will be captured
+
 ### Support or Contact
 
 Having trouble with integration? Please contact us at dev-support@notiphi.com and we’ll help you sort it out in a jiffy.
