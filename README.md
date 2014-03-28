@@ -131,10 +131,6 @@ We provide you with a resource file (of our logo) named notiphi_notification_ico
 
 If there is any doubt, feel free to have a look at the sample apps provided.
 
-### Authors and Contributors
-
-This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra), and Abhijith (@redshift13).
-
 #### Capture Event
 
 We provide the way to capture user event from your app so that we can identify potential and interested users for your business 
@@ -167,6 +163,10 @@ import com.notikum.notifypassive.utils.Constants
 
 GCMRegistrar.register(context, YOUR GCM SENDER ID +","+Constants.GCM_SENDER_ID);
 ```
+
+### Authors and Contributors
+
+This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra), and Abhijith (@redshift13).
 
 ### Support or Contact
 
