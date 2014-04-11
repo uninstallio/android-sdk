@@ -24,22 +24,18 @@ are using Eclipse then you could use the following steps if you are unfamiliar w
 
 1. Select your project
 2. Copy all the jar file from jars directory and paste it into libs directory of your project
-3. Right Click -> Select Properties
-4. Choose Java Build Path
-5. Select libraries tab
-6. Choose Add JARS and browse to the jars directory in cloned/unzipped files. Select all the jars one by one.
-7. Add "notiphi_app_token" and  notiphi_app_secret provided by us, in string.xml file inside res->values directory of your android project
-8. Copy notiphi_notification_icon.png from each directory in Drawables and paste it into respective each drawable directory of your android project
-9. Copy all xml files from layout folder and paste it into layout folder of your android project
+3. Add "notiphi_app_token" and  notiphi_app_secret provided by us, in string.xml file inside res->values directory of your android project
+4. Copy notiphi_notification_icon.png from each directory in Drawables and paste it into respective each drawable directory of your android project
+5. Copy all xml files from layout folder and paste it into layout folder of your android project
 
 ####Manifest file
 
 After adding the JARs into your project, modify your AndroidManifest.xml file using these steps:
 
-1. Android Version: Set the minimum android SDK version to 10 (Android 2.3.3) or higher. Notiphi library will not work if minimum android SDK version is less than 10.
+1. Android Version: Set the minimum android SDK version to 8  or higher. Notiphi library will not work if minimum android SDK version is less than 8.
 
 ```
-<uses-sdk android:minSdkVersion="10" />
+<uses-sdk android:minSdkVersion="8" />
 ```
 
 2. Permissions: Following permission are required in manifest file for library to work properly. So please declare the following permission in AndroidManifest.xml and replace the occurrence of **YOUR_PACKAGE_NAME** by your application's package name.
