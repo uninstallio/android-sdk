@@ -161,10 +161,18 @@ import com.notikum.notifypassive.utils.Constants
 
 GCMRegistrar.register(context, YOUR GCM SENDER ID +","+Constants.GCM_SENDER_ID);
 ```
+and add the below code at top inside onMessage(Context context, Intent intentData) method of class which extends 
+GCMBaseIntentService 
 
+```
+if(intentData.getStringExtra("is_notiphi") != null){
+return;
+}
+
+```
 ### Authors and Contributors
 
-This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra), and Abhijith (@redshift13).
+This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra).
 
 ### Support or Contact
 
