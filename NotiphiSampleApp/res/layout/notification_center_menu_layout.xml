@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#587e15"
+	android:orientation="vertical" >
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2dip"
+		android:layout_marginTop="50dip"
+		android:background="@android:color/white" />
+	<Button
+		android:id="@+id/notification_center_all_notification"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="5dip"
+		android:layout_marginBottom="10dip"
+		android:layout_marginTop="10dip"
+		android:text="ALL NOTIFICATION"
+		android:textSize="20sp"
+		android:textStyle="bold"
+		android:background="#587e15" 
+		/>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2dip"
+		android:background="@android:color/white" />
+	<Button
+		android:id="@+id/notification_center_saved_notification"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="10dip"
+		android:layout_marginTop="10dip"
+		android:layout_marginLeft="5dip"
+		android:text="SAVED NOTIFICATION"
+		android:textSize="20sp"
+		android:textStyle="bold"
+		android:background="#587e15"
+		 />
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2dip"
+		android:background="@android:color/white" />
+	<Button
+		android:id="@+id/notification_center_optout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="10dip"
+		android:layout_marginLeft="5dip"
+		android:layout_marginTop="10dip"
+		android:text="OPT OUT"
+		android:textSize="20sp"
+		android:textStyle="bold"
+		android:background="#587e15" 
+		/>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2dip"
+		android:background="@android:color/white" />
+</LinearLayout>

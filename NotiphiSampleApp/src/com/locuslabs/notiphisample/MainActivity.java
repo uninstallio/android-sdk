@@ -29,11 +29,11 @@ public class MainActivity extends Activity {
 					json.put("name", "Nagendra");
 					json.put("location", " BTM layout ");
 					new NotiphiEventReceiver(json, getApplicationContext());
+					//Intent actIntent = new Intent(MainActivity.this, NotificationCenter.class);
+					//startActivity(actIntent);
 				}catch(Exception ex){
 					ex.printStackTrace();
 				}
-				
-				
 			}
 		});
 		

@@ -17,4 +17,9 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="HideActionBarTheme">
+		<item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+	</style>
+    
 </resources>

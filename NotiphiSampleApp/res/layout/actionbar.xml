@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/actionbar_title_container"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/holo_red_dark"
+    >
+    <Button
+    	android:id="@+id/details_button"
+    	android:layout_width="40dp"
+    	android:layout_height="40dp"
+    	android:layout_marginLeft="5dip"
+    	android:layout_marginTop="5dp"
+    	android:layout_marginBottom="5dp"
+    	android:layout_alignParentLeft="true"
+    	android:layout_centerVertical="true"
+    	android:background="@drawable/ic_launcher"
+    	android:visibility="gone" />
+    <TextView
+    	android:layout_toRightOf="@id/details_button"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:text="Notifications"
+    	android:layout_marginLeft="10dip"
+    	android:textStyle="bold"
+    	android:gravity="center_vertical"
+    	android:textSize="25sp" 
+    	/>
+</RelativeLayout>

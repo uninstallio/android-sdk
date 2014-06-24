@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
 	
-     <string name="notiphi_app_secret">2Q0P7qmXLOZqyhQxCCLc</string>
-    <string name="notiphi_app_token">demo</string>
+     <string name="notiphi_app_secret">PNNe5wL2ANnD6pVUysJk</string>
+    <string name="notiphi_app_token">demopro</string>
     <string name="vendor_gcm_sender_id" translatable="false">865657230032</string>
 </resources>

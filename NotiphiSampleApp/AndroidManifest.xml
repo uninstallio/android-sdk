@@ -43,6 +43,9 @@
 		</activity>
 		<activity android:name="com.locuslabs.notiphisample.ThirdActivity" >
 		</activity>
+		<activity
+			android:theme="@style/HideActionBarTheme" 
+			android:name="com.locuslabs.notiphisample.NotificationCenter"></activity>
 		<!-- Declaration required to use Notiphi Services -->
 		
 		<receiver
