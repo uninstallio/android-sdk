@@ -1,36 +1,21 @@
 package com.locuslabs.notiphisample;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.opengl.Visibility;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.locuslabs.notiphisample.fragment.NotiphiListFragment;
 import com.locuslabs.notiphisample.fragment.NotiphiMenuFragment;
-import com.notikum.notifypassive.utils.ClientUtility;
 import com.notikum.notifypassive.utils.NotiphiPromotion;
 
 public class NotificationCenter extends SlidingFragmentActivity {

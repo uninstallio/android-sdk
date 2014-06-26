@@ -1,8 +1,7 @@
 package com.locuslabs.notiphisample;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.notikum.notifypassive.NotiphiSession;
-import com.notikum.notifypassive.utils.NotiphiEventReceiver;
 
 public class MainActivity extends Activity {
 
@@ -25,12 +23,12 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try{
-					JSONObject json = new JSONObject();
-					json.put("name", "Nagendra");
-					json.put("location", " BTM layout ");
-					new NotiphiEventReceiver(json, getApplicationContext());
-					//Intent actIntent = new Intent(MainActivity.this, NotificationCenter.class);
-					//startActivity(actIntent);
+					//JSONObject json = new JSONObject();
+					//json.put("name", "Nagendra");
+					//json.put("location", " BTM layout ");
+					//new NotiphiEventReceiver(json, getApplicationContext());
+					Intent actIntent = new Intent(MainActivity.this, NotificationCenter.class);
+					startActivity(actIntent);
 				}catch(Exception ex){
 					ex.printStackTrace();
 				}

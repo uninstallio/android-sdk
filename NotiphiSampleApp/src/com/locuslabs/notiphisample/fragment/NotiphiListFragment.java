@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.locuslabs.notiphisample.R;
-import com.notikum.notifypassive.utils.ClientUtility;
-import com.notikum.notifypassive.utils.NotiphiPromotion;
 
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,9 +15,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.locuslabs.notiphisample.NotificationDetailsActivity;
+import com.locuslabs.notiphisample.R;
+import com.notikum.notifypassive.utils.ClientUtility;
+import com.notikum.notifypassive.utils.Constants;
+import com.notikum.notifypassive.utils.NotiphiPromotion;
 
 public class NotiphiListFragment extends  Fragment{
 
@@ -43,6 +49,7 @@ public class NotiphiListFragment extends  Fragment{
 		mView = inflater.inflate(R.layout.notiphi_notification_center_main_layout, null);
 		promotionList = new ArrayList<NotiphiPromotion>();
 		mListView = (ListView)mView.findViewById(R.id.notification_center_list_view);
+		mListView.setOnItemClickListener(new OnListItemClick());
 		mNotiphiListAdapter = new NotiphiListAdapter();
 		NotiphiAsyncTask notiphiAsyncTask = new NotiphiAsyncTask();
 		notiphiAsyncTask.execute("NotificationCenter");
@@ -79,11 +86,15 @@ public class NotiphiListFragment extends  Fragment{
 			ViewHolder holder = new ViewHolder();
 			holder.title = (TextView)convertView.findViewById(R.id.notification_center_title);
 			holder.content = (TextView)convertView.findViewById(R.id.notification_center_content);
+			holder.imageView = (ImageView)convertView.findViewById(R.id.notification_center_image);
 			NotiphiPromotion promo = getItem(position);
 			holder.title.setVisibility(View.VISIBLE);
 			holder.content.setVisibility(View.VISIBLE);
+			holder.imageView.setVisibility(View.VISIBLE);
 			holder.title.setText(promo.getPromoTitle());
 			holder.content.setText(promo.getPromoContent());
+			Log.d(TAG, " Server address = " + Constants.IMAGE_SERVER_ADDRESS+promo.getPromoCompanyLogoLink());
+			//holder.imageView.setImageDrawable(Constants.IMAGE_SERVER_ADDRESS+"offer_images" + promo.getPromoCompanyLogoLink());
 			return convertView;
 		}
 	}
@@ -91,12 +102,11 @@ public class NotiphiListFragment extends  Fragment{
 	static class ViewHolder{
 		TextView title;
 		TextView content;
+		ImageView imageView;
 	}
 	
 	private class NotiphiAsyncTask extends AsyncTask<String, Integer, Boolean> {
-
-		private ProgressDialog mProgressDialog;
-
+		
 		@Override
 		protected void onPreExecute() {
 		}
@@ -132,5 +142,18 @@ public class NotiphiListFragment extends  Fragment{
 			}
 		}
 
+	}
+	
+	private class OnListItemClick implements OnItemClickListener{
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+			NotiphiPromotion promotion = promotionList.get(position);
+			Intent  notificationIntent = new Intent(mContext, NotificationDetailsActivity.class);
+			notificationIntent.putExtra("promotion", promotion);
+			startActivity(notificationIntent);
+			
+		}
+		
 	}
 }
