@@ -48,6 +48,7 @@
 			android:name="com.locuslabs.notiphisample.NotificationCenter">
 		</activity>
 		<activity android:name="com.locuslabs.notiphisample.NotificationDetailsActivity"></activity>
+		<activity android:name="com.locuslabs.notiphisample.NotificationCenterWebView"></activity>
 		
 		<!-- Declaration required to use Notiphi Services -->
 		

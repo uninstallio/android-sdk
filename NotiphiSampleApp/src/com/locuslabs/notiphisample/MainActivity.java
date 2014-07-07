@@ -16,17 +16,21 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Button button = (Button)findViewById(R.id.button_click);
+		Button helloButton = (Button)findViewById(R.id.button_click);
+		Button showMeWebView = (Button)findViewById(R.id.show_me_web_view);
 		
-		button.setOnClickListener(new OnClickListener() {
+		try{ 
+			NotiphiSession.init(MainActivity.this,1);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+
+		helloButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				try{
-					//JSONObject json = new JSONObject();
-					//json.put("name", "Nagendra");
-					//json.put("location", " BTM layout ");
-					//new NotiphiEventReceiver(json, getApplicationContext());
 					Intent actIntent = new Intent(MainActivity.this, NotificationCenter.class);
 					startActivity(actIntent);
 				}catch(Exception ex){
@@ -35,11 +39,15 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		try{ 
-			NotiphiSession.init(MainActivity.this,1);
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
+		showMeWebView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent showMeWebView = new Intent(MainActivity.this, NotificationCenterWebView.class);
+				startActivity(showMeWebView);
+			}
+		});
+		
 	}
 
 	@Override

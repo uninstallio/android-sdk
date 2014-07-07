@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -27,6 +29,7 @@ import com.locuslabs.notiphisample.R;
 import com.notikum.notifypassive.utils.ClientUtility;
 import com.notikum.notifypassive.utils.Constants;
 import com.notikum.notifypassive.utils.NotiphiPromotion;
+import com.notikum.notifypassive.utils.UrlImageView;
 
 public class NotiphiListFragment extends  Fragment{
 
@@ -38,6 +41,7 @@ public class NotiphiListFragment extends  Fragment{
 	private boolean moreResult = false;
 	private View mView;
 	private int notificationIdentifier;
+	private static NotiphiAsyncTask notiphiAsyncTask;
 	
 	
 	public NotiphiListFragment(Context context,int notificationIdentifier) {
@@ -50,8 +54,9 @@ public class NotiphiListFragment extends  Fragment{
 		promotionList = new ArrayList<NotiphiPromotion>();
 		mListView = (ListView)mView.findViewById(R.id.notification_center_list_view);
 		mListView.setOnItemClickListener(new OnListItemClick());
+		mListView.setOnScrollListener(new OnListScroll());
 		mNotiphiListAdapter = new NotiphiListAdapter();
-		NotiphiAsyncTask notiphiAsyncTask = new NotiphiAsyncTask();
+		notiphiAsyncTask = new NotiphiAsyncTask(0);
 		notiphiAsyncTask.execute("NotificationCenter");
 		return mView;
 	}
@@ -86,15 +91,16 @@ public class NotiphiListFragment extends  Fragment{
 			ViewHolder holder = new ViewHolder();
 			holder.title = (TextView)convertView.findViewById(R.id.notification_center_title);
 			holder.content = (TextView)convertView.findViewById(R.id.notification_center_content);
-			holder.imageView = (ImageView)convertView.findViewById(R.id.notification_center_image);
+			holder.imageView = (UrlImageView)convertView.findViewById(R.id.notification_center_image);
 			NotiphiPromotion promo = getItem(position);
 			holder.title.setVisibility(View.VISIBLE);
 			holder.content.setVisibility(View.VISIBLE);
 			holder.imageView.setVisibility(View.VISIBLE);
 			holder.title.setText(promo.getPromoTitle());
 			holder.content.setText(promo.getPromoContent());
+			//holder.imageView.setImageDrawable(promo.getPromoCompanyLogoLink());
 			Log.d(TAG, " Server address = " + Constants.IMAGE_SERVER_ADDRESS+promo.getPromoCompanyLogoLink());
-			//holder.imageView.setImageDrawable(Constants.IMAGE_SERVER_ADDRESS+"offer_images" + promo.getPromoCompanyLogoLink());
+			holder.imageView.setImageDrawable(Constants.IMAGE_SERVER_ADDRESS+promo.getPromoCompanyLogoLink());
 			return convertView;
 		}
 	}
@@ -102,10 +108,16 @@ public class NotiphiListFragment extends  Fragment{
 	static class ViewHolder{
 		TextView title;
 		TextView content;
-		ImageView imageView;
+		UrlImageView imageView;
 	}
 	
 	private class NotiphiAsyncTask extends AsyncTask<String, Integer, Boolean> {
+		
+		private int startPoint;
+		
+		public NotiphiAsyncTask(int startPoint) {
+			this.startPoint = startPoint;
+		}
 		
 		@Override
 		protected void onPreExecute() {
@@ -113,13 +125,13 @@ public class NotiphiListFragment extends  Fragment{
 
 		@Override
 		protected Boolean doInBackground(String... params) {
-			String result = ClientUtility.notificationCenterResult(mContext, 0,notificationIdentifier); // 0 for all notification and 1 for saved one
+			String result = ClientUtility.notificationCenterResult(mContext, startPoint,notificationIdentifier); // 0 for all notification and 1 for saved one
 			Log.d(TAG, " Result received from server is = " + result);
 			try{
 				JSONObject promoJsonObject = new JSONObject(result);
-				if(promoJsonObject.get("status").toString().equalsIgnoreCase("more_data")){
-					moreResult = true;
-				}
+//				if(promoJsonObject.get("status").toString().equalsIgnoreCase("more_data")){
+//					moreResult = true;
+//				}
 				JSONArray promoJsonArray = promoJsonObject.getJSONArray("promos");
 				JSONObject finalPromoObject=null;
 				for(int count = 0; count<promoJsonArray.length();count++){
@@ -139,6 +151,7 @@ public class NotiphiListFragment extends  Fragment{
 		protected void onPostExecute(Boolean result) {
 			if (result) {
 				mListView.setAdapter(mNotiphiListAdapter);
+				mNotiphiListAdapter.notifyDataSetChanged();
 			}
 		}
 
@@ -153,6 +166,23 @@ public class NotiphiListFragment extends  Fragment{
 			notificationIntent.putExtra("promotion", promotion);
 			startActivity(notificationIntent);
 			
+		}
+		
+	}
+	
+	private class OnListScroll implements OnScrollListener{
+
+		@Override
+		public void onScrollStateChanged(AbsListView view, int scrollState) {
+			
+		}
+
+		@Override
+		public void onScroll(AbsListView view, int firstVisibleItem,int visibleItemCount, int totalItemCount) {
+			if(firstVisibleItem + visibleItemCount > totalItemCount){
+				// request for more data
+				//notiphiAsyncTask = new NotiphiAsyncTask(10);
+			}
 		}
 		
 	}

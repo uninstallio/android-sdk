@@ -98,7 +98,7 @@ public class NotificationCenter extends SlidingFragmentActivity {
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
-			mContent = new NotiphiListFragment(mContext,1);	 // default saved notification
+			mContent = new NotiphiListFragment(mContext,0);	 // default All notification
 		getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.content_frame, mContent)
