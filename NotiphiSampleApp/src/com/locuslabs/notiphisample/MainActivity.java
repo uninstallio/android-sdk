@@ -17,7 +17,6 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Button helloButton = (Button)findViewById(R.id.button_click);
-		Button showMeWebView = (Button)findViewById(R.id.show_me_web_view);
 		
 		try{ 
 			NotiphiSession.init(MainActivity.this,1);
@@ -36,15 +35,6 @@ public class MainActivity extends Activity {
 				}catch(Exception ex){
 					ex.printStackTrace();
 				}
-			}
-		});
-		
-		showMeWebView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent showMeWebView = new Intent(MainActivity.this, NotificationCenterWebView.class);
-				startActivity(showMeWebView);
 			}
 		});
 		
