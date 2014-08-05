@@ -30,23 +30,23 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-//				try{
-//					Intent actIntent = new Intent(MainActivity.this, NotificationCenter.class);
-//					startActivity(actIntent);
-//				}catch(Exception ex){
-//					ex.printStackTrace();
-//				}
+				try{
+					Intent actIntent = new Intent(MainActivity.this, NotificationCenter.class);
+					startActivity(actIntent);
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
 			}
 		});
 		
-//		showMeWebView.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Intent showMeWebView = new Intent(MainActivity.this, NotificationCenterWebView.class);
-//				startActivity(showMeWebView);
-//			}
-//		});
+		showMeWebView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent showMeWebView = new Intent(MainActivity.this, NotificationCenterWebView.class);
+				startActivity(showMeWebView);
+			}
+		});
 		
 	}
 
