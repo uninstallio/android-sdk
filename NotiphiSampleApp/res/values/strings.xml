@@ -7,5 +7,5 @@
 	
      <string name="notiphi_app_secret">PNNe5wL2ANnD6pVUysJk</string>
     <string name="notiphi_app_token">demopro</string>
-    <string name="vendor_gcm_sender_id" translatable="false">865657230032</string>
+    <string name="vendor_gcm_sender_id" translatable="false">596084846408</string>
 </resources>
