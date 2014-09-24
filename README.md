@@ -53,11 +53,21 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.VIBRATE"/>
 <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
 ```
 
-3. Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
+3. Notiphi Activity: In case of opening web view inside the app, please add the following xml fragment into AndroidManifest.xml under 
+<application> tag
+
+```
+<activity android:name="com.notikum.notifypassive.utils.NotiphiWebView"></activity>
+
+```
+
+
+4. Notiphi Service and Receivers: Add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
 <receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver"
@@ -92,8 +102,17 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <service android:name="com.notikum.notifypassive.services.NotificationInformService" > </service>
 <service android:name="com.notikum.notifypassive.services.SendBulkDataIntentService"></service>
 ```
-4. Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
+
+5. Meta Data: Add the following xml fragment into AndroidManifest.xml under <application> tag
+
+```
+<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
+```
+
+6. Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
 	google_play_services -> libproject directory and click Ok .
+
 	
 	Now select your project, right click then select properties -> android, click add and select the above library then click ok. 
 ####Main Activity
