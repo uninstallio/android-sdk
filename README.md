@@ -170,6 +170,17 @@ return;
 }
 
 ```
+#### Handling client payload (configured for a promotion in our dashboard) 
+
+The client payload configured for the promotion in our dashboard is available to you through an intent. This intent is handed over to the Activity class that you have configured for the promotion. 
+Following code snippet shows you how to retrieve this payload from the intent.
+
+```
+String mClientPayload =  getIntent().getStringExtra("client_data");
+
+```
+make sure you have this activty in your AndroidManifest.xml file.
+
 ### Authors and Contributors
 
 This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra).
