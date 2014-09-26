@@ -193,19 +193,14 @@ return;
 
 To launch the activity with an intent containing the message client payload,
 
-Set up a notification recipient activity class that launches when the notification receives a tap. 
+Set up a notification recipient activity class(We'll provide this activity through our Dashboard) that launches when the notification receives a tap. 
 
-Add : 
-
-```
-String cPayload =  getIntent().getStringExtra("client_data");
-
-YOUR_TEXT_VIEW.setText(cPayload);
 
 ```
-to the onCreate() method of the notification launch activity to set this payload string into a textview to view
+String mClientPayload =  getIntent().getStringExtra("client_data");
 
-the client payload.
+```
+make sure you have this activty in your AndroidManifest.xml file.
 
 
 ### Authors and Contributors
