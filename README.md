@@ -189,6 +189,25 @@ return;
 }
 
 ```
+#### Handling client payload at the time of sdk integration
+
+To launch the activity with an intent containing the message client payload,
+
+Set up a notification recipient activity class that launches when the notification receives a tap. 
+
+Add : 
+
+```
+String cPayload =  getIntent().getStringExtra("client_data");
+
+YOUR_TEXT_VIEW.setText(cPayload);
+
+```
+to the onCreate() method of the notification launch activity to set this payload string into a textview to view
+
+the client payload.
+
+
 ### Authors and Contributors
 
 This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra).
