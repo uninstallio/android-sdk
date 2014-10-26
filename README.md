@@ -53,11 +53,19 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.VIBRATE"/>
 <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
 ```
 
-3. Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
+3. Notiphi Activity : Add following tag which enables to open Webview within your Application.
+
+```
+   <activity android:name="com.notikum.notifypassive.utils.NotiphiWebView" />
+```
+
+
+4. Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
 <receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver"
@@ -92,10 +100,18 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <service android:name="com.notikum.notifypassive.services.NotificationInformService" > </service>
 <service android:name="com.notikum.notifypassive.services.SendBulkDataIntentService"></service>
 ```
-4. Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
+5. Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
 	google_play_services -> libproject directory and click Ok .
 	
 	Now select your project, right click then select properties -> android, click add and select the above library then click ok. 
+
+	
+6. meta data for Google play service : Add below meta data tag into your AndroidManifest.xml file inside <application> tag.
+
+```
+     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+```
+	
 ####Main Activity
 
 After the configuration changes, in your main Activity of your application  add this import statement
@@ -170,10 +186,10 @@ return;
 }
 
 ```
+
 #### Handling client payload (configured for a promotion in our dashboard) 
 
-The client payload configured for the promotion in our dashboard is available to you through an intent. This intent is handed over to the Activity class that you have configured for the promotion. 
-Following code snippet shows you how to retrieve this payload from the intent.
+To launch the activity with an intent containing the message client payload. Set up a notification recipient activity class (we'll provide this activity through our Dashboard) that launch when the notificatoin recieve a tap.
 
 ```
 String mClientPayload =  getIntent().getStringExtra("client_data");
@@ -181,10 +197,12 @@ String mClientPayload =  getIntent().getStringExtra("client_data");
 ```
 make sure you have this activty in your AndroidManifest.xml file.
 
-### Authors and Contributors
+
+#### Authors and Contributors
 
 This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra).
 
-### Support or Contact
+#### Support or Contact
 
 Having trouble with integration? Please contact us at dev-support@notiphi.com and we’ll help you sort it out in a jiffy.
+	
