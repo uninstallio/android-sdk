@@ -1,9 +1,25 @@
-[Notiphi](http://www.notiphi.com) Android SDK
+[Uninstall Insights](http://uninstall.io) Android SDK
 ===================
 
-[Notiphi SDK (www.notiphi.com)](http://www.notiphi.com) allows you to monetise your Android apps (2.3.3 and above) by receiving contextual notifications. This guide will help you integrate it in a few minutes. Following steps outline the integration process.
+[Uninstall SDK (http://uninstall.io)](http://uninstall.io) helps you to understand the reasons for your app uninstalls, reduce the uninstall rate using a powerful predictive engine and also get app Re-installs through a unique actionable channel (2.3.3 and above). 
+
+This guide will provide you step by step details on how to integrate the SDK in just a few minutes. Following steps outline the integration process in details.
 
 ### Steps to integrate the sdk to your Android project.
+
+1.	Download and Unzip the zip file
+2.	PutSDK Jar files to Libs folder
+3.	Configure SDK settings in the Manifestfile
+4.	Set the SDK “Token and Secret” in Stringsfile
+5.	Initialize the SDK - In the main activity class
+6.	Passing Information to SDK
+⋅⋅* Unordered sub-list.
+⋅⋅* Unordered sub-list.
+⋅⋅1.Unique System User ID and Email ID
+⋅⋅2.	Install Source
+⋅⋅3.	App Events
+⋅⋅4.	Crash Events
+
 
 ####Setup
 
