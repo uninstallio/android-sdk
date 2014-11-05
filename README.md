@@ -7,19 +7,16 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ### Steps to integrate the sdk to your Android project.
 
-1.	Download and Unzip the zip file
-2.	PutSDK Jar files to Libs folder
-3.	Configure SDK settings in the Manifestfile
-4.	Set the SDK “Token and Secret” in Stringsfile
-5.	Initialize the SDK - In the main activity class
-6.	Passing Information to SDK
-⋅⋅* Unordered sub-list.
-⋅⋅* Unordered sub-list.
-⋅⋅1.Unique System User ID and Email ID
-⋅⋅2.	Install Source
-⋅⋅3.	App Events
-⋅⋅4.	Crash Events
-
+1. Download and Unzip the zip file.
+2. Put SDK jar files to libs folder.
+3. Configure SDK settings in the Manifestfile.
+4. Set the SDK “Token and Secret” in Stringsfile.
+5. Initialize the SDK - In the main activity class.
+6. Passing Information to SDK.
+⋅⋅* Unique System User ID and Email ID.
+⋅⋅* Install Sourc.
+⋅⋅* App Events.
+⋅⋅* Crash Events.
 
 ####Setup
 
@@ -32,7 +29,7 @@ git clone https://github.com/alokmishra/notiphi-android-sdk.git
 or download the zipped package.
 
 ```
-wget https://github.com/alokmishra/notiphi-android-sdk/archive/master.zip
+https://github.com/alokmishra/notiphi-android-sdk/archive/master.zip
 ```
 
 Unzip the files (if downloaded as a zip) and then add the files in jars directory to your project path. If you
@@ -44,17 +41,16 @@ are using Eclipse then you could use the following steps if you are unfamiliar w
 4. Copy notiphi_notification_icon.png from each directory in Drawables and paste it into respective each drawable directory of your android project
 5. Copy all xml files from layout folder and paste it into layout folder of your android project
 
-####Manifest file
+####Configure SDK settings in the AndriodManifest.xml file.
 
 After adding the JARs into your project, modify your AndroidManifest.xml file using these steps:
 
-1. Android Version: Set the minimum android SDK version to 8  or higher. Notiphi library will not work if minimum android SDK version is less than 8.
+1) Android Version: Set the minimum android SDK version to 8  or higher. Notiphi library will not work if minimum android SDK version is less than 10.
 
 ```
-<uses-sdk android:minSdkVersion="8" />
+<uses-sdk android:minSdkVersion="10" />
 ```
-
-2. Permissions: Following permission are required in manifest file for library to work properly. So please declare the following permission in AndroidManifest.xml and replace the occurrence of **YOUR_PACKAGE_NAME** by your application's package name.
+2) Permissions: Following permission are required in manifest file for library to work properly. So please declare the following permission in AndroidManifest.xml and replace the occurrence of **YOUR_PACKAGE_NAME** by your application's package name.
 
 ```
 <permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE"
@@ -70,24 +66,11 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.VIBRATE"/>
-<uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
 ```
 
-3. Notiphi Activity : Add following tag which enables to open Webview within your Application.
+3) Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
-   <activity android:name="com.notikum.notifypassive.utils.NotiphiWebView" />
-```
-
-
-4. Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
-
-```
-<receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver"
-     android:enabled="true"
-     android:exported="true">
-</receiver>
 <receiver android:name="com.notikum.notifypassive.receivers.BootCompleteReceiver">
     <intent-filter>
     		<action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -110,25 +93,35 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <service android:name="com.notikum.notifypassive.services.GCMIntentService"></service>
 <service android:name="com.notikum.notifypassive.services.NotiphiService"></service>
 <service android:name="com.notikum.notifypassive.services.GCMInformService"></service>
-<service android:name="com.notikum.notifypassive.NewApiActivityRecognization"></service>
 <service android:name="com.notikum.notifypassive.NotiphiClusterSyncIntentService"></service>
-<service android:name="com.notikum.notifypassive.services.DiscardedNotificationService"></service>
-<service android:name="com.notikum.notifypassive.services.NotificationInformService" > </service>
 <service android:name="com.notikum.notifypassive.services.SendBulkDataIntentService"></service>
 ```
-5. Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
+
+4) Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
 	google_play_services -> libproject directory and click Ok .
 	
 	Now select your project, right click then select properties -> android, click add and select the above library then click ok. 
 
 	
-6. meta data for Google play service : Add below meta data tag into your AndroidManifest.xml file inside <application> tag.
+5) meta data for Google play service : Add below meta data tag into your AndroidManifest.xml file inside <application> tag.
 
 ```
      <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 ```
-	
-####Main Activity
+
+
+###Set the SDK “Token and Secret” in string.xml file.
+
+Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.
+The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at dev-support@notiphi.com to get these.
+
+```
+<string name="notiphi_app_token">TOKEN_GIVEN_BY_NOTIPHI_SEPARATELY</string>
+<string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_NOTIPHI_SEPARATELY</string>
+```
+
+
+###Main Activity
 
 After the configuration changes, in your main Activity of your application  add this import statement
 
@@ -143,25 +136,67 @@ Context context = this;
 NotiphiSession.init(context,1);
 ```
 
-####Resource files
 
-#####string.xml
+#### Passing Information from App to SDK
 
-Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.
-The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at dev-support@notiphi.com to get these.
+##### 1) Unique System User ID and Email ID: 
+Pass the Unique System User ID and Email Id to our SDK. This data will be used to synchronize the ID’s between our systems and also to take certain actions. This information has to be passed only once in the lifetime of the app and not everytime. Help code snippet below. 
 
 ```
-<string name="notiphi_app_token">TOKEN_GIVEN_BY_NOTIPHI_SEPARATELY</string>
-<string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_NOTIPHI_SEPARATELY</string>
+SharedPreferences sharedPreferences = getSharedPreferences("Notiphi", Context.MODE_PRIVATE);
+boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", true);
+if (isFirstTimeInstall) {
+    try {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("USERNAME", username_or_emailId);
+        new NotiphiEventReceiver(jsonObject, context);
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }            
+}       
+Editor editor = sharedPreferences.edit();
+editor.putBoolean("isFirstTimeInstall", false);
+editor.commit();
 ```
 
-#####Set the Icons
+##### 2) Install Source: 
+The Install source needs to be passed to our SDK. This is used to measure the Ad channels (especially InOrganic sources) performance. Information can be passed in two ways:
 
-We provide you with a resource file (of our logo) named notiphi_notification_icon.png. Appropriate sized versions should be copied to drawable, drawable-hdpi,drawable-mdpi and drawable-xhdpi folder under your project’s res directory.
+###### a. Via 3rd party platform:
+If you use any third party attribution platform and supports data extraction via API, then send us the API keys and we will directly extract the information from there. Pls check with your product/marketing manager for details on 3rd party platform.
 
-If there is any doubt, feel free to have a look at the sample apps provided.
+###### b. Via the App:
+In case you do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event capturing feature This information has to be passed only once in the lifetime of the app during installation and not everytime.
+Help code snippet below.
 
-#### Capture Event
+```
+SharedPreferences sharedPreferences = getSharedPreferences("Notiphi", Context.MODE_PRIVATE);
+boolean isFirstSourceData = sharedPreferences.getBoolean("isFirstTimeInstall", true);
+if (isFirstSourceData) {
+    try {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("SOURCEDATA", ad_channel_API_KEY); // via 3rd party
+        jsonObject.put("SOURCEDATA", null); // via your app.
+        new NotiphiEventReceiver(jsonObject, context);
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }            
+}       
+Editor editor = sharedPreferences.edit();
+editor.putBoolean("isFirstSourceData", false);
+editor.commit();
+```
+
+##### 3) App Events:
+All app events have to be passed to our SDK. Information can be passed in two ways:
+
+###### a. Via 3rd party platform:
+If you use any third party analytics platform and supports data extraction via API, then send us the API keys and we will directly extract the information from there. Pls check with your product/marketing manager for details on 3rd party platform.
+
+###### b. Via the App:
+In case you do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event capturing feature.
+Help code snippet below.
+
 
 We provide the way to capture user event from your app so that we can identify potential and interested users for your business 
 
