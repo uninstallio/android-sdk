@@ -13,10 +13,10 @@ This guide will provide you step by step details on how to integrate the SDK in 
 4. Set the SDK “Token and Secret” in Stringsfile.
 5. Initialize the SDK - In the main activity class.
 6. Passing Information to SDK.
-⋅⋅* Unique System User ID and Email ID.
-⋅⋅* Install Sourc.
-⋅⋅* App Events.
-⋅⋅* Crash Events.
+a) Unique System User ID and Email ID.
+b) Install Sourc.
+c) App Events.
+d) Crash Events.
 
 ####Setup
 
