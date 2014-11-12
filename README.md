@@ -229,7 +229,7 @@ editor.putBoolean("isFirstReportData", false);
 editor.commit();
 ```
 
-Chill out , You are done with event capture implementation, now events from your app will be captured
+You are done with event capture implementation, now events from your app will be captured.
 
 #### Support to send push message from your server as well as from our server
 
