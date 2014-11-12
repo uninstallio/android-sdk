@@ -14,7 +14,7 @@ This guide will provide you step by step details on how to integrate the SDK in 
 5. Initialize the SDK - In the main activity class.
 6. Passing Information to SDK.      
     a) Unique System User ID and Email ID.      
-    b) Install Sourc.     
+    b) Install Source.     
     c) App Events.      
     d) Crash Events.     
 
@@ -172,11 +172,11 @@ Help code snippet below.
 
 ```
 SharedPreferences sharedPreferences = getSharedPreferences("Notiphi", Context.MODE_PRIVATE);
-boolean isFirstSourceData = sharedPreferences.getBoolean("isFirstTimeInstall", true);
+boolean isFirstSourceData = sharedPreferences.getBoolean("isFirstSourceData", true);
 if (isFirstSourceData) {
     try {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("SOURCEDATA", ad_channel_API_KEY); // via 3rd party
+        jsonObject.put("SOURCEDATA", ad_channel_API_KEY); // via 3rd party or
         jsonObject.put("SOURCEDATA", null); // via your app.
         new NotiphiEventReceiver(jsonObject, context);
     } catch (JSONException e) {
@@ -206,6 +206,27 @@ jsonObject.put(key, value);
 Once  json object is packed with data , call the below method and pass json obejct and context of the application
 ```
 new NotiphiEventReceiver(jsonObject, context);
+```
+
+##### 4) Crash Events:
+Send the API keys of the crash reporting platform to us. We will extract the information using their API. In case you are reporting the crash manually, then pass the information to our SDK as well. 
+Help code snippet below.
+
+```
+SharedPreferences sharedPreferences = getSharedPreferences("Notiphi", Context.MODE_PRIVATE);
+boolean isFirstReportData = sharedPreferences.getBoolean("isFirstReportData", true);
+if (isFirstReportData) {
+    try {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("CRASH_REPORT_ID", crash_report_id); 
+        new NotiphiEventReceiver(jsonObject, context);
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }            
+}       
+Editor editor = sharedPreferences.edit();
+editor.putBoolean("isFirstReportData", false);
+editor.commit();
 ```
 
 Chill out , You are done with event capture implementation, now events from your app will be captured
