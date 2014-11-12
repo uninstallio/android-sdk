@@ -148,7 +148,8 @@ boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", 
 if (isFirstTimeInstall) {
     try {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("USERNAME", username_or_emailId);
+        jsonObject.put("USERID", username);
+        jsonObject.put("EMAILID", email_id);
         new NotiphiEventReceiver(jsonObject, context);
     } catch (JSONException e) {
         e.printStackTrace();
@@ -198,16 +199,13 @@ In case you do not use any 3rd party platform or the platform doesn’t support 
 Help code snippet below.
 
 
+
 We provide the way to capture user event from your app so that we can identify potential and interested users for your business 
 
 To capture event create a json object and add information in key and value format 
 
 For Example : 
-```
-JSONObject jsonObject = new JSONObject();
-jsonObject.put(key, value);
-jsonObject.put(key, value);
-```
+
 Once  json object is packed with data , call the below method and pass json obejct and context of the application
 ```
 new NotiphiEventReceiver(jsonObject, context);
