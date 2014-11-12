@@ -198,6 +198,11 @@ If you use any third party analytics platform and supports data extraction via A
 In case you do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event capturing feature.
 Help code snippet below.
 
+```
+JSONObject jsonObject = new JSONObject();
+jsonObject.put(key, value);
+jsonObject.put(key, value);
+```
 
 
 We provide the way to capture user event from your app so that we can identify potential and interested users for your business 
@@ -206,10 +211,7 @@ To capture event create a json object and add information in key and value forma
 
 For Example : 
 
-Once  json object is packed with data , call the below method and pass json obejct and context of the application
-```
-new NotiphiEventReceiver(jsonObject, context);
-```
+
 Chill out , You are done with event capture implementation, now events from your app will be captured
 
 #### Support to send push message from your server as well as from our server
