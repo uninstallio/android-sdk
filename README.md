@@ -12,11 +12,11 @@ This guide will provide you step by step details on how to integrate the SDK in 
 3. Configure SDK settings in the Manifestfile.
 4. Set the SDK “Token and Secret” in Stringsfile.
 5. Initialize the SDK - In the main activity class.
-6. Passing Information to SDK.
-a) Unique System User ID and Email ID.
-b) Install Sourc.
-c) App Events.
-d) Crash Events.
+6. Passing Information to SDK.      
+    a) Unique System User ID and Email ID.      
+    b) Install Sourc.     
+    c) App Events.      
+    d) Crash Events.     
 
 ####Setup
 
@@ -203,14 +203,10 @@ JSONObject jsonObject = new JSONObject();
 jsonObject.put(key, value);
 jsonObject.put(key, value);
 ```
-
-
-We provide the way to capture user event from your app so that we can identify potential and interested users for your business 
-
-To capture event create a json object and add information in key and value format 
-
-For Example : 
-
+Once  json object is packed with data , call the below method and pass json obejct and context of the application
+```
+new NotiphiEventReceiver(jsonObject, context);
+```
 
 Chill out , You are done with event capture implementation, now events from your app will be captured
 
@@ -228,15 +224,6 @@ import com.notikum.notifypassive.utils.Constants
 
 GCMRegistrar.register(context, YOUR GCM SENDER ID +","+Constants.GCM_SENDER_ID);
 ```
-and add the below code at top inside onMessage(Context context, Intent intentData) method of class which extends 
-GCMBaseIntentService 
-
-```
-if(intentData.getStringExtra("is_notiphi") != null){
-return;
-}
-
-```
 
 #### Handling client payload (configured for a promotion in our dashboard) 
 
@@ -251,7 +238,7 @@ make sure you have this activty in your AndroidManifest.xml file.
 
 #### Authors and Contributors
 
-This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra).
+This library owes its existence to the hard work of @Notiphi Team.
 
 #### Support or Contact
 
