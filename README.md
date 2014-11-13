@@ -239,13 +239,6 @@ To send push message from your server just copy and paste the below line into st
 <string name="vendor_gcm_sender_id" translatable="false">YOUR GCM SENDER ID </string>
 ```
 
-If you are also registering for GCM then please pass our GCM sender id while registering for GCM using step below
-```
-import com.notikum.notifypassive.utils.Constants
-
-GCMRegistrar.register(context, YOUR GCM SENDER ID +","+Constants.GCM_SENDER_ID);
-```
-
 #### Handling client payload (configured for a promotion in our dashboard) 
 
 To launch the activity with an intent containing the message client payload. Set up a notification recipient activity class (we'll provide this activity through our Dashboard) that launch when the notificatoin recieve a tap.
