@@ -7,10 +7,10 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ### Steps to integrate the sdk to your Android project.
 
-1. Download and Unzip the zip file.
-2. Put SDK jar files to libs folder.
-3. Configure SDK settings in the Manifestfile.
-4. Set the SDK “Token and Secret” in Stringsfile.
+1. Setup - Clone the github repository (add url) or download and unzip the zip file (all url).
+2. Add SDK jar files to libs folder.
+3. Configure SDK settings in the Your project's AndroidManifest.xml file.
+4. Set the SDK “Token and Secret” in Your project's string.xml file.
 5. Initialize the SDK - In the main activity class.
 6. Passing Information to SDK.      
     a) Unique System User ID and Email ID.      
@@ -32,14 +32,13 @@ or download the zipped package.
 https://github.com/alokmishra/notiphi-android-sdk/archive/master.zip
 ```
 
-Unzip the files (if downloaded as a zip) and then add the files in jars directory to your project path. If you
+Unzip the files (if downloaded as a zip). Add the files (names) in jars directory to your project path. If you
 are using Eclipse then you could use the following steps if you are unfamiliar with the process of adding jar files.
 
 1. Select your project
 2. Copy all the jar file from jars directory and paste it into libs directory of your project
+
 3. Add "notiphi_app_token" and  notiphi_app_secret provided by us, in string.xml file inside res->values directory of your android project
-4. Copy notiphi_notification_icon.png from each directory in Drawables and paste it into respective each drawable directory of your android project
-5. Copy all xml files from layout folder and paste it into layout folder of your android project
 
 ####Configure SDK settings in the AndriodManifest.xml file.
 
@@ -139,8 +138,8 @@ NotiphiSession.init(context,1);
 
 #### Passing Information from App to SDK
 
-##### 1) Unique System User ID and Email ID: 
-Pass the Unique System User ID and Email Id to our SDK. This data will be used to synchronize the ID’s between our systems and also to take certain actions. This information has to be passed only once in the lifetime of the app and not everytime. Help code snippet below. 
+##### 1) Business Unique User ID and Email ID: 
+Pass the Unique User ID assigned by your backend system to our SDK. Also pass the email (if available) to our SDK. This data will be used to synchronize the ID’s between our systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. Please refer code snippet below to do the same. 
 
 ```
 SharedPreferences sharedPreferences = getSharedPreferences("Notiphi", Context.MODE_PRIVATE);
@@ -154,10 +153,10 @@ if (isFirstTimeInstall) {
     } catch (JSONException e) {
         e.printStackTrace();
     }            
-}       
 Editor editor = sharedPreferences.edit();
 editor.putBoolean("isFirstTimeInstall", false);
 editor.commit();
+}       
 ```
 
 ##### 2) Install Source: 
@@ -176,7 +175,7 @@ boolean isFirstSourceData = sharedPreferences.getBoolean("isFirstSourceData", tr
 if (isFirstSourceData) {
     try {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("SOURCEDATA", ad_channel_API_KEY); // via 3rd party or
+        jsonObject.put("SOURCEDATA", install_source);  //provided by the app-store
         jsonObject.put("SOURCEDATA", null); // via your app.
         new NotiphiEventReceiver(jsonObject, context);
     } catch (JSONException e) {
@@ -231,24 +230,13 @@ editor.commit();
 
 You are done with event capture implementation, now events from your app will be captured.
 
-#### Support to send push message from your server as well as from our server
+#### Working with your own GCM Push notifications. 
 
-To send push message from your server just copy and paste the below line into string.xml file of your project
+If you are already sending your own push notifications then slight more configuration is required. Please add the following line to string.xml file of your project
 
 ```
 <string name="vendor_gcm_sender_id" translatable="false">YOUR GCM SENDER ID </string>
 ```
-
-#### Handling client payload (configured for a promotion in our dashboard) 
-
-To launch the activity with an intent containing the message client payload. Set up a notification recipient activity class (we'll provide this activity through our Dashboard) that launch when the notificatoin recieve a tap.
-
-```
-String mClientPayload =  getIntent().getStringExtra("client_data");
-
-```
-make sure you have this activty in your AndroidManifest.xml file.
-
 
 #### Authors and Contributors
 
@@ -258,3 +246,4 @@ This library owes its existence to the hard work of @Notiphi Team.
 
 Having trouble with integration? Please contact us at dev-support@notiphi.com and we’ll help you sort it out in a jiffy.
 	
+Add the permissions explanation.
