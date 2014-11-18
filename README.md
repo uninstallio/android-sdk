@@ -237,6 +237,7 @@ If you are already sending your own push notifications then slight more configur
 ```
 <string name="vendor_gcm_sender_id" translatable="false">YOUR GCM SENDER ID </string>
 ```
+Apart from this please change the way you are making the call to register for GCM device tokens.
 
 #### Authors and Contributors
 
