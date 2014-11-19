@@ -7,7 +7,7 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ### Steps to integrate the sdk to your Android project.
 
-1. Setup - Clone the github repository (add url) or download and unzip the zip file (all url).
+1. Setup - Clone the github repository or download and unzip the zip file .
 2. Add SDK jar files to libs folder.
 3. Configure SDK settings in the Your project's AndroidManifest.xml file.
 4. Set the SDK “Token and Secret” in Your project's string.xml file.
@@ -32,11 +32,11 @@ or download the zipped package.
 https://github.com/alokmishra/notiphi-android-sdk/archive/master.zip
 ```
 
-Unzip the files (if downloaded as a zip). Add the files (names) in jars directory to your project path. If you
+Unzip the files (if downloaded as a zip). Add the files NotiphiSDK.jar in jars directory to your project path. If you
 are using Eclipse then you could use the following steps if you are unfamiliar with the process of adding jar files.
 
 1. Select your project
-2. Copy all the jar file from jars directory and paste it into libs directory of your project
+2. Copy all the jar file from jars directory and paste it into libs directory of your project.
 
 3. Add "notiphi_app_token" and  notiphi_app_secret provided by us, in string.xml file inside res->values directory of your android project
 
@@ -44,7 +44,7 @@ are using Eclipse then you could use the following steps if you are unfamiliar w
 
 After adding the JARs into your project, modify your AndroidManifest.xml file using these steps:
 
-1) Android Version: Set the minimum android SDK version to 8  or higher. Notiphi library will not work if minimum android SDK version is less than 10.
+1) Android Version: Set the minimum android SDK version to 10  or higher. Notiphi library will not work if minimum android SDK version is less than 10.
 
 ```
 <uses-sdk android:minSdkVersion="10" />
