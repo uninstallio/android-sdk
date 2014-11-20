@@ -5,12 +5,13 @@
 
 This guide will provide you step by step details on how to integrate the SDK in just a few minutes. Following steps outline the integration process in details.
 
+
 ### Steps to integrate the sdk to your Android project.
 
-1. Setup - Clone the github repository or download and unzip the zip file .
+1. Setup - Clone the github repository or download the zipped file .
 2. Add SDK jar files to libs folder.
-3. Configure SDK settings in the Your project's AndroidManifest.xml file.
-4. Set the SDK “Token and Secret” in Your project's string.xml file.
+3. Set the SDK “Token and Secret” in Your project's string.xml file.
+4. Configure SDK settings in the Your project's AndroidManifest.xml file.
 5. Initialize the SDK - In the main activity class.
 6. Passing Information to SDK.      
     a) Unique System User ID and Email ID.      
@@ -20,13 +21,13 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ####Setup
 
-Clone this repository
+Clone the github repository
 
 ```
 git clone https://github.com/alokmishra/notiphi-android-sdk.git
 ```
 
-or download the zipped package.
+or download the zipped file.
 
 ```
 https://github.com/alokmishra/notiphi-android-sdk/archive/master.zip
@@ -35,10 +36,30 @@ https://github.com/alokmishra/notiphi-android-sdk/archive/master.zip
 Unzip the files (if downloaded as a zip). Add the files NotiphiSDK.jar in jars directory to your project path. If you
 are using Eclipse then you could use the following steps if you are unfamiliar with the process of adding jar files.
 
-1. Select your project
-2. Copy all the jar file from jars directory and paste it into libs directory of your project.
 
-3. Add "notiphi_app_token" and  notiphi_app_secret provided by us, in string.xml file inside res->values directory of your android project
+#### Add SDK jar files to libs folder.
+
+Copy **NotiphiSDK.jar**, **android-async-http-1.4.3.jar** and **gcm.jar** the jar file from jars directory and paste it into libs directory of your project.
+
+
+####Set the SDK “Token and Secret” in string.xml file.
+
+Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.
+The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at dev-support@notiphi.com to get these.
+
+```
+<string name="notiphi_app_token">TOKEN_GIVEN_BY_NOTIPHI_SEPARATELY</string>
+<string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_NOTIPHI_SEPARATELY</string>
+```
+
+If you are already sending your own push notifications then slight more configuration is required. Please add the following line to string.xml file of your project
+
+```
+<string name="vendor_gcm_sender_id" translatable="false">YOUR GCM SENDER ID </string>
+```
+Apart from this please change the way you are making the call to register for GCM device tokens.
+
+
 
 ####Configure SDK settings in the AndriodManifest.xml file.
 
@@ -70,6 +91,10 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 3) Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
+<receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver"
+     android:enabled="true"
+     android:exported="true">
+</receiver>
 <receiver android:name="com.notikum.notifypassive.receivers.BootCompleteReceiver">
     <intent-filter>
     		<action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -89,11 +114,14 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
     </intent-filter>
 </receiver>
 
-<service android:name="com.notikum.notifypassive.services.GCMIntentService"></service>
-<service android:name="com.notikum.notifypassive.services.NotiphiService"></service>
-<service android:name="com.notikum.notifypassive.services.GCMInformService"></service>
-<service android:name="com.notikum.notifypassive.NotiphiClusterSyncIntentService"></service>
-<service android:name="com.notikum.notifypassive.services.SendBulkDataIntentService"></service>
+<service android:name="com.notikum.notifypassive.services.GCMIntentService"/>
+<service android:name="com.notikum.notifypassive.services.NotiphiService"/>
+<service android:name="com.notikum.notifypassive.services.GCMInformService"/>
+<service android:name="com.notikum.notifypassive.NewApiActivityRecognization"/>
+<service android:name="com.notikum.notifypassive.NotiphiClusterSyncIntentService"/>
+<service android:name="com.notikum.notifypassive.services.DiscardedNotificationService"/>
+<service android:name="com.notikum.notifypassive.services.NotificationInformService"/>
+<service android:name="com.notikum.notifypassive.services.SendBulkDataIntentService"/>
 ```
 
 4) Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
@@ -108,19 +136,7 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
      <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 ```
 
-
-###Set the SDK “Token and Secret” in string.xml file.
-
-Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.
-The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at dev-support@notiphi.com to get these.
-
-```
-<string name="notiphi_app_token">TOKEN_GIVEN_BY_NOTIPHI_SEPARATELY</string>
-<string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_NOTIPHI_SEPARATELY</string>
-```
-
-
-###Main Activity
+####Main Activity
 
 After the configuration changes, in your main Activity of your application  add this import statement
 
@@ -230,14 +246,112 @@ editor.commit();
 
 You are done with event capture implementation, now events from your app will be captured.
 
-#### Working with your own GCM Push notifications. 
+####Notiphi permission requirements
 
-If you are already sending your own push notifications then slight more configuration is required. Please add the following line to string.xml file of your project
+Our SDK requires the following permissions in order to function correctly. We have outlined the reasons 
+why we need each of these permissions. 
 
-```
-<string name="vendor_gcm_sender_id" translatable="false">YOUR GCM SENDER ID </string>
-```
-Apart from this please change the way you are making the call to register for GCM device tokens.
+#####Must have permissions
+
+<table>
+    <tr>
+        <td>"YOUR_PACKAGE_NAME.permission.C2D_MESSAGE”
+            “YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" 
+            android:protectionLevel="signature" 
+            
+        </td>
+        <td>These 2 permission ensures that Our SDK 
+            can use GCM facilities. Also enforces that only 
+            your app can read the messages.
+            
+        </td>
+     </tr>
+     
+     <tr>
+        <td>"com.google.android.c2dm.permission.RECEIVE"
+        </td>
+        <td>App has permission to register for and receive GCM 
+            tokens from GCM server.
+        </td>
+     </tr>
+     
+     <tr>
+        <td>"android.permission.GET_ACCOUNTS"
+        </td>
+        <td>GCM requires a Google account if the device is 
+            running a version lower than Android 4.0.4.
+        </td>
+     </tr>
+     
+     <tr>
+        <td>“android.permission.INTERNET"
+        </td>
+        <td>Internet permission is required to communicate
+           with the server.
+        </td>
+     </tr>
+     
+     <tr>
+        <td>“android.permission.ACCESS_NETWORK_STATE”
+        </td>
+        <td>Network state permission to detect network status, 
+            so we get full access of network.
+        </td>
+     </tr>
+     
+     <tr>
+        <td>"android.permission.ACCESS_FINE_LOCATION"
+        </td>
+        <td>Required to access your location.
+        </td>
+     </tr>
+     
+     <tr>
+        <td>"android.permission.WRITE_EXTERNAL_STORAGE"  &
+            "android.permission.READ_EXTERNAL_STORAGE"
+        </td>
+        <td>Required to accumulate events.
+        </td>
+     </tr>
+     
+     <tr>
+        <td>"android.permission.READ_PHONE_STATE"
+        </td>
+        <td>Required to get DeviceId of phone.
+        </td>
+     </tr>
+</table>
+
+#####Good to have permissions (Optional)
+
+<Table>
+     
+     <tr>
+        <td>“android.permission.WAKE_LOCK”
+        </td>
+        <td>Required so the application can keep the processor
+            from sleeping when a message is received.
+        </td>
+     </tr>
+     
+     <tr>
+        <td>"android.permission.VIBRATE"
+        </td>
+        <td>Required to vibrate the device
+            when a message is received.
+        </td>
+     </tr>
+     
+     <tr>
+        <td>"com.google.android.gms.permission.ACTIVITY_RECOGNITION"
+        </td>
+        <td>Required to detect your current physical 
+            activity such as walking or driving.
+        </td>
+     </tr>
+</Table>
+
+
 
 #### Authors and Contributors
 
