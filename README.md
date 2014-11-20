@@ -59,6 +59,9 @@ If you are already sending your own push notifications then slight more configur
 ```
 Apart from this please change the way you are making the call to register for GCM device tokens.
 
+```
+GCMRegistrar.register(context, YOUR_GCM_SENDER_ID + "," + Constants.GCM_SENDER_ID);
+```
 
 
 ####Configure SDK settings in the Your project's AndroidManifest.xml file.
