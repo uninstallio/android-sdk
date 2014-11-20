@@ -8,16 +8,16 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ### Steps to integrate the sdk to your Android project.
 
-1. [Clone the github repository or download the zipped file.](#setup)
-2. [Add SDK jar files to libs folder.](#add-sdk-jar-files-to-libs-folder.)
-3. Set the SDK “Token and Secret” in Your project's string.xml file.
-4. Configure SDK settings in the Your project's AndroidManifest.xml file.
-5. Initialize the SDK - In the main activity class.
-6. Passing Information to SDK.      
-    a) Unique System User ID and Email ID.      
-    b) Install Source.     
-    c) App Events.      
-    d) Crash Events.     
+1. [Clone the github repository or download the zipped file\.](#setup)
+2. [Add SDK jar files to libs folder\.](#add-sdk-jar-files-to-libs-folder)
+3. [Set the SDK “Token and Secret” in Your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
+4. [Configure SDK settings in the Your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
+6. [Passing Information to SDK.](#passing-information-to-sdk)      
+    a) [Unique System User ID and Email ID.](#unique-system-user-id-and-email-id)         
+    b) [Install Source.](#install-source)     
+    c) [App Events.](#app-events)      
+    d) [Crash Events.](#crash-events)     
 
 ####Setup
 
@@ -42,7 +42,7 @@ are using Eclipse then you could use the following steps if you are unfamiliar w
 Copy **NotiphiSDK.jar**, **android-async-http-1.4.3.jar** and **gcm.jar** the jar file from jars directory and paste it into libs directory of your project.
 
 
-####Set the SDK “Token and Secret” in string.xml file.
+####Set the SDK “Token and Secret” in Your project's string.xml file.
 
 Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.
 The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at dev-support@notiphi.com to get these.
@@ -61,7 +61,7 @@ Apart from this please change the way you are making the call to register for GC
 
 
 
-####Configure SDK settings in the AndriodManifest.xml file.
+####Configure SDK settings in the Your project's AndroidManifest.xml file.
 
 After adding the JARs into your project, modify your AndroidManifest.xml file using these steps:
 
@@ -136,7 +136,7 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
      <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 ```
 
-####Main Activity
+####Initialize the SDK In the MainActivity class.
 
 After the configuration changes, in your main Activity of your application  add this import statement
 
@@ -152,9 +152,9 @@ NotiphiSession.init(context,1);
 ```
 
 
-#### Passing Information from App to SDK
+#### Passing Information to SDK.
 
-##### 1) Business Unique User ID and Email ID: 
+##### 1) Unique System User ID and Email ID.
 Pass the Unique User ID assigned by your backend system to our SDK. Also pass the email (if available) to our SDK. This data will be used to synchronize the ID’s between our systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. Please refer code snippet below to do the same. 
 
 ```
