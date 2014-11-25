@@ -19,6 +19,8 @@ This guide will provide you step by step details on how to integrate the SDK in 
     c) [App Events.](#app-events)      
     d) [Crash Events.](#crash-events)     
 
+[Notiphi permission requirements](#notiphi-permission-requirements)
+
 ####Setup
 
 Clone the github repository
@@ -55,9 +57,9 @@ The app_token and app_secret is provided by us on registration of your app with 
 If you are already sending your own push notifications then slight more configuration is required. Please add the following line to string.xml file of your project
 
 ```
-<string name="vendor_gcm_sender_id" translatable="false">YOUR GCM SENDER ID </string>
+<string name="vendor_gcm_sender_id" translatable="false">YOUR_GCM_SENDER_ID </string>
 ```
-Apart from this please change the way you are making the call to register for GCM device tokens.
+Apart from this please change the way you are making the call to register for GCM device tokens in your java file.
 
 ```
 GCMRegistrar.register(context, YOUR_GCM_SENDER_ID + "," + Constants.GCM_SENDER_ID);
@@ -151,7 +153,11 @@ Inside the onCreate method of your Main Activity, add the following lines of cod
 
 ```
 Context context = this;
-NotiphiSession.init(context,1);
+try {
+    NotiphiSession.init(context, 1);
+} catch (Exception e) {
+}
+
 ```
 
 
