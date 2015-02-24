@@ -13,10 +13,9 @@ This guide will provide you step by step details on how to integrate the SDK in 
 3. [Set the SDK “Token and Secret” in Your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
 4. [Configure SDK settings in the Your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
-6. [Passing Information to SDK.](#passing-information-to-sdk)  
-    a) [Install Source.](#install-source)     
-    b) [App Events.](#app-events)      
-    c) [Crash Events.](#crash-events)     
+6. [Passing Information to SDK.](#passing-information-to-sdk) 
+    a) [App Events.](#app-events)      
+    b) [Crash Events.](#crash-events)     
 
 [Uninstall permission requirements](#uninstall-permission-requirements)
 
@@ -176,7 +175,7 @@ Help code snippet below.
 
 Properties are simple key-value pairs that can be anything you want to record, for example:
 
-      a) Track your event : 
+        Track your event : 
 The track method is how you record any actions your users perform.
       
 ```
@@ -190,7 +189,7 @@ The track method is how you record any actions your users perform.
     
 
 
-##### 4) Crash Events:
+##### b) Crash Events:
 Send the API keys of the crash reporting platform to us. We will extract the information using their API. In case you are reporting the crash manually, then pass the information to our SDK as well. 
 Help code snippet below.
 
