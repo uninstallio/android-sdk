@@ -19,7 +19,7 @@ This guide will provide you step by step details on how to integrate the SDK in 
     c) [App Events.](#app-events)      
     d) [Crash Events.](#crash-events)     
 
-[Notiphi permission requirements](#notiphi-permission-requirements)
+[Uninstall permission requirements](#uninstall-permission-requirements)
 
 ####Setup
 
@@ -50,8 +50,8 @@ Go to your project's root folder and open res folder. Then open values folder. H
 The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at dev-support@notiphi.com to get these.
 
 ```
-<string name="notiphi_app_token">TOKEN_GIVEN_BY_NOTIPHI_SEPARATELY</string>
-<string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_NOTIPHI_SEPARATELY</string>
+<string name="notiphi_app_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
+<string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 ```
 
 If you are already sending your own push notifications then slight more configuration is required. Please add the following line to string.xml file of your project
@@ -61,16 +61,20 @@ If you are already sending your own push notifications then slight more configur
 ```
 Apart from this please change the way you are making the call to register for GCM device tokens in your java file.
 
+a) GCM using gcm.jar
 ```
 GCMRegistrar.register(context, YOUR_GCM_SENDER_ID + "," + Constants.GCM_SENDER_ID);
 ```
-
+b) GCM using Google Play Service.
+```
+gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
+```
 
 ####Configure SDK settings in the Your project's AndroidManifest.xml file.
 
 After adding the JARs into your project, modify your AndroidManifest.xml file using these steps:
 
-1) Android Version: Set the minimum android SDK version to 10  or higher. Notiphi library will not work if minimum android SDK version is less than 10.
+1) Android Version: Set the minimum android SDK version to 10  or higher. Uninstall library will not work if minimum android SDK version is less than 10.
 
 ```
 <uses-sdk android:minSdkVersion="10" />
@@ -81,31 +85,21 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE"
      android:protectionLevel="signature" />
 <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
-<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 ```
 
-3) Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
+3) Uninstall Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
-<receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver"
-     android:enabled="true"
-     android:exported="true">
-</receiver>
-<receiver android:name="com.notikum.notifypassive.receivers.BootCompleteReceiver">
-    <intent-filter>
-    		<action android:name="android.intent.action.BOOT_COMPLETED" />
-    </intent-filter>
-</receiver>
-<receiver android:name="com.notikum.notifypassive.services.NotiphiGCMMessageReceiver"
+
+<receiver android:name="com.notikum.notifypassive.receivers.NotiphiGCMMessageReceiver"
     android:permission="com.google.android.c2dm.permission.SEND">
     <intent-filter>
     	<action android:name="com.google.android.c2dm.intent.RECEIVE"/>
@@ -113,18 +107,32 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
     	<category android:name="YOUR_PACKAGE_NAME"/>
     </intent-filter>
 </receiver>
+<receiver
+    android:name="com.notikum.notifypassive.receivers.NotiphiGCMBroadCastReceiver"
+    android:permission="com.google.android.c2dm.permission.SEND" >
+    <intent-filter>				
+	<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+	<category android:name="YOUR_PACKAGE_NAME" />
+    </intent-filter>
+</receiver>
 <receiver android:name="com.notikum.notifypassive.receivers.NetworkStateChangeReceiver">
     <intent-filter >
        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
     </intent-filter>
 </receiver>
+<receiver
+    android:name="com.notikum.notifypassive.receivers.InstallReferrerReceiver"
+    android:exported="true" >
+    <intent-filter>
+	<action android:name="com.android.vending.INSTALL_REFERRER" />
+    </intent-filter>
+</receiver>
 
+<service android:name="com.notikum.notifypassive.NotiphiGCMIntentService" />
 <service android:name="com.notikum.notifypassive.services.GCMIntentService"/>
 <service android:name="com.notikum.notifypassive.services.NotiphiService"/>
 <service android:name="com.notikum.notifypassive.services.GCMInformService"/>
-<service android:name="com.notikum.notifypassive.NewApiActivityRecognization"/>
 <service android:name="com.notikum.notifypassive.NotiphiClusterSyncIntentService"/>
-<service android:name="com.notikum.notifypassive.services.DiscardedNotificationService"/>
 <service android:name="com.notikum.notifypassive.services.NotificationInformService"/>
 <service android:name="com.notikum.notifypassive.services.SendBulkDataIntentService"/>
 ```
@@ -152,12 +160,22 @@ import com.notikum.notifypassive.NotiphiSession;
 Inside the onCreate method of your Main Activity, add the following lines of code.
 
 ```
-Context context = this;
-try {
-    NotiphiSession.init(context, 1);
-} catch (Exception e) {
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Context context = this;
+    try {
+	 NotiphiSession.init(context, 1);
+    } catch (Exception e) {
+    }
 }
 
+@Override
+protected void onPause() {
+    super.onPause();
+    NotiphiSession.appFocusChange();
+}
+    
 ```
 
 
@@ -167,7 +185,7 @@ try {
 Pass the Unique User ID assigned by your backend system to our SDK. Also pass the email (if available) to our SDK. This data will be used to synchronize the ID’s between our systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. Please refer code snippet below to do the same. 
 
 ```
-SharedPreferences sharedPreferences = getSharedPreferences("Notiphi", Context.MODE_PRIVATE);
+SharedPreferences sharedPreferences = getSharedPreferences("UNINSTALL", Context.MODE_PRIVATE);
 boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", true);
 if (isFirstTimeInstall) {
     try {
@@ -187,39 +205,15 @@ editor.commit();
 ##### 2) Install Source: 
 The Install source needs to be passed to our SDK. This is used to measure the Ad channels (especially InOrganic sources) performance. Information can be passed in two ways:
 
-###### a. Via 3rd party platform:
+######  Via 3rd party mobile attriibution platform such as MAT or AppsFlyer:
 If you use any third party attribution platform and supports data extraction via API, then send us the API keys and we will directly extract the information from there. Pls check with your product/marketing manager for details on 3rd party platform.
 
-###### b. Via the App:
-In case you do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event capturing feature This information has to be passed only once in the lifetime of the app during installation and not everytime.
-Help code snippet below.
-
-```
-SharedPreferences sharedPreferences = getSharedPreferences("Notiphi", Context.MODE_PRIVATE);
-boolean isFirstSourceData = sharedPreferences.getBoolean("isFirstSourceData", true);
-if (isFirstSourceData) {
-    try {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("SOURCEDATA", install_source);  //provided by the app-store
-        jsonObject.put("SOURCEDATA", null); // via your app.
-        new NotiphiEventReceiver(jsonObject, context);
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }            
-}       
-Editor editor = sharedPreferences.edit();
-editor.putBoolean("isFirstSourceData", false);
-editor.commit();
-```
 
 ##### 3) App Events:
-All app events have to be passed to our SDK. Information can be passed in two ways:
+All app events should be passed to our SDK for analysis and insights.
 
-###### a. Via 3rd party platform:
-If you use any third party analytics platform and supports data extraction via API, then send us the API keys and we will directly extract the information from there. Pls check with your product/marketing manager for details on 3rd party platform.
-
-###### b. Via the App:
-In case you do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event capturing feature.
+######  Via the App:
+You do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event capturing feature.
 Help code snippet below.
 
 ```
@@ -237,7 +231,7 @@ Send the API keys of the crash reporting platform to us. We will extract the inf
 Help code snippet below.
 
 ```
-SharedPreferences sharedPreferences = getSharedPreferences("Notiphi", Context.MODE_PRIVATE);
+SharedPreferences sharedPreferences = getSharedPreferences("UNINSTALL", Context.MODE_PRIVATE);
 boolean isFirstReportData = sharedPreferences.getBoolean("isFirstReportData", true);
 if (isFirstReportData) {
     try {
@@ -255,7 +249,7 @@ editor.commit();
 
 You are done with event capture implementation, now events from your app will be captured.
 
-####Notiphi permission requirements
+####UNINSTALL permission requirements
 
 Our SDK requires the following permissions in order to function correctly. We have outlined the reasons 
 why we need each of these permissions. 
@@ -309,15 +303,14 @@ why we need each of these permissions.
      </tr>
      
      <tr>
-        <td>"android.permission.ACCESS_FINE_LOCATION"
+        <td>"android.permission.ACCESS_COARSE_LOCATION"
         </td>
         <td>Required to access your location.
         </td>
      </tr>
      
      <tr>
-        <td>"android.permission.WRITE_EXTERNAL_STORAGE"  &
-            "android.permission.READ_EXTERNAL_STORAGE"
+        <td>"android.permission.WRITE_EXTERNAL_STORAGE"
         </td>
         <td>Required to accumulate events.
         </td>
@@ -350,21 +343,13 @@ why we need each of these permissions.
             when a message is received.
         </td>
      </tr>
-     
-     <tr>
-        <td>"com.google.android.gms.permission.ACTIVITY_RECOGNITION"
-        </td>
-        <td>Required to detect your current physical 
-            activity such as walking or driving.
-        </td>
-     </tr>
-</Table>
+    </Table>
 
 
 
 #### Authors and Contributors
 
-This library owes its existence to the hard work of @Notiphi Team.
+This library owes its existence to the hard work of @UNINSTALL Team.
 
 #### Support or Contact
 
