@@ -13,9 +13,9 @@ This guide will provide you step by step details on how to integrate the SDK in 
 3. [Set the SDK “Token and Secret” in Your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
 4. [Configure SDK settings in the Your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
-6. [Passing Information to SDK.](#passing-information-to-sdk) 
-        a) [App Events.](#app-events)      
-        b) [Crash Events.](#crash-events)     
+6. [Passing Information to SDK.](#passing-information-to-sdk)               
+        a)   [App Events.](#app-events)      
+        b)   [Crash Events.](#crash-events)     
 
 [Uninstall permission requirements](#uninstall-permission-requirements)
 
