@@ -175,23 +175,17 @@ Help code snippet below.
 
 Properties are simple key-value pairs that can be anything you want to record, for example:
 
-        Track your event : 
-The track method is how you record any actions your users perform.
-      
-```
- UninstallAnalytics.with(context).track("eventName", new Properties().putValue("IdSync", "ABC1234"));
-```
-         or
+here key = eventName;
  ```
  UninstallAnalytics.with(context).track("eventName", new Properties().putValue("ActivityScreen", "Login Screen"));
 ```
-
-    
 
 
 ##### b) Crash Events:
 Send the API keys of the crash reporting platform to us. We will extract the information using their API. In case you are reporting the crash manually, then pass the information to our SDK as well. 
 Help code snippet below.
+
+here key = crashReport;
 
 ```
 SharedPreferences sharedPreferences = getSharedPreferences("UNINSTALL", Context.MODE_PRIVATE);
