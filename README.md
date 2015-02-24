@@ -13,11 +13,10 @@ This guide will provide you step by step details on how to integrate the SDK in 
 3. [Set the SDK “Token and Secret” in Your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
 4. [Configure SDK settings in the Your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
-6. [Passing Information to SDK.](#passing-information-to-sdk)      
-    a) [Unique System User ID and Email ID.](#unique-system-user-id-and-email-id)         
-    b) [Install Source.](#install-source)     
-    c) [App Events.](#app-events)      
-    d) [Crash Events.](#crash-events)     
+6. [Passing Information to SDK.](#passing-information-to-sdk)  
+    a) [Install Source.](#install-source)     
+    b) [App Events.](#app-events)      
+    c) [Crash Events.](#crash-events)     
 
 [Uninstall permission requirements](#uninstall-permission-requirements)
 
@@ -26,22 +25,24 @@ This guide will provide you step by step details on how to integrate the SDK in 
 Clone the github repository
 
 ```
-git clone https://github.com/alokmishra/notiphi-android-sdk.git
+git clone https://github.com/uninstallio/android-sdk.git
+
+
 ```
 
 or download the zipped file.
 
 ```
-https://github.com/alokmishra/notiphi-android-sdk/archive/master.zip
+https://github.com/uninstallio/android-sdk/archive/master.zip
 ```
 
-Unzip the files (if downloaded as a zip). Add the files NotiphiSDK.jar in jars directory to your project path. If you
+Unzip the files (if downloaded as a zip). Add the files UninstallIO.jar in jars directory to your project path. If you
 are using Eclipse then you could use the following steps if you are unfamiliar with the process of adding jar files.
 
 
 #### Add SDK jar files to libs folder.
 
-Copy **NotiphiSDK.jar**, **android-async-http-1.4.3.jar** and **gcm.jar** the jar file from jars directory and paste it into libs directory of your project.
+Copy **UninstallIO.jar** jar file from jars directory and paste it into libs directory of your project.
 
 
 ####Set the SDK “Token and Secret” in Your project's string.xml file.
@@ -54,6 +55,9 @@ The app_token and app_secret is provided by us on registration of your app with 
 <string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 ```
 
+```
+IMPORTANT
+```
 If you are already sending your own push notifications then slight more configuration is required. Please add the following line to string.xml file of your project
 
 ```
@@ -61,11 +65,6 @@ If you are already sending your own push notifications then slight more configur
 ```
 Apart from this please change the way you are making the call to register for GCM device tokens in your java file.
 
-a) GCM using gcm.jar
-```
-GCMRegistrar.register(context, YOUR_GCM_SENDER_ID + "," + Constants.GCM_SENDER_ID);
-```
-b) GCM using Google Play Service.
 ```
 gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
 ```
@@ -91,22 +90,12 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-<uses-permission android:name="android.permission.WAKE_LOCK" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
 
 3) Uninstall Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
-
-<receiver android:name="com.notikum.notifypassive.receivers.NotiphiGCMMessageReceiver"
-    android:permission="com.google.android.c2dm.permission.SEND">
-    <intent-filter>
-    	<action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-     	<action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
-    	<category android:name="YOUR_PACKAGE_NAME"/>
-    </intent-filter>
-</receiver>
 <receiver
     android:name="com.notikum.notifypassive.receivers.NotiphiGCMBroadCastReceiver"
     android:permission="com.google.android.c2dm.permission.SEND" >
@@ -130,11 +119,8 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 
 <service android:name="com.notikum.notifypassive.NotiphiGCMIntentService" />
 <service android:name="com.notikum.notifypassive.services.GCMIntentService"/>
-<service android:name="com.notikum.notifypassive.services.NotiphiService"/>
 <service android:name="com.notikum.notifypassive.services.GCMInformService"/>
-<service android:name="com.notikum.notifypassive.NotiphiClusterSyncIntentService"/>
 <service android:name="com.notikum.notifypassive.services.NotificationInformService"/>
-<service android:name="com.notikum.notifypassive.services.SendBulkDataIntentService"/>
 ```
 
 4) Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
@@ -165,7 +151,7 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Context context = this;
     try {
-	 NotiphiSession.init(context, 1);
+	 UninstallSession.init(context, 1);
     } catch (Exception e) {
     }
 }
@@ -173,7 +159,7 @@ protected void onCreate(Bundle savedInstanceState) {
 @Override
 protected void onPause() {
     super.onPause();
-    NotiphiSession.appFocusChange();
+    UninstallSession.appFocusChange();
 }
     
 ```
@@ -181,50 +167,28 @@ protected void onPause() {
 
 #### Passing Information to SDK.
 
-##### 1) Unique System User ID and Email ID.
-Pass the Unique User ID assigned by your backend system to our SDK. Also pass the email (if available) to our SDK. This data will be used to synchronize the ID’s between our systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. Please refer code snippet below to do the same. 
-
-```
-SharedPreferences sharedPreferences = getSharedPreferences("UNINSTALL", Context.MODE_PRIVATE);
-boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", true);
-if (isFirstTimeInstall) {
-    try {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("USERID", username);
-        jsonObject.put("EMAILID", email_id);
-        new NotiphiEventReceiver(jsonObject, context);
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }            
-Editor editor = sharedPreferences.edit();
-editor.putBoolean("isFirstTimeInstall", false);
-editor.commit();
-}       
-```
-
-##### 2) Install Source: 
-The Install source needs to be passed to our SDK. This is used to measure the Ad channels (especially InOrganic sources) performance. Information can be passed in two ways:
-
-######  Via 3rd party mobile attriibution platform such as MAT or AppsFlyer:
-If you use any third party attribution platform and supports data extraction via API, then send us the API keys and we will directly extract the information from there. Pls check with your product/marketing manager for details on 3rd party platform.
-
-
-##### 3) App Events:
+##### a) App Events:
 All app events should be passed to our SDK for analysis and insights.
 
 ######  Via the App:
 You do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event capturing feature.
 Help code snippet below.
 
+Properties are simple key-value pairs that can be anything you want to record, for example:
+
+      a) Track your event : 
+The track method is how you record any actions your users perform.
+      
 ```
-JSONObject jsonObject = new JSONObject();
-jsonObject.put(key, value);
-jsonObject.put(key, value);
+ UninstallAnalytics.with(context).track("eventName", new Properties().putValue("IdSync", "ABC1234"));
 ```
-Once  json object is packed with data , call the below method and pass json obejct and context of the application
+         or
+ ```
+ UninstallAnalytics.with(context).track("eventName", new Properties().putValue("ActivityScreen", "Login Screen"));
 ```
-new NotiphiEventReceiver(jsonObject, context);
-```
+
+    
+
 
 ##### 4) Crash Events:
 Send the API keys of the crash reporting platform to us. We will extract the information using their API. In case you are reporting the crash manually, then pass the information to our SDK as well. 
@@ -234,17 +198,13 @@ Help code snippet below.
 SharedPreferences sharedPreferences = getSharedPreferences("UNINSTALL", Context.MODE_PRIVATE);
 boolean isFirstReportData = sharedPreferences.getBoolean("isFirstReportData", true);
 if (isFirstReportData) {
-    try {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("CRASH_REPORT_ID", crash_report_id); 
-        new NotiphiEventReceiver(jsonObject, context);
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }            
+     UninstallAnalytics.with(context).track("crashReport", new Properties().putValue("CRASH_REPORT", "crash_report_id"));
+
+     Editor editor = sharedPreferences.edit();
+     editor.putBoolean("isFirstReportData", false);
+     editor.commit();   
 }       
-Editor editor = sharedPreferences.edit();
-editor.putBoolean("isFirstReportData", false);
-editor.commit();
+
 ```
 
 You are done with event capture implementation, now events from your app will be captured.
@@ -323,27 +283,6 @@ why we need each of these permissions.
         </td>
      </tr>
 </table>
-
-#####Good to have permissions (Optional)
-
-<Table>
-     
-     <tr>
-        <td>“android.permission.WAKE_LOCK”
-        </td>
-        <td>Required so the application can keep the processor
-            from sleeping when a message is received.
-        </td>
-     </tr>
-     
-     <tr>
-        <td>"android.permission.VIBRATE"
-        </td>
-        <td>Required to vibrate the device
-            when a message is received.
-        </td>
-     </tr>
-    </Table>
 
 
 
