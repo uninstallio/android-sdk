@@ -26,7 +26,6 @@ Clone the github repository
 ```
 git clone https://github.com/uninstallio/android-sdk.git
 
-
 ```
 
 or download the zipped file.
@@ -90,6 +89,7 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
 3) Uninstall Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
@@ -131,7 +131,7 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 5) meta data for Google play service : Add below meta data tag into your AndroidManifest.xml file inside <application> tag.
 
 ```
-     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 ```
 
 ####Initialize the SDK In the MainActivity class.
@@ -273,6 +273,14 @@ why we need each of these permissions.
         <td>"android.permission.READ_PHONE_STATE"
         </td>
         <td>Required to get DeviceId of phone.
+        </td>
+     </tr>
+     
+      <tr>
+        <td>“android.permission.WAKE_LOCK”
+        </td>
+        <td>Required so the application can keep the processor
+            from sleeping when a message is received.
         </td>
      </tr>
 </table>
