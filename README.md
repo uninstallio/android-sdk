@@ -25,7 +25,6 @@ Clone the github repository
 
 ```
 git clone https://github.com/uninstallio/android-sdk.git
-
 ```
 
 or download the zipped file.
