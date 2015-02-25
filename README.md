@@ -14,8 +14,7 @@ This guide will provide you step by step details on how to integrate the SDK in 
 4. [Configure SDK settings in the Your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
 6. [Passing Information to SDK.](#passing-information-to-sdk)               
-        a)   [App Events.](#app-events)      
-        b)   [Crash Events.](#crash-events)     
+         
 
 [Uninstall permission requirements](#uninstall-permission-requirements)
 
@@ -163,41 +162,17 @@ protected void onPause() {
 
 #### Passing Information to SDK.
 
-##### a) App Events:
-All app events should be passed to our SDK for analysis and insights.
-
-######  Via the App:
-You do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event capturing feature.
+###### a. Via the App:
+In case you do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event-capturing feature. Help code snippet below.
 Help code snippet below.
 
-Properties are simple key-value pairs that can be anything you want to record, for example:
-
-here key = eventName;
  ```
  UninstallAnalytics.with(context).track("eventName", new Properties().putValue("ActivityScreen", "Login Screen"));
 ```
 
+##### b. Via 3rd party platform:
 
-##### b) Crash Events:
-Send the API keys of the crash reporting platform to us. We will extract the information using their API. In case you are reporting the crash manually, then pass the information to our SDK as well. 
-Help code snippet below.
-
-here key = crashReport;
-
-```
-SharedPreferences sharedPreferences = getSharedPreferences("UNINSTALL", Context.MODE_PRIVATE);
-boolean isFirstReportData = sharedPreferences.getBoolean("isFirstReportData", true);
-if (isFirstReportData) {
-     UninstallAnalytics.with(context).track("crashReport", new Properties().putValue("CRASH_REPORT", "crash_report_id"));
-
-     Editor editor = sharedPreferences.edit();
-     editor.putBoolean("isFirstReportData", false);
-     editor.commit();   
-}       
-
-```
-
-You are done with event capture implementation, now events from your app will be captured.
+If you use any third party analytics platform and supports data extraction via API, then send us the API keys and we will directly extract the information from there. Please check with your product/marketing manager for details on 3rd party platform.
 
 ####UNINSTALL permission requirements
 
