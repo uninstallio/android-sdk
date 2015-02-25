@@ -292,6 +292,6 @@ This library owes its existence to the hard work of @UNINSTALL Team.
 
 #### Support or Contact
 
-Having trouble with integration? Please contact us at dev-support@notiphi.com and we’ll help you sort it out in a jiffy.
+Having trouble with integration? Please contact us at android-dev-support@uninstall.io and we’ll help you sort it out in a jiffy.
 	
 Add the permissions explanation.
