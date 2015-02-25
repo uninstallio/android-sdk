@@ -5,10 +5,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     
- 
+    <!-- Required :  Replace YOUR_APP_TOKEN & YOUR_APP_SECRET -->
+     <string name="notiphi_app_token">YOUR_APP_TOKEN</string>
+    <string name="notiphi_app_secret">YOUR_APP_SECRET</string>
     
-  <string name="notiphi_app_token">0e770c954e5c4c1a880f939289444cc4</string>
-    <string name="notiphi_app_secret">K/CNA41vx7izcTPwG3dV2TbwfQVZf+9728214QAFp3dU7Z331Y9vlvAZpfzrHBEqS7/kafytLJ0Y+B4mfZmR8w==</string>
-    <string name="vendor_gcm_sender_id" translatable="false"></string>
+    <!-- Required : If your app using PUSH NOTIFICATION 
+         otherwise Optional  -->
+    <string name="vendor_gcm_sender_id" translatable="false">YOUR_SENDER_ID</string>
 
 </resources>
