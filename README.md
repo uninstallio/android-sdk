@@ -39,7 +39,7 @@ are using Eclipse then you could use the following steps if you are unfamiliar w
 
 #### Add SDK jar files to libs folder.
 
-Copy **UninstallIO.jar** jar file from jars directory and paste it into libs directory of your project.
+Copy **UninstallIO_10.0.jar** jar file from jars directory and paste it into libs directory of your project.
 
 
 ####Set the SDK “Token and Secret” in Your project's string.xml file.
@@ -87,7 +87,6 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
@@ -115,10 +114,9 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
     </intent-filter>
 </receiver>
 
-<service android:name="com.notikum.notifypassive.NotiphiGCMIntentService" />
-<service android:name="com.notikum.notifypassive.services.GCMIntentService"/>
-<service android:name="com.notikum.notifypassive.services.GCMInformService"/>
-<service android:name="com.notikum.notifypassive.services.NotificationInformService"/>
+<service android:name="com.notikum.notifypassive.services.GCMInformService" />
+<service android:name="com.notikum.notifypassive.services.NotiphiGCMIntentService" />
+<service android:name="com.notikum.notifypassive.services.NotificationInformService" />
 ```
 
 4) Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
