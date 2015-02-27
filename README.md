@@ -44,7 +44,7 @@ Copy **UninstallIO_10.0.jar** jar file from jars directory and paste it into lib
 ####Set the SDK “Token and Secret” in Your project's string.xml file.
 
 Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.
-The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at dev-support@notiphi.com to get these.
+The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at  android-dev-support@uninstall.io to get these.
 
 ```
 <string name="notiphi_app_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
