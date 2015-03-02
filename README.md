@@ -192,9 +192,11 @@ editor.commit();
 ##### 2) In-App Events - 
 Pass the In App events using the below help code snippet. 
 
+Sending an event for any viewed item 
  ```
- UninstallAnalytics.with(MainActivity.this).track("Purchase", new Properties().putValue("Shirt", 500));
+ UninstallAnalytics.with(MainActivity.this).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
 ```
+Note :: Send an event only using "track" method.
 
 
 ####UNINSTALL permission requirements
@@ -207,14 +209,9 @@ why we need each of these permissions.
 <table>
     <tr>
         <td>"YOUR_PACKAGE_NAME.permission.C2D_MESSAGE”
-            “YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" 
-            android:protectionLevel="signature" 
-            
         </td>
-        <td>These 2 permission ensures that Our SDK 
-            can use GCM facilities. Also enforces that only 
-            your app can read the messages.
-            
+        <td>This permission ensures that Our SDK 
+            can use GCM facility.
         </td>
      </tr>
      
@@ -245,8 +242,7 @@ why we need each of these permissions.
      <tr>
         <td>“android.permission.ACCESS_NETWORK_STATE”
         </td>
-        <td>Network state permission to detect network status, 
-            so we get full access of network.
+        <td>Network state permission to detect network status.
         </td>
      </tr>
      
