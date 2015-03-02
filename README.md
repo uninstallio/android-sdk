@@ -8,17 +8,17 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ### Steps to integrate the sdk to your Android project.
 
-1. [Clone the github repository or download the zipped file\.](#setup)
+1. [Clone the github repository or download the zipped file\.](#clone-the-github-repository-or-download-the-zipped-file)
 2. [Add SDK jar files to libs folder\.](#add-sdk-jar-files-to-libs-folder)
 3. [Set the SDK “Token and Secret” in Your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
 4. [Configure SDK settings in the Your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
-6. [Passing Information to SDK.](#passing-information-to-sdk)               
+6. [Passing information to SDK from the App.](#passing-information-to-sdk-from-the-app)               
          
 
 [Uninstall permission requirements](#uninstall-permission-requirements)
 
-####Setup
+####Clone the github repository or download the zipped file.
 
 Clone the github repository
 
@@ -35,13 +35,13 @@ https://github.com/uninstallio/android-sdk/archive/master.zip
 Unzip the "android-sdk-master.zip" file. 
 
 
-#### Add SDK jar files to libs folder.
+#### Add UninstallIO_10.0.jar SDK file to project.
 
-If using Eclipse, then follow the below steps to add the jar file.
-Copy **UninstallIO_10.0.jar** jar file from jars directory and paste it into libs directory of your project.
-
-If using Android Studio, then follow the below steps to add the jar file.
-??????
+If using Eclipse, then follow the below steps to add the jar file.      
+        [How to add a jar file](http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java))         
+         
+If using Android Studio, then follow the below steps to add the jar file.        
+        [How to add a jar file](http://stackoverflow.com/questions/16608135/android-studio-add-jar-as-library)
 
 ####Set the SDK “Token and Secret” in Your project's string.xml file.
 
@@ -122,12 +122,11 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 <service android:name="com.notikum.notifypassive.services.NotificationInformService" />
 ```
 
-4) Google Play Services Library Configuration:      
-    a) If Google Play Services is already present in your eclipse workspace, then skip to Step "b" else follow the below steps to import it,      
-        i) Goto File -> Import -> Android -> And select "Existing Android Code Into Workspace"      
-        ii) Click Browse and go to your android folder. Then navigate to "\extras\google\google_play_services\libproject" and select the "google-play-services_lib" folder.      
-    b)  Right click on your project and click on properties. Select Android on the left panel. In the library section (on the right hand side panel), Click "Add" and select the Google Play Services library. 
+4) Google Play Services Library Configuration .      
+     a) [Add Google Play Services to Eclipse.](http://hmkcode.com/adding-google-play-services-library-to-your-android-app)   
+     b) [Add Google Play Services to Android Studio.](http://developer.android.com/google/play-services/setup.html)
 
+Note:: Google Play Services must be compiled against version 6.5 or above.
 	
 5) Add Meta data for Google play service : Add below meta data tag into your AndroidManifest.xml file inside the "application" tag.
 
@@ -140,7 +139,7 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 a) Add the below import statement in your Launcher Activity of your application
 
 ```
-import com.notikum.notifypassive.NotiphiSession;
+import com.notikum.notifypassive.UninstallSession;
 ```
 
 b) Add the below code inside the onCreate method of your Launcher Activity
@@ -165,7 +164,7 @@ protected void onPause() {
 ```
 
 
-#### Passing Information to SDK from the APP.
+#### Passing information to SDK from the App.
 
 Pass information such as Email id, userid and In App Events to our SDK via our event-capturing feature. 
 
@@ -173,12 +172,28 @@ Pass information such as Email id, userid and In App Events to our SDK via our e
 Pass the Unique User ID assigned by your backend system to our SDK. Also pass the email (if available) to our SDK. This data will be used to synchronize the ID’s between our systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. 
 Pass the UserID and Email using the below help code snippet : 
 
+```
+SharedPreferences sharedPreferences = getSharedPreferences("Constants.NOTIPHI_SHARED_PREFERENCES", Context.MODE_PRIVATE);
+boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", true);
+if (isFirstTimeInstall) {
+
+   //Send email-id
+   UninstallAnalytics.with(MainActivity.this).identify(new Traits().putEmail("YOUR_EMAIL_ID"));    
+   //send user-id
+   UninstallAnalytics.with(MainActivity.this).identify(new Traits().putUsername("YOUR_USER_ID"));
+   
+Editor editor = sharedPreferences.edit();
+editor.putBoolean("isFirstTimeInstall", false);
+editor.commit();
+}       
+```
+
 
 ##### 2) In-App Events - 
 Pass the In App events using the below help code snippet. 
 
  ```
- UninstallAnalytics.with(context).track("eventName", new Properties().putValue("ActivityScreen", "Login Screen"));
+ UninstallAnalytics.with(MainActivity.this).track("Purchase", new Properties().putValue("Shirt", 500));
 ```
 
 
@@ -236,20 +251,6 @@ why we need each of these permissions.
      </tr>
      
      <tr>
-        <td>"android.permission.ACCESS_COARSE_LOCATION"
-        </td>
-        <td>Required to access your location.
-        </td>
-     </tr>
-     
-     <tr>
-        <td>"android.permission.WRITE_EXTERNAL_STORAGE"
-        </td>
-        <td>Required to accumulate events.
-        </td>
-     </tr>
-     
-     <tr>
         <td>"android.permission.READ_PHONE_STATE"
         </td>
         <td>Required to get DeviceId of phone.
@@ -265,6 +266,17 @@ why we need each of these permissions.
      </tr>
 </table>
 
+#####Good to have permissions (Optional)
+
+<Table>
+    <tr>
+        <td>"android.permission.ACCESS_COARSE_LOCATION"
+        </td>
+        <td>Required to access your location.
+        </td>
+     </tr>
+</Table>
+
 
 
 #### Authors and Contributors
@@ -274,5 +286,4 @@ This library owes its existence to the hard work of @UNINSTALL Team.
 #### Support or Contact
 
 Having trouble with integration? Please contact us at android-dev-support@uninstall.io and we’ll help you sort it out in a jiffy.
-	
-Add the permissions explanation.
+
