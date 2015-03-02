@@ -22,25 +22,23 @@ public class MainActivity extends Activity {
 
 		btn_event_one = (Button) findViewById(R.id.btn_event_one);
 		btn_event_two = (Button) findViewById(R.id.btn_event_two);
-		
-		/*
-		 * while sending a event, track key should be "eventName"
-		 * */
 
-		//sending a Event demo :
+		// Send an event using "track" method
+
+		// track a Product viewed :
 		btn_event_one.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				UninstallAnalytics.with(MainActivity.this).track("eventName", new Properties().putValue("ActivityScreen", "Login Screen"));
+				UninstallAnalytics.with(MainActivity.this).track("View Product", new Properties().putValue("Shirt", "Shirt_ID"));
 			}
 		});
-		//sending a Event demo :
+		// track a Purchase item.
 		btn_event_two.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				UninstallAnalytics.with(MainActivity.this).track("eventName", new Properties().putValue("Signup", "Verified"));
+				UninstallAnalytics.with(MainActivity.this).track("Purchase", new Properties().putValue("Shirt", "Shirt_ID").putRevenue(499.99));
 			}
 		});
 
