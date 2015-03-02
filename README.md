@@ -1,7 +1,7 @@
 [Uninstall Insights](http://uninstall.io) Android SDK
 ===================
 
-[Uninstall SDK (http://uninstall.io)](http://uninstall.io) helps you to understand the reasons for your app uninstalls, reduce the uninstall rate using a powerful predictive engine and also get app Re-installs through a unique actionable channel (2.3.3 and above). 
+[Uninstall SDK (http://uninstall.io)](http://uninstall.io) helps you to understand the reasons for your app uninstalls, reduce the uninstall rate using a powerful predictive engine and also get app Re-installs through a unique actionable channel (Android version 2.3.3 and above). 
 
 This guide will provide you step by step details on how to integrate the SDK in just a few minutes. Following steps outline the integration process in details.
 
@@ -32,34 +32,37 @@ or download the zipped file.
 https://github.com/uninstallio/android-sdk/archive/master.zip
 ```
 
-Unzip the files (if downloaded as a zip). Add the files UninstallIO.jar in jars directory to your project path. If you
-are using Eclipse then you could use the following steps if you are unfamiliar with the process of adding jar files.
+Unzip the "android-sdk-master.zip" file. 
 
 
 #### Add SDK jar files to libs folder.
 
+If using Eclipse, then follow the below steps to add the jar file.
 Copy **UninstallIO_10.0.jar** jar file from jars directory and paste it into libs directory of your project.
 
+If using Android Studio, then follow the below steps to add the jar file.
+??????
 
 ####Set the SDK “Token and Secret” in Your project's string.xml file.
 
-Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.
-The app_token and app_secret is provided by us on registration of your app with us. As of now there is no online process and you need to contact us at  android-dev-support@uninstall.io to get these.
+In eclipse, goto project's root folder --> res folder --> values folder --> strings.xml file. Add the following lines in the file.
 
 ```
 <string name="notiphi_app_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 <string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 ```
+Note: Drop a mail to android-dev-support@uninstall.io to get the app_token and app_secret for your app. 
 
-```
-IMPORTANT
-```
-If you are already sending your own push notifications then slight more configuration is required. Please add the following line to string.xml file of your project
+####Push Notification Configuration 
+If you have an existing push notification configured for your app, then 
+
+a) Add the following line to string.xml file of your project
 
 ```
 <string name="vendor_gcm_sender_id" translatable="false">YOUR_GCM_SENDER_ID </string>
 ```
-Apart from this please change the way you are making the call to register for GCM device tokens in your java file.
+
+b) Change the GCM registration function call in your java file as mentioned below.
 
 ```
 gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
@@ -67,14 +70,14 @@ gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
 
 ####Configure SDK settings in the Your project's AndroidManifest.xml file.
 
-After adding the JARs into your project, modify your AndroidManifest.xml file using these steps:
+After adding the JAR into your project, modify your AndroidManifest.xml file as mentioned below:
 
-1) Android Version: Set the minimum android SDK version to 10  or higher. Uninstall library will not work if minimum android SDK version is less than 10.
+1) Android Version: Set the minimum android SDK version to 10 or higher. 
 
 ```
 <uses-sdk android:minSdkVersion="10" />
 ```
-2) Permissions: Following permission are required in manifest file for library to work properly. So please declare the following permission in AndroidManifest.xml and replace the occurrence of **YOUR_PACKAGE_NAME** by your application's package name.
+2) Permissions: Add the following permissions in the file and replace **YOUR_PACKAGE_NAME** with your application's package name. 
 
 ```
 <permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE"
@@ -89,7 +92,8 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
-3) Uninstall Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under <application> tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
+
+3) Uninstall Service and Receivers: Add the following xml code inside "application" tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
 <receiver
@@ -118,13 +122,14 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 <service android:name="com.notikum.notifypassive.services.NotificationInformService" />
 ```
 
-4) Reference Google Play Services Library:  In eclipse goto File -> New -> Other and from the list select "Android Project from Existing Code" then select androidsdk -> extras -> google ->
-	google_play_services -> libproject directory and click Ok .
-	
-	Now select your project, right click then select properties -> android, click add and select the above library then click ok. 
+4) Google Play Services Library Configuration:      
+    a) If Google Play Services is already present in your eclipse workspace, then skip to Step "b" else follow the below steps to import it,      
+        i) Goto File -> Import -> Android -> And select "Existing Android Code Into Workspace"      
+        ii) Click Browse and go to your android folder. Then navigate to "\extras\google\google_play_services\libproject" and select the "google-play-services_lib" folder.      
+    b)  Right click on your project and click on properties. Select Android on the left panel. In the library section (on the right hand side panel), Click "Add" and select the Google Play Services library. 
 
 	
-5) meta data for Google play service : Add below meta data tag into your AndroidManifest.xml file inside <application> tag.
+5) Add Meta data for Google play service : Add below meta data tag into your AndroidManifest.xml file inside the "application" tag.
 
 ```
 <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
@@ -132,13 +137,13 @@ After adding the JARs into your project, modify your AndroidManifest.xml file us
 
 ####Initialize the SDK In the MainActivity class.
 
-After the configuration changes, in your main Activity of your application  add this import statement
+a) Add the below import statement in your Launcher Activity of your application
 
 ```
 import com.notikum.notifypassive.NotiphiSession;
 ```
 
-Inside the onCreate method of your Main Activity, add the following lines of code.
+b) Add the below code inside the onCreate method of your Launcher Activity
 
 ```
 @Override
@@ -160,19 +165,22 @@ protected void onPause() {
 ```
 
 
-#### Passing Information to SDK.
+#### Passing Information to SDK from the APP.
 
-###### a. Via the App:
-In case you do not use any 3rd party platform or the platform doesn’t support any API then pass the data to our SDK via our event-capturing feature. Help code snippet below.
-Help code snippet below.
+Pass information such as Email id, userid and In App Events to our SDK via our event-capturing feature. 
+
+##### 1) Unique System User ID and Email ID - 
+Pass the Unique User ID assigned by your backend system to our SDK. Also pass the email (if available) to our SDK. This data will be used to synchronize the ID’s between our systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. 
+Pass the UserID and Email using the below help code snippet : 
+
+
+##### 2) In-App Events - 
+Pass the In App events using the below help code snippet. 
 
  ```
  UninstallAnalytics.with(context).track("eventName", new Properties().putValue("ActivityScreen", "Login Screen"));
 ```
 
-##### b. Via 3rd party platform:
-
-If you use any third party analytics platform and supports data extraction via API, then send us the API keys and we will directly extract the information from there. Please check with your product/marketing manager for details on 3rd party platform.
 
 ####UNINSTALL permission requirements
 
