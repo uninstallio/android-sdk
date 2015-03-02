@@ -190,13 +190,12 @@ editor.commit();
 
 
 ##### 2) In-App Events - 
-Pass the In App events using the below help code snippet. 
+ Pass the In App events using the below help code snippet. 
 
-Sending an event for any viewed item 
  ```
  UninstallAnalytics.with(MainActivity.this).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
 ```
-Note :: Send an event only using "track" method.
+Note :: Send events only using the "track" method.
 
 
 ####UNINSTALL permission requirements
