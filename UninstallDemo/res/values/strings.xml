@@ -5,7 +5,7 @@
     
     
     <!-- Required :  Replace YOUR_APP_TOKEN & YOUR_APP_SECRET -->
-     <string name="notiphi_app_token">YOUR_APP_TOKEN</string>
+    <string name="notiphi_app_token">YOUR_APP_TOKEN</string>
     <string name="notiphi_app_secret">YOUR_APP_SECRET</string>
     
     <!-- Optional : Only if your app is using PUSH NOTIFICATION  -->
