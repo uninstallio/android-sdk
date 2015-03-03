@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">UninstallDemo</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    
     
     <!-- Required :  Replace YOUR_APP_TOKEN & YOUR_APP_SECRET -->
      <string name="notiphi_app_token">YOUR_APP_TOKEN</string>
