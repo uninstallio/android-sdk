@@ -9,8 +9,7 @@
      <string name="notiphi_app_token">YOUR_APP_TOKEN</string>
     <string name="notiphi_app_secret">YOUR_APP_SECRET</string>
     
-    <!-- Required : If your app using PUSH NOTIFICATION 
-         otherwise Optional  -->
+    <!-- Optional : Only if your app is using PUSH NOTIFICATION  -->
     <string name="vendor_gcm_sender_id" translatable="false">YOUR_SENDER_ID</string>
 
 </resources>
