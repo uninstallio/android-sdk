@@ -1,19 +1,19 @@
 [Uninstall Insights](http://uninstall.io) Android SDK
 ===================
 
-[Uninstall SDK (http://uninstall.io)](http://uninstall.io) helps you to understand the reasons for your app uninstalls, reduce the uninstall rate using a powerful predictive engine and also get app Re-installs through a unique actionable channel (Android version 2.3.3 and above). 
+[Uninstall SDK](http://uninstall.io) helps you understand the reasons for your app uninstalls, reduce the uninstall rate using a powerful predictive engine and also get app Re-installs through a unique actionable channel (Android version 2.3.3 and above). 
 
-This guide will provide you step by step details on how to integrate the SDK in just a few minutes. Following steps outline the integration process in details.
+This guide will provide you step by step details on how to integrate the SDK in few minutes. Following steps outline the integration process in detail.
 
 
 ### Steps to integrate the sdk to your Android project.
 
 1. [Clone the github repository or download the zipped file\.](#clone-the-github-repository-or-download-the-zipped-file)
 2. [Add SDK jar files to libs folder\.](#add-sdk-jar-files-to-libs-folder)
-3. [Set the SDK “Token and Secret” in Your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
-4. [Configure SDK settings in the Your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+3. [Set the SDK “Token and Secret” in your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
+4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
-6. [Passing information to SDK from the App.](#passing-information-to-sdk-from-the-app)               
+6. [Pass information to SDK from the App.](#passing-information-to-sdk-from-the-app)               
          
 
 [Uninstall permission requirements](#uninstall-permission-requirements)
@@ -37,13 +37,13 @@ Unzip the "android-sdk-master.zip" file.
 
 #### Add UninstallIO_10.0.jar SDK file to project.
 
-If using Eclipse, then follow the below steps to add the jar file.      
+If you are using Eclipse, then follow the below steps to add the jar file.      
         [How to add a jar file](http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java))         
          
-If using Android Studio, then follow the below steps to add the jar file.        
+If you are using Android Studio, then follow the below steps to add the jar file.        
         [How to add a jar file](http://stackoverflow.com/questions/16608135/android-studio-add-jar-as-library)
 
-####Set the SDK “Token and Secret” in Your project's string.xml file.
+####Set the SDK “Token and Secret” in your project's string.xml file.
 
 In eclipse, goto project's root folder --> res folder --> values folder --> strings.xml file. Add the following lines in the file.
 
@@ -51,18 +51,19 @@ In eclipse, goto project's root folder --> res folder --> values folder --> stri
 <string name="notiphi_app_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 <string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 ```
-Note: Drop a mail to android-dev-support@uninstall.io to get the app_token and app_secret for your app. 
+Note: If you do not have the token and secret then please drop a mail to android-dev-support@uninstall.io to get these credentials for your app. 
 
 ####Push Notification Configuration 
-If you have an existing push notification configured for your app, then 
+If you are using your own or a third party push notification facility for your app, then 
 
 a) Add the following line to string.xml file of your project
 
 ```
 <string name="vendor_gcm_sender_id" translatable="false">YOUR_GCM_SENDER_ID </string>
 ```
+You can get this from your Google Console or your third party push provider.
 
-b) Change the GCM registration function call in your java file as mentioned below.
+b) Change your GCM registration related function call in your java file as mentioned below.
 
 ```
 gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
@@ -166,11 +167,12 @@ protected void onPause() {
 
 #### Passing information to SDK from the App.
 
-Pass information such as Email id, userid and In App Events to our SDK via our event-capturing feature. 
+You could pass various types of information to our backend systems e.g. Email id, your backend system's Userid or In App Events through our SDK's efficient event-capturing ability. 
 
 ##### 1) Unique System User ID and Email ID - 
-Pass the Unique User ID assigned by your backend system to our SDK. Also pass the email (if available) to our SDK. This data will be used to synchronize the ID’s between our systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. 
-Pass the UserID and Email using the below help code snippet : 
+Please pass the User ID assigned by your backend system for this user. Also pass the email (if available). This data will be used to synchronize the various ID’s between our and your backend systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. 
+
+Please pass the UserID and Email using the sample code shown below: 
 
 ```
 SharedPreferences sharedPreferences = getSharedPreferences("Constants.NOTIPHI_SHARED_PREFERENCES", Context.MODE_PRIVATE);
@@ -190,7 +192,7 @@ editor.commit();
 
 
 ##### 2) In-App Events - 
- Pass the In App events using the below help code snippet. 
+ You could pass the In App events using the following code snippet. 
 
  ```
  UninstallAnalytics.with(MainActivity.this).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
