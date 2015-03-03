@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 
 		// Send an event using "track" method
 
-		// track a Product viewed :
+		// track a viewed product :
 		btn_event_demo_one.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 				UninstallAnalytics.with(MainActivity.this).track("View Product", new Properties().putValue("Shirt", "Shirt_ID"));
 			}
 		});
-		// track a Purchase item.
+		// track an item purchase.
 		btn_event_demo_two.setOnClickListener(new OnClickListener() {
 
 			@Override
