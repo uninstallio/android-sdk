@@ -263,7 +263,7 @@ why we need each of these permissions.
      </tr>
 </table>
 
-#####Good to have permissions (Optional)
+#####Good to have permission (Optional)
 
 <Table>
     <tr>
