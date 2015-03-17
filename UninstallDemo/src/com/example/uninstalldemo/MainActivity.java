@@ -2,9 +2,13 @@ package com.example.uninstalldemo;
 
 import com.notikum.notifypassive.UninstallSession;
 import com.notikum.notifypassive.segmentIO.Properties;
+import com.notikum.notifypassive.segmentIO.Traits;
 import com.notikum.notifypassive.segmentIO.UninstallAnalytics;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +45,21 @@ public class MainActivity extends Activity {
 				UninstallAnalytics.with(MainActivity.this).track("Purchase", new Properties().putValue("Shirt", "Shirt_ID").putRevenue(499.99));
 			}
 		});
+
+		
+		//Send UserName to Uninstall server
+		
+		SharedPreferences sharedPreferences = getSharedPreferences("Constants.NOTIPHI_SHARED_PREFERENCES", Context.MODE_PRIVATE);
+		boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", true);
+		if (isFirstTimeInstall) {
+			
+			// send user-id
+			UninstallAnalytics.with(MainActivity.this).identify(new Traits().putUsername("USER_NAME"));
+
+			Editor editor = sharedPreferences.edit();
+			editor.putBoolean("isFirstTimeInstall", false);
+			editor.commit();
+		}
 
 	}
 
