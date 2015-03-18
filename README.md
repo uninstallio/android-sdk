@@ -68,6 +68,13 @@ b) Change your GCM registration related function call in your java file as menti
 ```
 gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
 ```
+c) To ignore Uninstall GCM meesage, add following code snippet to your class which gets your GCM message.
+
+```
+ if (mIntent.getStringExtra("is_notiphi") != null) {
+	return;
+ }
+```
 
 ####Configure SDK settings in the Your project's AndroidManifest.xml file.
 
