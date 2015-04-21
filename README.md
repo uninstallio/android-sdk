@@ -63,8 +63,12 @@ a) Add the following line to string.xml file of your project
 ```
 You can get this from your Google Console or your third party push provider.
 
-b) Change your GCM registration related function call in your java file as mentioned below.
-
+b) Change your GCM registration related function call in your java file as mentioned below.      
+* GCM using gcm.jar
+```
+GCMRegistrar.register(context, YOUR_GCM_SENDER_ID + "," + Constants.GCM_SENDER_ID);
+```        
+* GCM using Google Play Service.
 ```
 gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
 ```
