@@ -72,7 +72,7 @@ GCMRegistrar.register(context, YOUR_GCM_SENDER_ID + "," + Constants.GCM_SENDER_I
 ```
 gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
 ```
-c) To ignore Uninstall GCM meesage, add following code snippet to your class which gets your GCM message.
+c) Add the following code snippet to ignore GCM message from Uninstall.
 
 ```
  if (mIntent.getStringExtra("is_notiphi") != null) {
