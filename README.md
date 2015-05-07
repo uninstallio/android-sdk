@@ -35,7 +35,7 @@ https://github.com/uninstallio/android-sdk/archive/master.zip
 Unzip the "android-sdk-master.zip" file. 
 
 
-#### Add UninstallIO_10.6.jar SDK file to project.
+#### Add UninstallIO_10.7.jar SDK file to project.
 
 If you are using Eclipse, then follow the below steps to add the jar file.      
         [How to add a jar file](http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java))         
@@ -173,6 +173,10 @@ protected void onPause() {
     UninstallSession.appFocusChange();
 }
     
+```
+Note : Enable logging by adding following code snippet before SDK initialization **UninstallSession.init(context, 1)**
+```
+UninstallSession.debug(true);
 ```
 
 
