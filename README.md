@@ -160,11 +160,8 @@ b) Add the below code inside the onCreate method of your Launcher Activity
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Context context = this;
-    try {
-	 UninstallSession.init(context, 1);
-    } catch (Exception e) {
-    }
+    
+    UninstallSession.init(this, 1);
 }
 
 @Override
@@ -173,7 +170,13 @@ protected void onPause() {
     UninstallSession.appFocusChange();
 }
     
+```     
+c) Capture competitor apps : If you want to capture competitor apps info as well, then please add the below code snippet before the SDK is initialized ->{ie before this line ```UninstallSession.init(MainActivity.this, 1)};```
 ```
+UninstallSession.fetchCompetitorApp(true);
+```
+Note : By default, this feature is not enabled. 
+
 
 
 #### Passing information to SDK from the App.
