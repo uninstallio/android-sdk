@@ -22,8 +22,11 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		UninstallSession.fetchCompetitorApp(true);
+		UninstallSession.fetchEmailId(false);
 		UninstallSession.init(MainActivity.this, 1);
+		
 
 		btn_event_demo_one = (Button) findViewById(R.id.btn_event_one);
 		btn_event_demo_two = (Button) findViewById(R.id.btn_event_two);
