@@ -171,13 +171,17 @@ protected void onPause() {
 }
     
 ```     
-c) Capture competitor apps : If you want to capture competitor apps info as well, then please add the below code snippet before the SDK is initialized ->{ie before this line ```UninstallSession.init(MainActivity.this, 1)};```
+c) Capture competitor apps : If you want to capture competitor apps info as well, then please add the below code snippet before the SDK is initialized -> ie before this line ```{ UninstallSession.init(MainActivity.this, 1); }```
 ```
 UninstallSession.fetchCompetitorApp(true);
 ```
-Note : By default, this feature is not enabled. 
-
-
+Note : By default, this feature is not enabled.     
+       
+d) Capture email id : If you do not wish to fetch email id using the SDK, please add the below code snippet before the SDK is initialized  -> i.e. before this line ```{ UninstallSession.init(MainActivity.this, 1); }```
+```
+UninstallSession.fetchEmailId(false);
+```
+Note : By default, this feature is enabled.
 
 #### Passing information to SDK from the App.
 
