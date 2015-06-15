@@ -160,8 +160,9 @@ b) Add the below code inside the onCreate method of your Launcher Activity
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    
-    UninstallSession.init(this, 1);
+    Context context = MainActivity.this; // your activity context
+	
+    UninstallSession.init(context, 1);
 }
 
 @Override
@@ -171,7 +172,7 @@ protected void onPause() {
 }
     
 ```     
-c) Capture competitor apps : If you want to capture competitor apps info as well, then please add the below code snippet before the SDK is initialized -> ie before this line ```{ UninstallSession.init(MainActivity.this, 1); }```
+c) Capture competitor apps : If you want to capture competitor apps info as well, then please add the below code snippet before the SDK is initialized -> ie before this line ```{ UninstallSession.init(context, 1); }```
 ```
 UninstallSession.fetchCompetitorApp(true);
 ```
