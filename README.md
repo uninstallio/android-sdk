@@ -77,7 +77,7 @@ c) Follow below instruction to ignore GCM message from Uninstall.
 
 * Your app using Pure GCM.    
 Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
-a) onHandleIntent(Intent intent)
+a) onHandleIntent(Intent intent)      
 b) onMessage(Context context, Intent intent)
 ```
  if (mIntent.getStringExtra("is_notiphi") != null) {
