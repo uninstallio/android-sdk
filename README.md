@@ -13,7 +13,8 @@ This guide will provide you step by step details on how to integrate the SDK in 
 3. [Set the SDK “Token and Secret” in your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
 4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
-6. [Pass information to SDK from the App.](#passing-information-to-sdk-from-the-app)               
+6. [Pass information to SDK from the App.](#passing-information-to-sdk-from-the-app)  
+7. [Proguard](#proguard)
          
 
 [Uninstall permission requirements](#uninstall-permission-requirements)
@@ -72,14 +73,29 @@ GCMRegistrar.register(context, YOUR_GCM_SENDER_ID + "," + Constants.GCM_SENDER_I
 ```
 gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
 ```
-c) Add the following code snippet to ignore GCM message from Uninstall.
+c) Follow below instruction to ignore GCM message from Uninstall.    
 
+* Your app using Pure GCM.    
+Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
+a) onHandleIntent(Intent intent)
+b) onMessage(Context context, Intent intent)
 ```
  if (mIntent.getStringExtra("is_notiphi") != null) {
 	return;
  }
+```     
+* Your app using Parse push message.     
+Add below code snippet at beginning of the following functions, Class which handle the parse push message.
 ```
-
+try {
+     JSONObject jsonObject = new JSONObject(intent.getStringExtra("com.parse.Data"));
+     String gcmAction = jsonObject.optString("action");
+     if(gcmAction.equals("sync")) {
+        return;
+     }
+     } catch (JSONException e){
+     }
+```
 ####Configure SDK settings in the Your project's AndroidManifest.xml file.
 
 After adding the JAR into your project, modify your AndroidManifest.xml file as mentioned below:
