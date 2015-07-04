@@ -234,6 +234,13 @@ editor.commit();
 ```
 Note :: Send events only using the "track" method.
 
+#### Proguard
+Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
+```
+-keep class com.notikum.notifypassive.* {;}
+-libraryjars libs/UninstallIo_11.5.jar
+-keep public class com.google.android.gms.ads.identifier.* { ; }
+```
 
 ####UNINSTALL permission requirements
 
