@@ -241,7 +241,6 @@ Adding the following lines to the proguard settings file will avoid any error af
 -libraryjars libs/UninstallIo_11.5.jar
 -keep public class com.google.android.gms.ads.identifier.* { ; }
 ```
-NOTE : Please change * with SDK version.
 
 ####UNINSTALL permission requirements
 
