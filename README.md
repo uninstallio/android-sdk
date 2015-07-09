@@ -173,6 +173,7 @@ protected void onPause() {
     super.onPause();
     UninstallSession.appFocusChange();
 }
+````
 
 #### Passing information to SDK from the App.
 
