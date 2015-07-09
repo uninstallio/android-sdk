@@ -13,7 +13,8 @@ This guide will provide you step by step details on how to integrate the SDK in 
 3. [Set the SDK “Token and Secret” in your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
 4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
-6. [Pass information to SDK from the App.](#passing-information-to-sdk-from-the-app)               
+6. [Pass information to SDK from the App.](#passing-information-to-sdk-from-the-app)     
+7. [Proguard](#proguard)
          
 
 [Uninstall permission requirements](#uninstall-permission-requirements)
@@ -207,6 +208,12 @@ editor.commit();
 ```
 Note :: Send events only using the "track" method.
 
+#### Proguard
+Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
+```
+-keep class com.notikum.notifypassive.** {*;}
+-keep public class com.google.android.gms.ads.identifier.** { *; }
+```
 
 ####UNINSTALL permission requirements
 
