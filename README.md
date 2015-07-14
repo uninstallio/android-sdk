@@ -14,10 +14,8 @@ This guide will provide you step by step details on how to integrate the SDK in 
 4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
 6. [Pass information to SDK from the App.](#passing-information-to-sdk-from-the-app)  
-7. [Proguard](#proguard)
-         
-
-[Uninstall permission requirements](#uninstall-permission-requirements)
+7. [Proguard](#proguard)    
+8. [Uninstall permission requirements](#uninstall-permission-requirements)
 
 ####Clone the github repository or download the zipped file.
 
@@ -75,7 +73,7 @@ gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
 ```
 c) Follow below instruction to ignore GCM message from Uninstall.    
 
-* Your app using Pure GCM.    
+###### Your app using Pure GCM.    
 Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
 a) onHandleIntent(Intent intent)      
 b) onMessage(Context context, Intent intent)
@@ -84,7 +82,7 @@ b) onMessage(Context context, Intent intent)
 	return;
  }
 ```     
-* Your app using Parse push message.     
+###### Your app using Parse push message.     
 Add below code snippet at beginning of the following functions, Class which handle the parse push message.
 ```
 try {
@@ -93,7 +91,7 @@ try {
      if(gcmAction.equals("sync")) {
         return;
      }
-     } catch (JSONException e){
+     } catch (Exception e){
      }
 ```
 ####Configure SDK settings in the Your project's AndroidManifest.xml file.
