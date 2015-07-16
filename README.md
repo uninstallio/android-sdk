@@ -233,11 +233,11 @@ Adding the following lines to the proguard settings file will avoid any error af
 -keep class com.notikum.notifypassive.** {*;}
 -keep public class com.google.android.gms.** {*;}
 ```
-NOTE : if get below warning message during your release build like below mentioned.
+NOTE : if you get the below warning message during your release build.
 ```
 "Warning:com.notikum.notifypassive.utils.NotiphiUtility: can't find referenced class com.google.android.gcm.GCMRegistrar"
 ```
-please add also below line in your Proguard file.
+then please add also below line in your Proguard file.
 ```
 -dontwarn com.notikum.notifypassive.utils.**
 ```
