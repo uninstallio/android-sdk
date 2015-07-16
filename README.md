@@ -231,7 +231,15 @@ Note :: Send events only using the "track" method.
 Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
 ```
 -keep class com.notikum.notifypassive.** {*;}
--keep public class com.google.android.gms.ads.identifier.** { *; }
+-keep public class com.google.android.gms.** {*;}
+```
+NOTE : if get below warning message during your release build like below mentioned.
+```
+"Warning:com.notikum.notifypassive.utils.NotiphiUtility: can't find referenced class com.google.android.gcm.GCMRegistrar"
+```
+please add also below line in your Proguard file.
+```
+-dontwarn com.notikum.notifypassive.utils.**
 ```
 
 ####UNINSTALL permission requirements
