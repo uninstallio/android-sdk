@@ -116,6 +116,7 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
+<uses-permission android:name="android.permission.GET_TASKS"/>
 ```
 
 
@@ -306,6 +307,13 @@ why we need each of these permissions.
         </td>
         <td>Required so the application can keep the processor
             from sleeping when a message is received.
+        </td>
+     </tr>
+     
+     <tr>
+        <td>“android.permission.GET_TASKS
+        </td>
+        <td>Required so the application can Retrieve running apps.
         </td>
      </tr>
 </table>
