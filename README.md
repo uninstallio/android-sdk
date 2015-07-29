@@ -305,17 +305,6 @@ why we need each of these permissions.
      </tr>
 </table>
 
-#####Good to have permission (Optional)
-
-<Table>
-    <tr>
-        <td>"android.permission.ACCESS_COARSE_LOCATION"
-        </td>
-        <td>Required to access your location.
-        </td>
-     </tr>
-</Table>
-
 
 #### Support or Contact
 

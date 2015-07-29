@@ -23,7 +23,6 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		UninstallSession.fetchCompetitorApp(true);
 		UninstallSession.fetchEmailId(false);
 		UninstallSession.init(MainActivity.this, 1);
 		
