@@ -64,9 +64,8 @@
 
         <!-- Uninstall Service -->
 
-        <service android:name="com.notikum.notifypassive.services.GCMInformService" />
+        
         <service android:name="com.notikum.notifypassive.services.NotiphiGCMIntentService" />
-        <service android:name="com.notikum.notifypassive.services.NotificationInformService" />
 
         <meta-data
             android:name="com.google.android.gms.version"

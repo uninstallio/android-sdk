@@ -4,6 +4,8 @@ import com.notikum.notifypassive.UninstallSession;
 import com.notikum.notifypassive.segmentIO.Properties;
 import com.notikum.notifypassive.segmentIO.Traits;
 import com.notikum.notifypassive.segmentIO.UninstallAnalytics;
+import com.notikum.notifypassive.utils.PushTokenCallback;
+import com.notikum.notifypassive.utils.UninstallTokenRegistration;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,6 +28,23 @@ public class MainActivity extends Activity {
 
 		btn_event_demo_one = (Button) findViewById(R.id.btn_event_one);
 		btn_event_demo_two = (Button) findViewById(R.id.btn_event_two);
+		
+		
+        // Send device token to Uninstall server
+		UninstallTokenRegistration.registerPushToken(MainActivity.this, YOUR_GCM_DEVICE_TOKEN, new PushTokenCallback() {
+			
+			@Override
+			public void onSuccess() {
+				//Perform your action
+				
+			}
+			
+			@Override
+			public void onFailure() {
+				//Please send device-token again.
+				
+			}
+		});
 
 		// Send an event using "track" method
 
