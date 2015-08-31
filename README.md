@@ -137,9 +137,9 @@ protected void onPause() {
     UninstallSession.appFocusChange();
 }
 ````
-#### Passing GCM device-token to Uninstall server.
+####Pass GCM device-token to Uninstall server.
 
-You have to pass GCM device-token to Uninstall server by using below code.
+You have to pass GCM device-token to Uninstall server by using below code snippet.
 
 ```
 UninstallTokenRegistration.registerPushToken(contex, YOUR_GCM_DEVICE_TOKEN, new PushTokenCallback() {
