@@ -10,9 +10,9 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 1. [Clone the github repository or download the zipped file\.](#clone-the-github-repository-or-download-the-zipped-file)
 2. [Add SDK jar files to libs folder\.](#add-sdk-jar-files-to-libs-folder)
-3. [Set the SDK “Token and Secret” in your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
-4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
-5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
+3. [Configure SDK settings in the your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+4. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)       
+5. [Pass GCM device-token to Uninstall server.](#pass-gcm-device-token-to-uninstall-server)       
 6. [Pass information to SDK from the App.](#passing-information-to-sdk-from-the-app)     
 7. [Proguard](#proguard)
          
@@ -44,42 +44,6 @@ If you are using Eclipse, then follow the below steps to add the jar file.
 If you are using Android Studio, then follow the below steps to add the jar file.        
         [How to add a jar file](http://stackoverflow.com/questions/16608135/android-studio-add-jar-as-library)
 
-####Set the SDK “Token and Secret” in your project's string.xml file.
-
-In eclipse, goto project's root folder --> res folder --> values folder --> strings.xml file. Add the following lines in the file.
-
-```
-<string name="notiphi_app_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
-<string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
-```
-Note: If you do not have the token and secret then please drop a mail with name and email to android-dev-support@uninstall.io to get these credentials for your app. 
-
-####Push Notification Configuration 
-If you are using your own or a third party push notification facility for your app, then 
-
-a) Add the following line to string.xml file of your project
-
-```
-<string name="vendor_gcm_sender_id" translatable="false">YOUR_GCM_SENDER_ID </string>
-```
-You can get this from your Google Console or your third party push provider.
-
-b) Change your GCM registration related function call in your java file as mentioned below.      
-* GCM using gcm.jar
-```
-GCMRegistrar.register(context, YOUR_GCM_SENDER_ID + "," + Constants.GCM_SENDER_ID);
-```        
-* GCM using Google Play Service.
-```
-gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
-```
-c) Add the following code snippet to ignore GCM message from Uninstall.
-
-```
- if (mIntent.getStringExtra("is_notiphi") != null) {
-	return;
- }
-```
 
 ####Configure SDK settings in the Your project's AndroidManifest.xml file.
 
@@ -103,6 +67,7 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />      
 ```
 
 
@@ -130,9 +95,7 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
     </intent-filter>
 </receiver>
 
-<service android:name="com.notikum.notifypassive.services.GCMInformService" />
 <service android:name="com.notikum.notifypassive.services.NotiphiGCMIntentService" />
-<service android:name="com.notikum.notifypassive.services.NotificationInformService" />
 ```
 
 4) Google Play Services Library Configuration .      
@@ -174,6 +137,27 @@ protected void onPause() {
     UninstallSession.appFocusChange();
 }
 ````
+#### Passing GCM device-token to Uninstall server.
+
+You have to pass GCM device-token to Uninstall server by using below code.
+
+```
+UninstallTokenRegistration.registerPushToken(contex, YOUR_GCM_DEVICE_TOKEN, new PushTokenCallback() {
+            
+            @Override
+            public void onSuccess() {
+                //Perform your action
+                
+            }
+            
+            @Override
+            public void onFailure() {
+                //Please send device-token again.
+                
+            }
+        });
+```
+***NOTE ::***Please send your device token until your onSuccess() excetuted & Pass your device-token to our server when app will update.
 
 #### Passing information to SDK from the App.
 
