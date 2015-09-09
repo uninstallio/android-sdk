@@ -109,14 +109,14 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 <permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE"
      android:protectionLevel="signature" />
 <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
-<uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
-<uses-permission android:name="android.permission.GET_TASKS"/>
+<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 ```
 
 
@@ -328,6 +328,15 @@ why we need each of these permissions.
         </td>
      </tr>
 </Table>
+<Table>
+    <tr>
+        <td>"android.permission.ACCESS_WIFI_STATE"
+        </td>
+        <td>Required to access your basic wifi details.
+        </td>
+     </tr>
+</Table>
+
 
 
 #### Support or Contact
