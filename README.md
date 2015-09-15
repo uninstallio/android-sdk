@@ -175,9 +175,9 @@ b) Add the below code inside the onCreate method of your Launcher Activity
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Context context = MainActivity.this; // your activity context
-	
     UninstallSession.init(context, 1);
+    
+    // NOTE:: context is your activity context.
 }
 
 @Override
@@ -193,7 +193,7 @@ UninstallSession.fetchCompetitorApp(true);
 ```
 Note : By default, this feature is not enabled.
        
-c) Capture email id : If you do not wish to fetch email id using the SDK, please add the below code snippet before the SDK is initialized  -> i.e. before this line ```{ UninstallSession.init(MainActivity.this, 1); }```
+c) Capture email id : If you do not wish to fetch email id using the SDK, please add the below code snippet before the SDK is initialized  -> i.e. before this line ```{ UninstallSession.init(context, 1); }```
 ```
 UninstallSession.fetchEmailId(false);
 ```
@@ -214,9 +214,11 @@ boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", 
 if (isFirstTimeInstall) {
 
    //Send email-id
-   UninstallAnalytics.with(MainActivity.this).identify(new Traits().putEmail("YOUR_EMAIL_ID"));    
+   UninstallAnalytics.with(context).identify(new Traits().putEmail("YOUR_EMAIL_ID"));    
    //send user-id
-   UninstallAnalytics.with(MainActivity.this).identify(new Traits().putUsername("YOUR_USER_ID"));
+   UninstallAnalytics.with(context).identify(new Traits().putUsername("YOUR_USER_ID"));
+   
+   // NOTE:: context is your activity context.
    
 Editor editor = sharedPreferences.edit();
 editor.putBoolean("isFirstTimeInstall", false);
@@ -229,7 +231,9 @@ editor.commit();
  You could pass the In App events using the following code snippet. 
 
  ```
- UninstallAnalytics.with(MainActivity.this).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
+ UninstallAnalytics.with(context).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
+ 
+ // NOTE:: context is your activity context.
 ```
 Note :: Send events only using the "track" method.
 
