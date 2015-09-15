@@ -39,20 +39,20 @@
 
         <!-- Uninstall Receivers -->
 
-        <receiver android:name="com.notikum.notifypassive.receivers.NetworkStateChangeReceiver" >
+        <receiver android:name="com.uninstall.receivers.NetworkStateChangeReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.notikum.notifypassive.receivers.InstallReferrerReceiver"
+            android:name="com.uninstall.receivers.InstallReferrerReceiver"
             android:exported="true" >
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.notikum.notifypassive.receivers.NotiphiGCMBroadCastReceiver"
+            android:name="com.uninstall.receivers.NotiphiGCMBroadCastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
 
@@ -65,9 +65,7 @@
 
         <!-- Uninstall Service -->
 
-        <service android:name="com.notikum.notifypassive.services.GCMInformService" />
-        <service android:name="com.notikum.notifypassive.services.NotiphiGCMIntentService" />
-        <service android:name="com.notikum.notifypassive.services.NotificationInformService" />
+        <service android:name="com.uninstall.services.NotiphiGCMIntentService" />
 
         <meta-data
             android:name="com.google.android.gms.version"

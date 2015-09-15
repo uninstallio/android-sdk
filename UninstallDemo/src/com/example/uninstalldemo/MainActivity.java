@@ -1,9 +1,6 @@
 package com.example.uninstalldemo;
 
-import com.notikum.notifypassive.UninstallSession;
-import com.notikum.notifypassive.segmentIO.Properties;
-import com.notikum.notifypassive.segmentIO.Traits;
-import com.notikum.notifypassive.segmentIO.UninstallAnalytics;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +11,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.uninstall.UninstallSession;
+import com.uninstall.segmentIO.Properties;
+import com.uninstall.segmentIO.Traits;
+import com.uninstall.segmentIO.UninstallAnalytics;
+
 public class MainActivity extends Activity {
 
 	Button btn_event_demo_one, btn_event_demo_two;
@@ -23,7 +25,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		UninstallSession.fetchCompetitorApp(true);
+		UninstallSession.fetchRunningApp(true);
 		UninstallSession.fetchEmailId(false);
 		UninstallSession.init(MainActivity.this, 1);
 		
