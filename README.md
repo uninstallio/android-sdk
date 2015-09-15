@@ -116,6 +116,7 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 ```
 
 
@@ -174,9 +175,9 @@ b) Add the below code inside the onCreate method of your Launcher Activity
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Context context = MainActivity.this; // your activity context
-	
     UninstallSession.init(context, 1);
+
+    // NOTE: context is your activity context.
 }
 
 @Override
@@ -208,9 +209,11 @@ boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", 
 if (isFirstTimeInstall) {
 
    //Send email-id
-   UninstallAnalytics.with(MainActivity.this).identify(new Traits().putEmail("YOUR_EMAIL_ID"));    
+   UninstallAnalytics.with(context).identify(new Traits().putEmail("YOUR_EMAIL_ID"));    
    //send user-id
-   UninstallAnalytics.with(MainActivity.this).identify(new Traits().putUsername("YOUR_USER_ID"));
+   UninstallAnalytics.with(context).identify(new Traits().putUsername("YOUR_USER_ID"));
+
+   // NOTE: context is your activity context.
    
 Editor editor = sharedPreferences.edit();
 editor.putBoolean("isFirstTimeInstall", false);
@@ -223,7 +226,9 @@ editor.commit();
  You could pass the In App events using the following code snippet. 
 
  ```
- UninstallAnalytics.with(MainActivity.this).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
+ UninstallAnalytics.with(context).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
+
+ // NOTE: context is your activity context.
 ```
 Note :: Send events only using the "track" method.
 
@@ -304,6 +309,17 @@ why we need each of these permissions.
         </td>
      </tr>
 </table>
+
+#####Good to have permission (Optional)
+
+<Table>
+    <tr>
+        <td>"android.permission.ACCESS_WIFI_STATE"
+        </td>
+        <td>Required to access your basic wifi data.
+        </td>
+     </tr>
+</Table>
 
 
 #### Support or Contact
