@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		UninstallSession.fetchCompetitorApp(true);
+//		UninstallSession.fetchCompetitorApp(true);
 		UninstallSession.fetchEmailId(false);
 		UninstallSession.init(MainActivity.this, 1);
 		
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 		if (isFirstTimeInstall) {
 			
 			// send user-id
-			UninstallAnalytics.with(MainActivity.this).identify(new Traits().putUsername("USER_NAME"));
+			UninstallAnalytics.with(MainActivity.this).identify(new Traits().putUsername("USERNAME"));
 
 			Editor editor = sharedPreferences.edit();
 			editor.putBoolean("isFirstTimeInstall", false);
