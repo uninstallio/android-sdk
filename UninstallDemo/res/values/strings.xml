@@ -5,8 +5,8 @@
     
     
     <!-- Required :  Replace YOUR_APP_TOKEN & YOUR_APP_SECRET -->
-    <string name="notiphi_app_token">YOUR_APP_TOKEN</string>
-    <string name="notiphi_app_secret">YOUR_APP_SECRET</string>
+    <string name="notiphi_app_token">169e640ca23146b8b70c81248da504dd</string>
+    <string name="notiphi_app_secret">iCvyrxJj1cpJ1gYGo2vwlFBt1RE9rdsD0dL6NcOo8/RooHnRceycD2pUMpEmBCV21sIoEZvD+4pOxJqfgGhkrA==</string>
     
     <!-- Optional : Only if your app is using PUSH NOTIFICATION  -->
     <string name="vendor_gcm_sender_id" translatable="false">YOUR_SENDER_ID</string>
