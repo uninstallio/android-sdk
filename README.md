@@ -330,5 +330,5 @@ why we need each of these permissions.
 
 #### Support or Contact
 
-Having trouble with integration? Please contact us with name & email to android-dev-support@uninstall.io and we’ll help you sort it out in a jiffy.
+Having trouble with integration? Please contact us with name & email to sdk_integration@uninstall.io and we’ll help you sort it out in a jiffy.
 
