@@ -50,7 +50,7 @@ In eclipse, goto project's root folder --> res folder --> values folder --> stri
 <string name="notiphi_app_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 <string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 ```
-Note: If you do not have the token and secret then please drop a mail with name and email to android-dev-support@uninstall.io to get these credentials for your app. 
+Note: If you do not have the token and secret then please drop a mail with name and email to  sdk_integration@uninstall.io to get these credentials for your app. 
 
 ####Push Notification Configuration 
 If you are using your own or a third party push notification facility for your app, then 
