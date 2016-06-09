@@ -17,9 +17,9 @@ This guide will provide you step by step details on how to integrate the SDK in 
 7. [Proguard](#7proguard)    
 8. [Uninstall permission requirements](#8uninstall-permission-requirements)
 
-#### Clone the github repository or download the zipped file.
+#### 1.Clone the github repository or download the zipped file.
 
-1.Clone the github repository
+Clone the github repository
 
 ```
 git clone https://github.com/uninstallio/android-sdk.git
