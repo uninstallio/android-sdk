@@ -8,18 +8,18 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ### Steps to integrate the sdk to your Android project.
 
-1. [Clone the github repository or download the zipped file.](#clone-the-github-repository-or-download-the-zipped-file)
-2. [Add UninstallIO_12.2.jar SDK file to project.](#2.add-uninstallio_12.2.jar-sdk-file-to-project)
-3. [Set the SDK “Token and Secret” in your project's string.xml file.](#3.set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
-4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#4.configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
-5. [Initialize the SDK in the MainActivity class.](#5.initialize-the-sdk-in-the-mainactivity-class)
-6. [Pass information to SDK from the App.](#6.passing-information-to-sdk-from-the-app)  
-7. [Proguard](#7.proguard)    
-8. [Uninstall permission requirements](#8.uninstall-permission-requirements)
+1. [Clone the github repository or download the zipped file.](#1clone-the-github-repository-or-download-the-zipped-file)
+2. [Add UninstallIO_12.2.jar SDK file to project.](#2add-uninstallio_12.2.jar-sdk-file-to-project)
+3. [Set the SDK “Token and Secret” in your project's string.xml file.](#3set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
+4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#4configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+5. [Initialize the SDK in the MainActivity class.](#5initialize-the-sdk-in-the-mainactivity-class)
+6. [Pass information to SDK from the App.](#6passing-information-to-sdk-from-the-app)  
+7. [Proguard](#7proguard)    
+8. [Uninstall permission requirements](#8uninstall-permission-requirements)
 
 #### Clone the github repository or download the zipped file.
 
-Clone the github repository
+1.Clone the github repository
 
 ```
 git clone https://github.com/uninstallio/android-sdk.git
