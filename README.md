@@ -8,16 +8,16 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ### Steps to integrate the sdk to your Android project.
 
-1. [Clone the github repository or download the zipped file.](#clone-the-github-repository-or-download-the-zipped-file)
-2. [Add UninstallIO_12.2.jar SDK file to project.](#add-uninstallio_12.2.jar-sdk-file-to-project)
-3. [Set the SDK “Token and Secret” in your project's string.xml file.](#set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
-4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
-5. [Initialize the SDK in the MainActivity class.](#initialize-the-sdk-in-the-mainactivity-class)
-6. [Pass information to SDK from the App.](#passing-information-to-sdk-from-the-app)  
-7. [Proguard](#proguard)    
-8. [Uninstall permission requirements](#uninstall-permission-requirements)
+1. [Clone the github repository or download the zipped file.](#1.clone-the-github-repository-or-download-the-zipped-file)
+2. [Add UninstallIO_12.2.jar SDK file to project.](#2.add-uninstallio_12.2.jar-sdk-file-to-project)
+3. [Set the SDK “Token and Secret” in your project's string.xml file.](#3.set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
+4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#4.configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+5. [Initialize the SDK in the MainActivity class.](#5.initialize-the-sdk-in-the-mainactivity-class)
+6. [Pass information to SDK from the App.](#6.passing-information-to-sdk-from-the-app)  
+7. [Proguard](#7.proguard)    
+8. [Uninstall permission requirements](#8.uninstall-permission-requirements)
 
-####Clone the github repository or download the zipped file.
+#### 1.Clone the github repository or download the zipped file.
 
 Clone the github repository
 
@@ -34,7 +34,7 @@ https://github.com/uninstallio/android-sdk/archive/master.zip
 Unzip the "android-sdk-master.zip" file. 
 
 
-#### Add UninstallIO_12.2.jar SDK file to project.
+#### 2.Add UninstallIO_12.2.jar SDK file to project.
 
 If you are using Eclipse, then follow the below steps to add the jar file.      
         [How to add a jar file](http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java))         
@@ -42,7 +42,7 @@ If you are using Eclipse, then follow the below steps to add the jar file.
 If you are using Android Studio, then follow the below steps to add the jar file.        
         [How to add a jar file](http://stackoverflow.com/questions/16608135/android-studio-add-jar-as-library)
 
-####Set the SDK “Token and Secret” in your project's string.xml file.
+#### 3.Set the SDK “Token and Secret” in your project's string.xml file.
 
 In eclipse, goto project's root folder --> res folder --> values folder --> strings.xml file. Add the following lines in the file.
 
@@ -94,7 +94,7 @@ try {
      } catch (Exception e){
      }
 ```
-####Configure SDK settings in the Your project's AndroidManifest.xml file.
+#### 4.Configure SDK settings in the Your project's AndroidManifest.xml file.
 
 After adding the JAR into your project, modify your AndroidManifest.xml file as mentioned below:
 
@@ -161,7 +161,7 @@ Note:: Google Play Services must be compiled against version 6.5 or above.
 <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 ```
 
-####Initialize the SDK In the MainActivity class.
+#### 5.Initialize the SDK In the MainActivity class.
 
 a) Add the below import statement in your Launcher Activity of your application
 
@@ -192,7 +192,7 @@ UninstallSession.fetchEmailId(false);
 ```
 Note : By default, this feature is enabled.
 
-#### Passing information to SDK from the App.
+#### 6.Passing information to SDK from the App.
 
 You could pass various types of information to our backend systems e.g. Email id, your backend system's Userid or In App Events through our SDK's efficient event-capturing ability. 
 
@@ -230,7 +230,7 @@ editor.commit();
 ```
 Note :: Send events only using the "track" method.
 
-#### Proguard
+#### 7.Proguard
 Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
 ```
 -keep class com.notikum.notifypassive.** {*;}
@@ -245,7 +245,7 @@ then please add also below line in your Proguard file.
 -dontwarn com.notikum.notifypassive.utils.**
 ```
 
-####UNINSTALL permission requirements
+#### 8.UNINSTALL permission requirements
 
 Our SDK requires the following permissions in order to function correctly. We have outlined the reasons 
 why we need each of these permissions. 
