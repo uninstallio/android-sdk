@@ -11,11 +11,12 @@ This guide will provide you step by step details on how to integrate the SDK in 
 1. [Clone the github repository or download the zipped file.](#1clone-the-github-repository-or-download-the-zipped-file)
 2. [Add UninstallIO_12.2.jar SDK file to project.](#2add-uninstallio_122jar-sdk-file-to-project)
 3. [Set the SDK “Token and Secret” in your project's string.xml file.](#3set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
-4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#4configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
-5. [Initialize the SDK in the MainActivity class.](#5initialize-the-sdk-in-the-mainactivity-class)
-6. [Pass information to SDK from the App.](#6passing-information-to-sdk-from-the-app)  
-7. [Proguard](#7proguard)    
-8. [Uninstall permission requirements](#8uninstall-permission-requirements)
+4. [Push Notification Configuration](#4push-notification-configuration)
+5. [Configure SDK settings in the your project's AndroidManifest.xml file.](#5configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+6. [Initialize the SDK in the MainActivity class.](#6initialize-the-sdk-in-the-mainactivity-class)
+7. [Pass information to SDK from the App.](#7passing-information-to-sdk-from-the-app)  
+8. [Proguard](#8proguard)    
+9. [Uninstall permission requirements](#9uninstall-permission-requirements)
 
 #### 1.Clone the github repository or download the zipped file.
 
@@ -52,7 +53,7 @@ In eclipse, goto project's root folder --> res folder --> values folder --> stri
 ```
 Note: If you do not have the token and secret then please drop a mail with name and email to  sdk_integration@uninstall.io to get these credentials for your app. 
 
-####Push Notification Configuration 
+####4.Push Notification Configuration 
 If you are using your own or a third party push notification facility for your app, then 
 
 a) Add the following line to string.xml file of your project
@@ -73,7 +74,7 @@ gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
 ```
 c) Follow below instruction to ignore GCM message from Uninstall.    
 
-###### Your app using Pure GCM.    
+###### If your app uses Pure GCM.    
 Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
 a) onHandleIntent(Intent intent)      
 b) onMessage(Context context, Intent intent)
@@ -82,19 +83,7 @@ b) onMessage(Context context, Intent intent)
 	return;
  }
 ```     
-###### Your app using Parse push message.     
-Add below code snippet at beginning of the following functions, Class which handle the parse push message.
-```
-try {
-     JSONObject jsonObject = new JSONObject(intent.getStringExtra("com.parse.Data"));
-     String gcmAction = jsonObject.optString("action");
-     if(gcmAction.equals("sync")) {
-        return;
-     }
-     } catch (Exception e){
-     }
-```
-#### 4.Configure SDK settings in the Your project's AndroidManifest.xml file.
+#### 5.Configure SDK settings in the Your project's AndroidManifest.xml file.
 
 After adding the JAR into your project, modify your AndroidManifest.xml file as mentioned below:
 
@@ -161,7 +150,7 @@ Note:: Google Play Services must be compiled against version 6.5 or above.
 <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 ```
 
-#### 5.Initialize the SDK In the MainActivity class.
+#### 6.Initialize the SDK In the MainActivity class.
 
 a) Add the below import statement in your Launcher Activity of your application
 
@@ -192,7 +181,7 @@ UninstallSession.fetchEmailId(false);
 ```
 Note : By default, this feature is enabled.
 
-#### 6.Passing information to SDK from the App.
+#### 7.Passing information to SDK from the App.
 
 You could pass various types of information to our backend systems e.g. Email id, your backend system's Userid or In App Events through our SDK's efficient event-capturing ability. 
 
@@ -218,9 +207,6 @@ editor.putBoolean("isFirstTimeInstall", false);
 editor.commit();
 }       
 ```
-**NOTE::** context is your activity context.
-
-
 ##### 2) In-App Events - 
  You could pass the In App events using the following code snippet. 
 
@@ -228,9 +214,8 @@ editor.commit();
  UninstallAnalytics.with(context).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
  // NOTE: context is your activity context.
 ```
-Note :: Send events only using the "track" method.
 
-#### 7.Proguard
+#### 8.Proguard
 Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
 ```
 -keep class com.notikum.notifypassive.** {*;}
@@ -245,7 +230,7 @@ then please add also below line in your Proguard file.
 -dontwarn com.notikum.notifypassive.utils.**
 ```
 
-#### 8.UNINSTALL permission requirements
+#### 9.UNINSTALL permission requirements
 
 Our SDK requires the following permissions in order to function correctly. We have outlined the reasons 
 why we need each of these permissions. 
