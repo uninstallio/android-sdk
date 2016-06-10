@@ -66,11 +66,13 @@ You can get this from your Google Console or your third party push provider.
 b) Change your GCM registration related function call in your java file as mentioned below.      
 * GCM using gcm.jar
 ```
-GCMRegistrar.register(context, YOUR_GCM_SENDER_ID + "," + Constants.GCM_SENDER_ID);
+String gcmSenderId = context.getResources().getString(R.string.vendor_gcm_sender_id);
+GCMRegistrar.register(context, gcmSenderId + "," + Constants.GCM_SENDER_ID);
 ```        
 * GCM using Google Play Service.
 ```
-gcm.register(YOUR_GCM_SENDER_ID+","+Constants.GCM_SENDER_ID);
+String gcmSenderId = context.getResources().getString(R.string.vendor_gcm_sender_id);
+gcm.register(gcmSenderId+","+Constants.GCM_SENDER_ID);
 ```
 c) Follow below instruction to ignore GCM message from Uninstall.    
 
