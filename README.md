@@ -138,6 +138,7 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 <service android:name="com.notikum.notifypassive.services.GCMInformService" />
 <service android:name="com.notikum.notifypassive.services.NotiphiGCMIntentService" />
 <service android:name="com.notikum.notifypassive.services.NotificationInformService" />
+<service android:name="com.notikum.notifypassive.services.UninstallInstanceIdService" />
 ```
 
 4) Google Play Services Library Configuration .      
