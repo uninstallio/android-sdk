@@ -179,7 +179,7 @@ Please pass the User ID assigned by your backend system for this user. Also pass
 Please pass the UserID and Email using the sample code shown below: 
 
 ```
-SharedPreferences sharedPreferences = getSharedPreferences("Constants.NOTIPHI_SHARED_PREFERENCES", Context.MODE_PRIVATE);
+SharedPreferences sharedPreferences = getSharedPreferences("Constants.UNINSTALL_SHARED_PREFERENCES", Context.MODE_PRIVATE);
 boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", true);
 if (isFirstTimeInstall) {
 
