@@ -63,18 +63,7 @@ a) Add the following line to string.xml file of your project
 ```
 You can get this from your Google Console or your third party push provider.
 
-b) Change your GCM registration related function call in your java file as mentioned below.      
-* GCM using gcm.jar
-```
-String gcmSenderId = context.getResources().getString(R.string.vendor_gcm_sender_id);
-GCMRegistrar.register(context, gcmSenderId + "," + Constants.GCM_SENDER_ID);
-```        
-* GCM using Google Play Service.
-```
-String gcmSenderId = context.getResources().getString(R.string.vendor_gcm_sender_id);
-gcm.register(gcmSenderId+","+Constants.GCM_SENDER_ID);
-```
-c) Follow below instruction to ignore GCM message from Uninstall.    
+b) Follow below instruction to ignore GCM message from Uninstall.    
 
 ###### If your app uses Pure GCM.    
 Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
@@ -89,10 +78,10 @@ b) onMessage(Context context, Intent intent)
 
 After adding the JAR into your project, modify your AndroidManifest.xml file as mentioned below:
 
-1) Android Version: Set the minimum android SDK version to 10 or higher. 
+1) Android Version: Set the minimum android SDK version to 14 or higher. 
 
 ```
-<uses-sdk android:minSdkVersion="10" />
+<uses-sdk android:minSdkVersion="14" />
 ```
 2) Permissions: Add the following permissions in the file and replace **YOUR_PACKAGE_NAME** with your application's package name. 
 
@@ -147,11 +136,6 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 
 Note:: Google Play Services must be compiled against version 6.5 or above.
 	
-5) Add Meta data for Google play service : Add below meta data tag into your AndroidManifest.xml file inside the "application" tag.
-
-```
-<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-```
 
 #### 6.Initialize the SDK In the MainActivity class.
 
@@ -169,13 +153,7 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     UninstallSession.init(context, 1);   // context is you activity context.
 }
-
-@Override
-protected void onPause() {
-    super.onPause();
-    UninstallSession.appFocusChange();
-}
-    
+   
 ``` 
        
 c) Capture email id : If you do not wish to fetch email id using the SDK, please add the below code snippet before the SDK is initialized  -> i.e. before this line ```{ UninstallSession.init(context, 1); }```
