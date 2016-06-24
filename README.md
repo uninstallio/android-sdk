@@ -9,7 +9,7 @@ This guide will provide you step by step details on how to integrate the SDK in 
 ### Steps to integrate the sdk to your Android project.
 
 1. [Clone the github repository or download the zipped file.](#1clone-the-github-repository-or-download-the-zipped-file)
-2. [Add UninstallIO_12.2.jar SDK file to project.](#2add-uninstallio_122jar-sdk-file-to-project)
+2. [Add UninstallIO_12.3.jar SDK file to project.](#2add-uninstallio_122jar-sdk-file-to-project)
 3. [Set the SDK “Token and Secret” in your project's string.xml file.](#3set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
 4. [Push Notification Configuration](#4push-notification-configuration)
 5. [Configure SDK settings in the your project's AndroidManifest.xml file.](#5configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
