@@ -64,8 +64,7 @@ a) Add the following line to string.xml file of your project
 You can get this from your Google Console or your third party push provider.
 
 b) Follow below instruction to ignore GCM message from Uninstall.    
-
-###### If your app uses Pure GCM.    
+  
 Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
 a) onHandleIntent(Intent intent)  
 ```
