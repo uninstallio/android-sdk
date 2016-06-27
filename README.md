@@ -116,7 +116,7 @@ Optional Permissions
 
 ```
 <receiver
-    android:name="com.songline.uninstall.receivers.NotiphiGCMBroadCastReceiver"
+    android:name="com.songline.uninstall.receivers.UninstallGCMBroadCastReceiver"
     android:permission="com.google.android.c2dm.permission.SEND" >
     <intent-filter>				
 	<action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -132,8 +132,7 @@ Optional Permissions
 </receiver>
 
 <service android:name="com.songline.uninstall.services.GCMInformService" />
-<service android:name="com.songline.uninstall.services.NotiphiGCMIntentService" />
-<service android:name="com.songline.uninstall.services.NotificationInformService" />
+<service android:name="com.songline.uninstall.services.UninstallGCMIntentService" />
 <service android:name="com.songline.uninstall.services.UninstallInstanceIdService"/>
 ```
 
