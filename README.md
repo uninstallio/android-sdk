@@ -116,7 +116,7 @@ Optional Permissions
 
 ```
 <receiver
-    android:name="com.songline.uninstall.receivers.UninstallGCMBroadCastReceiver"
+    android:name="com.songline.uninstall.receivers.UninstallGCMReceiver"
     android:permission="com.google.android.c2dm.permission.SEND" >
     <intent-filter>				
 	<action android:name="com.google.android.c2dm.intent.RECEIVE" />
