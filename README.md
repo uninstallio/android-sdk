@@ -21,7 +21,7 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ##### Implement SDK using gradle dependency.
 
-add below code to build.gradle(app) file and skip step 2 for further implementation.
+add following code to build.gradle(app) file.
 
 ```
 dependencies {
