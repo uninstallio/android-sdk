@@ -8,34 +8,37 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ### Steps to integrate the sdk to your Android project.
 
-1. [Clone the github repository or download the zipped file.](#1clone-the-github-repository-or-download-the-zipped-file)
-2. [Add UninstallIO_12.3.jar SDK file to project.](#2add-uninstallio_123jar-sdk-file-to-project)
-3. [Set the SDK “Token and Secret” in your project's string.xml file.](#3set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
-4. [Push Notification Configuration](#4push-notification-configuration)
-5. [Configure SDK settings in the your project's AndroidManifest.xml file.](#5configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
-6. [Initialize the SDK in the MainActivity class.](#6initialize-the-sdk-in-the-mainactivity-class)
-7. [Pass information to SDK from the App.](#7passing-information-to-sdk-from-the-app)  
-8. [Proguard](#8proguard)    
-9. [Uninstall permission requirements](#9uninstall-permission-requirements)
+1. [Include gradle dependency or download the zipped file.](#1include-gradle-dependency-or-download-the-zipped-file)
+2. [Set the SDK “Token and Secret” in your project's string.xml file.](#2set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
+3. [Ignore GCM message from Uninstall.io](#3ignore-gcm-message-from-uninstallio)
+4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#4configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+5. [Initialize the SDK in the MainActivity class.](#5initialize-the-sdk-in-the-mainactivity-class)
+6. [Pass information to SDK from the App.](#6passing-information-to-sdk-from-the-app)  
+7. [Proguard](#7proguard)    
+8. [Uninstall permission requirements](#8uninstall-permission-requirements)
 
-#### 1.Clone the github repository or download the zipped file.
+#### 1.Include gradle dependency or download the zipped file.
 
-Clone the github repository
+##### Implement SDK using gradle dependency.
+
+add below code to build.gradle(app) file and skip step 2 for further implementation.
 
 ```
-git clone https://github.com/uninstallio/android-sdk.git
+dependencies {
+  ...
+compile 'com.songline.uninstall:app:12.3'
+  ...
+}
 ```
 
-or download the zipped file.
+#### OR
+
+#####Download And Add UninstallIO_12.3.jar SDK file to project.
 
 ```
 https://github.com/uninstallio/android-sdk/archive/master.zip
 ```
-
 Unzip the "android-sdk-master.zip" file. 
-
-
-#### 2.Add UninstallIO_12.3.jar SDK file to project.
 
 If you are using Eclipse, then follow the below steps to add the jar file.      
         [How to add a jar file](http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java))         
@@ -43,7 +46,7 @@ If you are using Eclipse, then follow the below steps to add the jar file.
 If you are using Android Studio, then follow the below steps to add the jar file.        
         [How to add a jar file](http://stackoverflow.com/questions/16608135/android-studio-add-jar-as-library)
 
-#### 3.Set the SDK “Token and Secret” in your project's string.xml file.
+#### 2.Set the SDK “Token and Secret” in your project's string.xml file.
 
 In eclipse, goto project's root folder --> res folder --> values folder --> strings.xml file. Add the following lines in the file.
 
@@ -53,17 +56,7 @@ In eclipse, goto project's root folder --> res folder --> values folder --> stri
 ```
 Note: If you do not have the token and secret then please drop a mail with name and email to  sdk_integration@uninstall.io to get these credentials for your app. 
 
-####4.Push Notification Configuration 
-If you are using your own or a third party push notification facility for your app, then 
-
-a) Add the following line to string.xml file of your project
-
-```
-<string name="vendor_gcm_sender_id" translatable="false">YOUR_GCM_SENDER_ID </string>
-```
-You can get this from your Google Console or your third party push provider.
-
-b) Follow below instruction to ignore GCM message from Uninstall.    
+####3.Ignore GCM message from Uninstall.io    
   
 Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
 a) onHandleIntent(Intent intent)  
@@ -89,7 +82,7 @@ protected void onMessage(Intent intent) {
  }
 ```
 
-#### 5.Configure SDK settings in the Your project's AndroidManifest.xml file.
+#### 4.Configure SDK settings in the Your project's AndroidManifest.xml file.
 
 After adding the JAR into your project, modify your AndroidManifest.xml file as mentioned below:
 
@@ -172,7 +165,7 @@ If you want to use multiple receivers, the AndroidManifest.xml must appear, as f
 Note:: Google Play Services must be compiled against version 6.5 or above.
 	
 
-#### 6.Initialize the SDK In the MainActivity class.
+#### 5.Initialize the SDK In the MainActivity class.
 
 a) Add the below import statement in your Launcher Activity of your application
 
@@ -197,7 +190,7 @@ UninstallSession.fetchEmailId(false);
 ```
 Note : By default, this feature is enabled.
 
-#### 7.Passing information to SDK from the App.
+#### 6.Passing information to SDK from the App.
 
 You could pass various types of information to our backend systems e.g. Email id, your backend system's Userid or In App Events through our SDK's efficient event-capturing ability. 
 
@@ -231,7 +224,7 @@ editor.commit();
  // NOTE: context is your activity context.
 ```
 
-#### 8.Proguard
+#### 7.Proguard
 Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
 ```
 -keep class com.songline.uninstall.** {*;}
@@ -246,7 +239,7 @@ then please add also below line in your Proguard file.
 -dontwarn com.notikum.notifypassive.utils.**
 ```
 
-#### 9.UNINSTALL permission requirements
+#### 8.UNINSTALL permission requirements
 
 Our SDK requires the following permissions in order to function correctly. We have outlined the reasons 
 why we need each of these permissions. 
