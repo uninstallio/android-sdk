@@ -115,19 +115,48 @@ Optional Permissions
 2) Uninstall Service and Receivers: Add the following xml code inside "application" tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
+<!- Uninstall.io  provides a solution that broadcasts INSTALL_REFERRER to all other receivers automatically. add the following receiver as the FIRST receiver for INSTALL_REFERRER -->
+<receiver
+    android:name="com.songline.uninstall.receivers.InstallReferrerReceiver"
+    android:exported="true" >
+    <intent-filter>
+	<action android:name="com.android.vending.INSTALL_REFERRER" />
+    </intent-filter>
+</receiver>
+```
+
+If you want to use multiple receivers, the AndroidManifest.xml must appear, as follows:
+```
+<!—Uninstall.io Install Receiver is first and will broadcast to all receivers placed below it -->
+
+<receiver android:name="com.songline.uninstall.receivers.InstallReferrerReceiver" android:exported="true">
+  <intent-filter>
+     <action android:name="com.android.vending.INSTALL_REFERRER" />
+  </intent-filter>
+</receiver>
+
+<!—All other receivers should follow right after --> 
+
+<receiver android:name="com.google.android.apps.analytics.AnalyticsReceiver" android:exported="true">
+ <intent-filter>
+      <action android:name="com.android.vending.INSTALL_REFERRER" />
+ </intent-filter>
+</receiver>
+<receiver android:name="com.admob.android.ads.analytics.InstallReceiver" android:exported="true">
+      <intent-filter>
+          <action android:name="com.android.vending.INSTALL_REFERRER" />
+      </intent-filter>
+</receiver>
+```
+
+ Add below Receiver and Services to your AndroidManifest.xml .
+```
 <receiver
     android:name="com.songline.uninstall.receivers.UninstallGCMReceiver"
     android:permission="com.google.android.c2dm.permission.SEND" >
     <intent-filter>				
 	<action android:name="com.google.android.c2dm.intent.RECEIVE" />
 	<category android:name="YOUR_PACKAGE_NAME" />
-    </intent-filter>
-</receiver>
-<receiver
-    android:name="com.songline.uninstall.receivers.InstallReferrerReceiver"
-    android:exported="true" >
-    <intent-filter>
-	<action android:name="com.android.vending.INSTALL_REFERRER" />
     </intent-filter>
 </receiver>
 
