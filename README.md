@@ -10,10 +10,10 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 1. [Include gradle dependency or download the zipped file.](#1include-gradle-dependency-or-download-the-zipped-file)
 2. [Set the SDK “Token and Secret” in your project's string.xml file.](#2set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
-3. [Ignore GCM message from Uninstall.io](#3ignore-gcm-message-from-uninstallio)
-4. [Configure SDK settings in the your project's AndroidManifest.xml file.](#4configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
-5. [Initialize the SDK in the MainActivity class.](#5initialize-the-sdk-in-the-mainactivity-class)
-6. [Pass information to SDK from the App.](#6passing-information-to-sdk-from-the-app)  
+3. [Configure SDK settings in the your project's AndroidManifest.xml file.](#3configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+4. [Initialize the SDK in the MainActivity class.](#4initialize-the-sdk-in-the-mainactivity-class)
+5. [Pass information to SDK from the App.](#5passing-information-to-sdk-from-the-app)  
+6. [Ignore GCM message from Uninstall.io](#6ignore-gcm-message-from-uninstallio)
 7. [Proguard](#7proguard)    
 8. [Uninstall permission requirements](#8uninstall-permission-requirements)
 
@@ -56,33 +56,7 @@ In eclipse, goto project's root folder --> res folder --> values folder --> stri
 ```
 Note: If you do not have the token and secret then please drop a mail with name and email to  sdk_integration@uninstall.io to get these credentials for your app. 
 
-####3.Ignore GCM message from Uninstall.io    
-  
-Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
-a) onHandleIntent(Intent intent)  
-```
-@Override
-protected void onHandleIntent(Intent intent) {
-
-	 if (mIntent.getStringExtra("is_notiphi") != null) {
-		return;
- 	}
- 	// Your code 
- }
-```
-b) onMessage(Context context, Intent intent)
-```
-@Override
-protected void onMessage(Intent intent) {
-
-	 if (mIntent.getStringExtra("is_notiphi") != null) {
-		return;
- 	}
- 	// Your code 
- }
-```
-
-#### 4.Configure SDK settings in the Your project's AndroidManifest.xml file.
+#### 3.Configure SDK settings in the Your project's AndroidManifest.xml file.
 
 After adding the JAR into your project, modify your AndroidManifest.xml file as mentioned below:
 
@@ -165,7 +139,7 @@ If you want to use multiple receivers, the AndroidManifest.xml must appear, as f
 Note:: Google Play Services must be compiled against version 6.5 or above.
 	
 
-#### 5.Initialize the SDK In the MainActivity class.
+#### 4.Initialize the SDK In the MainActivity class.
 
 a) Add the below import statement in your Launcher Activity of your application
 
@@ -190,7 +164,7 @@ UninstallSession.fetchEmailId(false);
 ```
 Note : By default, this feature is enabled.
 
-#### 6.Passing information to SDK from the App.
+#### 5.Passing information to SDK from the App.
 
 You could pass various types of information to our backend systems e.g. Email id, your backend system's Userid or In App Events through our SDK's efficient event-capturing ability. 
 
@@ -223,6 +197,43 @@ editor.commit();
  UninstallAnalytics.with(context).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
  // NOTE: context is your activity context.
 ```
+####6.Ignore GCM message from Uninstall.io    
+  
+Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
+a) onHandleIntent(Intent intent)  
+```
+@Override
+protected void onHandleIntent(Intent intent) {
+
+	 if (mIntent.getStringExtra("is_notiphi") != null) {
+		return;
+ 	}
+ 	// Your code 
+ }
+```
+b) onMessage(Context context, Intent intent)
+```
+@Override
+protected void onMessage(Intent intent) {
+
+	 if (mIntent.getStringExtra("is_notiphi") != null) {
+		return;
+ 	}
+ 	// Your code 
+ }
+```
+If you’re using GCM for registration then you have to put below snippet code to the receiver which will receive the token.
+
+```
+@Override
+  public void onReceive(Context context, Intent intent) {
+    if (intent.getStringExtra("registration_id").contains("|ID|")) {
+      return;
+    }
+    // Your Code 
+  }
+```
+
 
 #### 7.Proguard
 Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
