@@ -88,10 +88,13 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 <permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE"
      android:protectionLevel="signature" />
 <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
+```
+Optional Permissions
+```
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -110,11 +113,6 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 	<category android:name="YOUR_PACKAGE_NAME" />
     </intent-filter>
 </receiver>
-<receiver android:name="com.notikum.notifypassive.receivers.NetworkStateChangeReceiver">
-    <intent-filter >
-       <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-    </intent-filter>
-</receiver>
 <receiver
     android:name="com.notikum.notifypassive.receivers.InstallReferrerReceiver"
     android:exported="true" >
@@ -125,7 +123,6 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 
 <service android:name="com.notikum.notifypassive.services.GCMInformService" />
 <service android:name="com.notikum.notifypassive.services.NotiphiGCMIntentService" />
-<service android:name="com.notikum.notifypassive.services.NotificationInformService" />
 <service android:name="com.notikum.notifypassive.services.UninstallInstanceIdService" />
 ```
 
@@ -216,7 +213,6 @@ Our SDK requires the following permissions in order to function correctly. We ha
 why we need each of these permissions. 
 
 #####Must have permissions
-
 <table>
     <tr>
         <td>"YOUR_PACKAGE_NAME.permission.C2D_MESSAGE”
@@ -233,15 +229,6 @@ why we need each of these permissions.
             tokens from GCM server.
         </td>
      </tr>
-     
-     <tr>
-        <td>"android.permission.GET_ACCOUNTS"
-        </td>
-        <td>GCM requires a Google account if the device is 
-            running a version lower than Android 4.0.4.
-        </td>
-     </tr>
-     
      <tr>
         <td>“android.permission.INTERNET"
         </td>
@@ -249,21 +236,7 @@ why we need each of these permissions.
            with the server.
         </td>
      </tr>
-     
-     <tr>
-        <td>“android.permission.ACCESS_NETWORK_STATE”
-        </td>
-        <td>Network state permission to detect network status.
-        </td>
-     </tr>
-     
-     <tr>
-        <td>"android.permission.READ_PHONE_STATE"
-        </td>
-        <td>Required to get DeviceId of phone.
-        </td>
-     </tr>
-     
+ 
       <tr>
         <td>“android.permission.WAKE_LOCK”
         </td>
@@ -282,12 +255,29 @@ why we need each of these permissions.
         <td>Required to access your location.
         </td>
      </tr>
-</Table>
-<Table>
+     <tr>
+        <td>"android.permission.READ_PHONE_STATE"
+        </td>
+        <td>Required to get details about phone and sim network. eg.IMEI, Phone type, sim operator,  etc..
+        </td>
+     </tr>
+      <tr>
+        <td>“android.permission.ACCESS_NETWORK_STATE”
+        </td>
+        <td>Network state permission to detect network status.
+        </td>
+     </tr>
     <tr>
         <td>"android.permission.ACCESS_WIFI_STATE"
         </td>
         <td>Required to access your basic wifi data.
+        </td>
+     </tr>
+     <tr>
+        <td>"android.permission.GET_ACCOUNTS"
+        </td>
+        <td>GCM requires a Google account if the device is 
+            running a version lower than Android 4.0.4.
         </td>
      </tr>
 </Table>
