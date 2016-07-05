@@ -296,7 +296,7 @@ why we need each of these permissions.
     <tr>
         <td>"android.permission.ACCESS_COARSE_LOCATION"
         </td>
-        <td>Required to access your location.
+        <td>Required to access user's location.
         </td>
      </tr>
      <tr>
@@ -314,7 +314,7 @@ why we need each of these permissions.
     <tr>
         <td>"android.permission.ACCESS_WIFI_STATE"
         </td>
-        <td>Required to access your basic wifi data.
+        <td>Required to access user's basic wifi data.
         </td>
      </tr>
      <tr>
