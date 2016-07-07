@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">UninstallDemo</string>
+    <string name="uninstall_token">cfa3e24e59834afaaec18e38db06fe11</string>
+    <string name="uninstall_secret">Y5lrJ3RVBGTa600plmgu/Iz321l2dSjajpu9Xxi0P5hqM1ZCtDnKlZiZscXfjrpRHfeZV/IEzBsYrHFRfjK1/g==</string>
+</resources>
