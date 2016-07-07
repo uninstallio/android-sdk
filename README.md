@@ -8,34 +8,37 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 ### Steps to integrate the sdk to your Android project.
 
-1. [Clone the github repository or download the zipped file.](#1clone-the-github-repository-or-download-the-zipped-file)
-2. [Add UninstallIO_12.2.jar SDK file to project.](#2add-uninstallio_122jar-sdk-file-to-project)
-3. [Set the SDK “Token and Secret” in your project's string.xml file.](#3set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
-4. [Push Notification Configuration](#4push-notification-configuration)
-5. [Configure SDK settings in the your project's AndroidManifest.xml file.](#5configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
-6. [Initialize the SDK in the MainActivity class.](#6initialize-the-sdk-in-the-mainactivity-class)
-7. [Pass information to SDK from the App.](#7passing-information-to-sdk-from-the-app)  
-8. [Proguard](#8proguard)    
-9. [Uninstall permission requirements](#9uninstall-permission-requirements)
+1. [Include gradle dependency or download the zipped file.](#1include-gradle-dependency-or-download-the-zipped-file)
+2. [Set the SDK “Token and Secret” in your project's string.xml file.](#2set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
+3. [Configure SDK settings in the your project's AndroidManifest.xml file.](#3configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+4. [Initialize the SDK in the MainActivity class.](#4initialize-the-sdk-in-the-mainactivity-class)
+5. [Pass information to SDK from the App.](#5passing-information-to-sdk-from-the-app)  
+6. [Ignore GCM message from Uninstall.io](#6ignore-gcm-message-from-uninstallio)
+7. [Proguard](#7proguard)    
+8. [Uninstall permission requirements](#8uninstall-permission-requirements)
 
-#### 1.Clone the github repository or download the zipped file.
+#### 1.Include gradle dependency or download the zipped file.
 
-Clone the github repository
+##### Implement SDK using gradle dependency.
+
+add following code to build.gradle(app) file.
 
 ```
-git clone https://github.com/uninstallio/android-sdk.git
+dependencies {
+  ...
+compile 'com.songline.uninstall:app:12.3'
+  ...
+}
 ```
 
-or download the zipped file.
+#### OR
+
+#####Download And Add UninstalliO_12.3.jar SDK file to project.
 
 ```
 https://github.com/uninstallio/android-sdk/archive/master.zip
 ```
-
 Unzip the "android-sdk-master.zip" file. 
-
-
-#### 2.Add UninstallIO_12.2.jar SDK file to project.
 
 If you are using Eclipse, then follow the below steps to add the jar file.      
         [How to add a jar file](http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java))         
@@ -43,46 +46,21 @@ If you are using Eclipse, then follow the below steps to add the jar file.
 If you are using Android Studio, then follow the below steps to add the jar file.        
         [How to add a jar file](http://stackoverflow.com/questions/16608135/android-studio-add-jar-as-library)
 
-#### 3.Set the SDK “Token and Secret” in your project's string.xml file.
+#### 2.Set the SDK “Token and Secret” in your project's string.xml file.
 
 In eclipse, goto project's root folder --> res folder --> values folder --> strings.xml file. Add the following lines in the file.
 
 ```
-<string name="notiphi_app_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
-<string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
+<string name="uninstall_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
+<string name="uninstall_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 ```
 Note: If you do not have the token and secret then please drop a mail with name and email to  sdk_integration@uninstall.io to get these credentials for your app. 
 
-####4.Push Notification Configuration 
-If you are using your own or a third party push notification facility for your app, then 
-
-a) Add the following line to string.xml file of your project
-
-```
-<string name="vendor_gcm_sender_id" translatable="false">YOUR_GCM_SENDER_ID </string>
-```
-You can get this from your Google Console or your third party push provider.
-
-b) Follow below instruction to ignore GCM message from Uninstall.    
-
-Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
-a) onHandleIntent(Intent intent)      
-b) onMessage(Context context, Intent intent)
-```
- if (mIntent.getStringExtra("is_notiphi") != null) {
-	return;
- }
-```     
-#### 5.Configure SDK settings in the Your project's AndroidManifest.xml file.
+#### 3.Configure SDK settings in the Your project's AndroidManifest.xml file.
 
 After adding the JAR into your project, modify your AndroidManifest.xml file as mentioned below:
 
-1) Android Version: Set the minimum android SDK version to 14 or higher. 
-
-```
-<uses-sdk android:minSdkVersion="14" />
-```
-2) Permissions: Add the following permissions in the file and replace **YOUR_PACKAGE_NAME** with your application's package name. 
+1) Permissions: Add the following permissions in the file and replace **YOUR_PACKAGE_NAME** with your application's package name. 
 
 ```
 <permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE"
@@ -92,53 +70,81 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 <uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
-Optional Permissions
+Optional Permissions 
 ```
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 ```
 
-
-3) Uninstall Service and Receivers: Add the following xml code inside "application" tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
+2) Uninstall Service and Receivers: Add the following xml code inside "application" tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
 ```
+<!- Uninstall.io  provides a solution that broadcasts INSTALL_REFERRER to all other receivers automatically. add the following receiver as the FIRST receiver for INSTALL_REFERRER -->
 <receiver
-    android:name="com.notikum.notifypassive.receivers.NotiphiGCMBroadCastReceiver"
+    android:name="com.songline.uninstall.receivers.InstallReferrerReceiver"
+    android:exported="true" >
+    <intent-filter>
+	<action android:name="com.android.vending.INSTALL_REFERRER" />
+    </intent-filter>
+</receiver>
+```
+
+If you want to use multiple receivers, the AndroidManifest.xml must appear, as follows:
+```
+<!—Uninstall.io Install Receiver is first and will broadcast to all receivers placed below it -->
+
+<receiver android:name="com.songline.uninstall.receivers.InstallReferrerReceiver" android:exported="true">
+  <intent-filter>
+     <action android:name="com.android.vending.INSTALL_REFERRER" />
+  </intent-filter>
+</receiver>
+
+<!—All other receivers should follow right after --> 
+
+<receiver android:name="com.google.android.apps.analytics.AnalyticsReceiver" android:exported="true">
+ <intent-filter>
+      <action android:name="com.android.vending.INSTALL_REFERRER" />
+ </intent-filter>
+</receiver>
+<receiver android:name="com.admob.android.ads.analytics.InstallReceiver" android:exported="true">
+      <intent-filter>
+          <action android:name="com.android.vending.INSTALL_REFERRER" />
+      </intent-filter>
+</receiver>
+```
+
+ Add below Receiver and Services to your AndroidManifest.xml .
+```
+<receiver
+    android:name="com.songline.uninstall.receivers.UninstallGCMReceiver"
     android:permission="com.google.android.c2dm.permission.SEND" >
     <intent-filter>				
 	<action android:name="com.google.android.c2dm.intent.RECEIVE" />
 	<category android:name="YOUR_PACKAGE_NAME" />
     </intent-filter>
 </receiver>
-<receiver
-    android:name="com.notikum.notifypassive.receivers.InstallReferrerReceiver"
-    android:exported="true" >
-    <intent-filter>
-	<action android:name="com.android.vending.INSTALL_REFERRER" />
-    </intent-filter>
-</receiver>
 
-<service android:name="com.notikum.notifypassive.services.GCMInformService" />
-<service android:name="com.notikum.notifypassive.services.NotiphiGCMIntentService" />
-<service android:name="com.notikum.notifypassive.services.UninstallInstanceIdService" />
+<service android:name="com.songline.uninstall.services.GCMInformService" />
+<service android:name="com.songline.uninstall.services.UninstallGCMIntentService" />
+<service android:name="com.songline.uninstall.services.UninstallInstanceIdService"/>
 ```
 
-4) Google Play Services Library Configuration .      
+3) Google Play Services Library Configuration .      
      a) [Add Google Play Services to Eclipse.](http://hmkcode.com/adding-google-play-services-library-to-your-android-app)   
      b) [Add Google Play Services to Android Studio.](http://developer.android.com/google/play-services/setup.html)
 
 Note:: Google Play Services must be compiled against version 6.5 or above.
 	
 
-#### 6.Initialize the SDK In the MainActivity class.
+#### 4.Initialize the SDK In the MainActivity class.
 
 a) Add the below import statement in your Launcher Activity of your application
 
 ```
-import com.notikum.notifypassive.UninstallSession;
+import com.songline.uninstall.UninstallSession;
 ```
 
 b) Add the below code inside the onCreate method of your Launcher Activity
@@ -149,7 +155,7 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     UninstallSession.init(context, 1);   // context is you activity context.
 }
-   
+
 ``` 
        
 c) Capture email id : If you do not wish to fetch email id using the SDK, please add the below code snippet before the SDK is initialized  -> i.e. before this line ```{ UninstallSession.init(context, 1); }```
@@ -158,7 +164,7 @@ UninstallSession.fetchEmailId(false);
 ```
 Note : By default, this feature is enabled.
 
-#### 7.Passing information to SDK from the App.
+#### 5.Passing information to SDK from the App.
 
 You could pass various types of information to our backend systems e.g. Email id, your backend system's Userid or In App Events through our SDK's efficient event-capturing ability. 
 
@@ -168,7 +174,7 @@ Please pass the User ID assigned by your backend system for this user. Also pass
 Please pass the UserID and Email using the sample code shown below: 
 
 ```
-SharedPreferences sharedPreferences = getSharedPreferences("Constants.NOTIPHI_SHARED_PREFERENCES", Context.MODE_PRIVATE);
+SharedPreferences sharedPreferences = getSharedPreferences(Constants.UNINSTALL_SHARED_PREFERENCES, Context.MODE_PRIVATE);
 boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", true);
 if (isFirstTimeInstall) {
 
@@ -191,28 +197,66 @@ editor.commit();
  UninstallAnalytics.with(context).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
  // NOTE: context is your activity context.
 ```
+####6.Ignore GCM message from Uninstall.io    
+  
+Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
+a) onHandleIntent(Intent intent)  
+```
+@Override
+protected void onHandleIntent(Intent intent) {
 
-#### 8.Proguard
+	 if (mIntent.getStringExtra("is_notiphi") != null) {
+		return;
+ 	}
+ 	// Your code 
+ }
+```
+b) onMessage(Context context, Intent intent)
+```
+@Override
+protected void onMessage(Intent intent) {
+
+	 if (mIntent.getStringExtra("is_notiphi") != null) {
+		return;
+ 	}
+ 	// Your code 
+ }
+```
+If you’re using GCM for registration then you have to put below snippet code to the receiver which will receive the token.
+
+```
+@Override
+  public void onReceive(Context context, Intent intent) {
+    if (intent.getStringExtra("registration_id").contains("|ID|")) {
+      return;
+    }
+    // Your Code 
+  }
+```
+
+
+#### 7.Proguard
 Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
 ```
--keep class com.notikum.notifypassive.** {*;}
+-keep class com.songline.uninstall.** {*;}
 -keep public class com.google.android.gms.** {*;}
 ```
 NOTE : if you get the below warning message during your release build.
 ```
-"Warning:com.notikum.notifypassive.utils.NotiphiUtility: can't find referenced class com.google.android.gcm.GCMRegistrar"
+"Warning:com.songline.uninstall.utils.UninstallUtility: can't find referenced class com.google.android.gcm.GCMRegistrar"
 ```
 then please add also below line in your Proguard file.
 ```
--dontwarn com.notikum.notifypassive.utils.**
+-dontwarn com.songline.uninstall.utils.**
 ```
 
-#### 9.UNINSTALL permission requirements
+#### 8.UNINSTALL permission requirements
 
 Our SDK requires the following permissions in order to function correctly. We have outlined the reasons 
 why we need each of these permissions. 
 
 #####Must have permissions
+
 <table>
     <tr>
         <td>"YOUR_PACKAGE_NAME.permission.C2D_MESSAGE”
@@ -252,7 +296,7 @@ why we need each of these permissions.
     <tr>
         <td>"android.permission.ACCESS_COARSE_LOCATION"
         </td>
-        <td>Required to access your location.
+        <td>Required to access user's location.
         </td>
      </tr>
      <tr>
@@ -270,7 +314,7 @@ why we need each of these permissions.
     <tr>
         <td>"android.permission.ACCESS_WIFI_STATE"
         </td>
-        <td>Required to access your basic wifi data.
+        <td>Required to access user's basic wifi data.
         </td>
      </tr>
      <tr>
