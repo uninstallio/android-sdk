@@ -1,7 +1,7 @@
 [Uninstall Insights](http://uninstall.io) Android SDK
 ===================
 
-[Uninstall SDK](http://uninstall.io) helps you understand the reasons for your app uninstalls, reduce the uninstall rate using a powerful predictive engine and also get app Re-installs through a unique actionable channel (Android version 2.3.3 and above). 
+[Uninstall SDK](http://uninstall.io) helps you understand the reasons for your app uninstalls, reduce the uninstall rate using a powerful predictive engine and also get app Re-installs through a unique actionable channel (Android version 4.0 and above). 
 
 This guide will provide you step by step details on how to integrate the SDK in few minutes. Following steps outline the integration process in detail.
 
