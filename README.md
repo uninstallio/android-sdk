@@ -129,7 +129,11 @@ If you want to use multiple receivers, the AndroidManifest.xml must appear, as f
 
 <service android:name="com.songline.uninstall.services.GCMInformService" />
 <service android:name="com.songline.uninstall.services.UninstallGCMIntentService" />
-<service android:name="com.songline.uninstall.services.UninstallInstanceIdService"/>
+<service android:name="com.songline.uninstall.services.UninstallInstanceIdService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
 ```
 
 3) Google Play Services Library Configuration .      
