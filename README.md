@@ -14,8 +14,7 @@ This guide will provide you step by step details on how to integrate the SDK in 
 4. [Initialize the SDK in the MainActivity class.](#4initialize-the-sdk-in-the-mainactivity-class)
 5. [Pass information to SDK from the App.](#5passing-information-to-sdk-from-the-app)  
 6. [Ignore GCM message from Uninstall.io](#6ignore-gcm-message-from-uninstallio)
-7. [Proguard](#7proguard)    
-8. [Uninstall permission requirements](#8uninstall-permission-requirements)
+7. [Uninstall permission requirements](#7uninstall-permission-requirements)
 
 #### 1.Include gradle dependency or download the zipped file.
 
@@ -238,23 +237,7 @@ If you’re using GCM for registration then you have to put below snippet code t
   }
 ```
 
-
-#### 7.Proguard
-Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
-```
--keep class com.songline.uninstall.** {*;}
--keep public class com.google.android.gms.** {*;}
-```
-NOTE : if you get the below warning message during your release build.
-```
-"Warning:com.songline.uninstall.utils.UninstallUtility: can't find referenced class com.google.android.gcm.GCMRegistrar"
-```
-then please add also below line in your Proguard file.
-```
--dontwarn com.songline.uninstall.utils.**
-```
-
-#### 8.UNINSTALL permission requirements
+#### 7.UNINSTALL permission requirements
 
 Our SDK requires the following permissions in order to function correctly. We have outlined the reasons 
 why we need each of these permissions. 
