@@ -134,6 +134,7 @@ If you want to use multiple receivers, the AndroidManifest.xml must appear, as f
             </intent-filter>
         </service>
 ```
+Note : Both, your push notifications and Uninstall.io push configuration shall work swiftly in parallel with no conflicts.
 
 3) Google Play Services Library Configuration .      
      a) [Add Google Play Services to Eclipse.](http://hmkcode.com/adding-google-play-services-library-to-your-android-app)   
@@ -208,7 +209,7 @@ a) onHandleIntent(Intent intent)
 @Override
 protected void onHandleIntent(Intent intent) {
 
-	 if (mIntent.getStringExtra("is_notiphi") != null) {
+	 if (intent.getStringExtra("is_notiphi") != null) {
 		return;
  	}
  	// Your code 
@@ -219,7 +220,7 @@ b) onMessage(Context context, Intent intent)
 @Override
 protected void onMessage(Intent intent) {
 
-	 if (mIntent.getStringExtra("is_notiphi") != null) {
+	 if (intent.getStringExtra("is_notiphi") != null) {
 		return;
  	}
  	// Your code 
