@@ -25,7 +25,7 @@ add following code to build.gradle(app) file.
 ```
 dependencies {
   ...
-compile 'com.songline.uninstall:app:12.3'
+compile 'com.songline.uninstall:app:12.3.+'
   ...
 }
 ```
