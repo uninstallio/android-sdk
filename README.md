@@ -1,40 +1,41 @@
 [Uninstall Insights](http://uninstall.io) Android SDK
 ===================
 
-[Uninstall SDK](http://uninstall.io) helps you understand the reasons for your app uninstalls, reduce the uninstall rate using a powerful predictive engine and also get app Re-installs through a unique actionable channel (Android version 2.3.3 and above). 
+[Uninstall SDK](http://uninstall.io) helps you understand the reasons for your app uninstalls, reduce the uninstall rate using a powerful predictive engine and also get app Re-installs through a unique actionable channel (Android version 4.0 and above). 
 
 This guide will provide you step by step details on how to integrate the SDK in few minutes. Following steps outline the integration process in detail.
 
 
 ### Steps to integrate the sdk to your Android project.
 
-1. [Include gradle dependency or download the zipped file.](#1include-gradle-dependency-or-download-the-zipped-file)
+1. [Include sdk in your projects .](#1include-sdk-in-your-projects)
 2. [Set the SDK “Token and Secret” in your project's string.xml file.](#2set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
 3. [Configure SDK settings in the your project's AndroidManifest.xml file.](#3configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
 4. [Initialize the SDK in the MainActivity class.](#4initialize-the-sdk-in-the-mainactivity-class)
 5. [Pass information to SDK from the App.](#5passing-information-to-sdk-from-the-app)  
 6. [Ignore GCM message from Uninstall.io](#6ignore-gcm-message-from-uninstallio)
-7. [Proguard](#7proguard)    
-8. [Uninstall permission requirements](#8uninstall-permission-requirements)
+7. [Uninstall permission requirements](#7uninstall-permission-requirements)
 
-#### 1.Include gradle dependency or download the zipped file.
+#### 1.Include sdk in your projects.
 
-##### Implement SDK using gradle dependency.
+##### Using Gradle Depencency(recommended)
 
-add following code to build.gradle(app) file.
+Add dependencies for Uninstall.io in your app/build.gradle file.
 
 ```
 dependencies {
   ...
-compile 'com.songline.uninstall:app:12.3'
+compile 'com.songline.uninstall:app:12.3.+'
   ...
 }
 ```
 
 #### OR
 
-#####Download And Add UninstallIO_12.3.jar SDK file to project.
+##### Using Jar File (Manually).
 
+
+[Download the Uninstall.io sdk ](https://github.com/uninstallio/android-sdk/archive/master.zip)
 ```
 https://github.com/uninstallio/android-sdk/archive/master.zip
 ```
@@ -129,8 +130,13 @@ If you want to use multiple receivers, the AndroidManifest.xml must appear, as f
 
 <service android:name="com.songline.uninstall.services.GCMInformService" />
 <service android:name="com.songline.uninstall.services.UninstallGCMIntentService" />
-<service android:name="com.songline.uninstall.services.UninstallInstanceIdService"/>
+<service android:name="com.songline.uninstall.services.UninstallInstanceIdService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
 ```
+Note : Both, your push notifications and Uninstall.io push configuration shall work swiftly in parallel with no conflicts.
 
 3) Google Play Services Library Configuration .      
      a) [Add Google Play Services to Eclipse.](http://hmkcode.com/adding-google-play-services-library-to-your-android-app)   
@@ -174,7 +180,7 @@ Please pass the User ID assigned by your backend system for this user. Also pass
 Please pass the UserID and Email using the sample code shown below: 
 
 ```
-SharedPreferences sharedPreferences = getSharedPreferences("Constants.UNINSTALL_SHARED_PREFERENCES", Context.MODE_PRIVATE);
+SharedPreferences sharedPreferences = getSharedPreferences(Constants.UNINSTALL_SHARED_PREFERENCES, Context.MODE_PRIVATE);
 boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", true);
 if (isFirstTimeInstall) {
 
@@ -205,7 +211,7 @@ a) onHandleIntent(Intent intent)
 @Override
 protected void onHandleIntent(Intent intent) {
 
-	 if (mIntent.getStringExtra("is_notiphi") != null) {
+	 if (intent.getStringExtra("is_notiphi") != null) {
 		return;
  	}
  	// Your code 
@@ -216,7 +222,7 @@ b) onMessage(Context context, Intent intent)
 @Override
 protected void onMessage(Intent intent) {
 
-	 if (mIntent.getStringExtra("is_notiphi") != null) {
+	 if (intent.getStringExtra("is_notiphi") != null) {
 		return;
  	}
  	// Your code 
@@ -234,23 +240,7 @@ If you’re using GCM for registration then you have to put below snippet code t
   }
 ```
 
-
-#### 7.Proguard
-Adding the following lines to the proguard settings file will avoid any error after adding the SDK:
-```
--keep class com.songline.uninstall.** {*;}
--keep public class com.google.android.gms.** {*;}
-```
-NOTE : if you get the below warning message during your release build.
-```
-"Warning:com.songline.uninstall.utils.NotiphiUtility: can't find referenced class com.google.android.gcm.GCMRegistrar"
-```
-then please add also below line in your Proguard file.
-```
--dontwarn com.notikum.notifypassive.utils.**
-```
-
-#### 8.UNINSTALL permission requirements
+#### 7.UNINSTALL permission requirements
 
 Our SDK requires the following permissions in order to function correctly. We have outlined the reasons 
 why we need each of these permissions. 
