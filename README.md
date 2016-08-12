@@ -11,8 +11,8 @@ This guide will provide you step by step details on how to integrate the SDK in 
 1. [Include sdk in your projects .](#1include-sdk-in-your-projects)
 2. [Add Uninstall.io credentials.](#2add-uninstallio-credentials)
 3. [Update AndroidManifest.xml file.](#3update-androidmanifestxml-file)
-4. [Initialize the SDK in the MainActivity class.](#4initialize-the-sdk-in-the-mainactivity-class)
-5. [Pass information to SDK from the App.](#5passing-information-to-sdk-from-the-app)  
+4. [Initialize the SDK.](#4initialize-the-sdk)
+5. [User Identify and In-App events](#5user-identify-and-in-app-events)  
 6. [Ignore GCM message from Uninstall.io](#6ignore-gcm-message-from-uninstallio)
 7. [Uninstall permission requirements](#7uninstall-permission-requirements)
 
@@ -133,21 +133,20 @@ Note : Both, your push notifications and Uninstall.io push configuration shall w
 
 - Google Play Services Library Configuration .      
      -  [Add Google Play Services to Eclipse.](http://hmkcode.com/adding-google-play-services-library-to-your-android-app)  
-     		OR
      -  [Add Google Play Services to Android Studio.](http://developer.android.com/google/play-services/setup.html)
 
 Note:: Google Play Services must be compiled against version 7.0 or above.
 	
 
-#### 4.Initialize the SDK In the MainActivity class.
+#### 4.Initialize the sdk.
 
-a) Add the below import statement in your Launcher Activity of your application
+-  Add the below import statement in your Launcher Activity of your application
 
 ```
 import com.songline.uninstall.UninstallSession;
 ```
 
-b) Add the below code inside the onCreate method of your Launcher Activity
+-  Add the below code inside the onCreate method of your Launcher Activity
 
 ```
 @Override
@@ -158,20 +157,20 @@ protected void onCreate(Bundle savedInstanceState) {
 
 ``` 
        
-c) Capture email id : If you do not wish to fetch email id using the SDK, please add the below code snippet before the SDK is initialized  -> i.e. before this line ```{ UninstallSession.init(context, 1); }```
+-  Capture email id : If you do not wish to fetch email id using the SDK, please add the below code snippet before the SDK is initialized  -> i.e. before this line ```{ UninstallSession.init(context, 1); }```
 ```
 UninstallSession.fetchEmailId(false);
 ```
 Note : By default, this feature is enabled.
 
-#### 5.Passing information to SDK from the App.
+#### 5.User Identify and In-App events.
 
 You could pass various types of information to our backend systems e.g. Email id, your backend system's Userid or In App Events through our SDK's efficient event-capturing ability. 
 
-##### 1) Unique System User ID and Email ID - 
+##### -  Unique User ID and Email ID for your app users - 
 Please pass the User ID assigned by your backend system for this user. Also pass the email (if available). This data will be used to synchronize the various ID’s between our and your backend systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. 
 
-Please pass the UserID and Email using the sample code shown below: 
+Please pass the UserID and Email ID using the sample code shown below: 
 
 ```
 SharedPreferences sharedPreferences = getSharedPreferences(Constants.UNINSTALL_SHARED_PREFERENCES, Context.MODE_PRIVATE);
@@ -190,11 +189,18 @@ editor.putBoolean("isFirstTimeInstall", false);
 editor.commit();
 }       
 ```
-##### 2) In-App Events - 
+##### - In-App Events
+An In-App Event is an action a user takes in your application. we records the event using an Event Name and additional paramaeter you can passed with associated key:value-based Event Properties
  You could pass the In App events using the following code snippet. 
-
+ 
+ 	- An example of passing In-App Events called **Add To Cart** without Properties. 
+ 		```
+ 		UninstallAnalytics.with(context).track("Added To Cart");
+ 		// NOTE: context is your activity context.
+ 		```
+	- An example of passing In-App Events called **Add To Cart** with Properties
  ```
- UninstallAnalytics.with(context).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
+ UninstallAnalytics.with(context).track("Added To Cart", new Properties().putValue("Shirt", "Shirt_ID"));
  // NOTE: context is your activity context.
 ```
 ####6.Ignore GCM message from Uninstall.io    
