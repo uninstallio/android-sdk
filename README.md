@@ -132,8 +132,8 @@ Example : If you want to use multiple receivers, the AndroidManifest.xml must ap
 Note : Both, your push notifications and Uninstall.io push configuration shall work swiftly in parallel with no conflicts.
 
 - Google Play Services Library Configuration .      
-     a) [Add Google Play Services to Eclipse.](http://hmkcode.com/adding-google-play-services-library-to-your-android-app)   
-     b) [Add Google Play Services to Android Studio.](http://developer.android.com/google/play-services/setup.html)
+     -  [Add Google Play Services to Eclipse.](http://hmkcode.com/adding-google-play-services-library-to-your-android-app)   OR
+     -  [Add Google Play Services to Android Studio.](http://developer.android.com/google/play-services/setup.html)
 
 Note:: Google Play Services must be compiled against version 7.0 or above.
 	
