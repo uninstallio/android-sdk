@@ -9,8 +9,8 @@ This guide will provide you step by step details on how to integrate the SDK in 
 ### Steps to integrate the sdk to your Android project.
 
 1. [Include sdk in your projects .](#1include-sdk-in-your-projects)
-2. [Set the SDK “Token and Secret” in your project's string.xml file.](#2set-the-sdk-token-and-secret-in-your-projects-stringxml-file)
-3. [Configure SDK settings in the your project's AndroidManifest.xml file.](#3configure-sdk-settings-in-the-your-projects-androidmanifestxml-file)
+2. [Add Uninstall.io credentials.](#2add-uninstallio-credentials)
+3. [Update AndroidManifest.xml file.](#3update-androidmanifestxml-file)
 4. [Initialize the SDK in the MainActivity class.](#4initialize-the-sdk-in-the-mainactivity-class)
 5. [Pass information to SDK from the App.](#5passing-information-to-sdk-from-the-app)  
 6. [Ignore GCM message from Uninstall.io](#6ignore-gcm-message-from-uninstallio)
@@ -35,11 +35,7 @@ compile 'com.songline.uninstall:app:12.3.+'
 ##### Using Jar File (Manually).
 
 
-[Download the Uninstall.io sdk ](https://github.com/uninstallio/android-sdk/archive/master.zip)
-```
-https://github.com/uninstallio/android-sdk/archive/master.zip
-```
-Unzip the "android-sdk-master.zip" file. 
+[Download the Uninstall.io sdk ](https://github.com/uninstallio/android-sdk/blob/master/jars/Uninstallio_12.3.jar?raw=true)
 
 If you are using Eclipse, then follow the below steps to add the jar file.      
         [How to add a jar file](http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java))         
@@ -47,21 +43,19 @@ If you are using Eclipse, then follow the below steps to add the jar file.
 If you are using Android Studio, then follow the below steps to add the jar file.        
         [How to add a jar file](http://stackoverflow.com/questions/16608135/android-studio-add-jar-as-library)
 
-#### 2.Set the SDK “Token and Secret” in your project's string.xml file.
+#### 2.Add Uninstall.io credentials.
 
 In eclipse, goto project's root folder --> res folder --> values folder --> strings.xml file. Add the following lines in the file.
+-  Add Uninstall.io Token and secret to your strings.xml. you can find out your **strings.xml** file in your **values** folder in your project.  Your  Uninstall.io Token and secret are available under Dashboard → Settings
 
 ```
 <string name="uninstall_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 <string name="uninstall_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 ```
-Note: If you do not have the token and secret then please drop a mail with name and email to  sdk_integration@uninstall.io to get these credentials for your app. 
 
-#### 3.Configure SDK settings in the Your project's AndroidManifest.xml file.
+#### 3.Update AndroidManifest.xml file.
 
-After adding the JAR into your project, modify your AndroidManifest.xml file as mentioned below:
-
-1) Permissions: Add the following permissions in the file and replace **YOUR_PACKAGE_NAME** with your application's package name. 
+-  Add the following permissions and replace **YOUR_PACKAGE_NAME** with your application's package name. 
 
 ```
 <permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE"
@@ -80,8 +74,7 @@ Optional Permissions
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 ```
 
-2) Uninstall Service and Receivers: Add the following xml code inside "application" tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
-
+- Add the following **InstallReferrerReceiver** receiver at top of the AndroidManifest file  between the <application></application> tags and other **INSTALL_REFERRER** receivers put below it. we provides a solution that broadcasts **INSTALL_REFERRER**  action to all other receivers automatically.
 ```
 <!- Uninstall.io  provides a solution that broadcasts INSTALL_REFERRER to all other receivers automatically. add the following receiver as the FIRST receiver for INSTALL_REFERRER -->
 <receiver
@@ -93,7 +86,7 @@ Optional Permissions
 </receiver>
 ```
 
-If you want to use multiple receivers, the AndroidManifest.xml must appear, as follows:
+Example : If you want to use multiple receivers, the AndroidManifest.xml must appear, as follows:
 ```
 <!—Uninstall.io Install Receiver is first and will broadcast to all receivers placed below it -->
 
@@ -117,7 +110,7 @@ If you want to use multiple receivers, the AndroidManifest.xml must appear, as f
 </receiver>
 ```
 
- Add below Receiver and Services to your AndroidManifest.xml .
+- Add the following services, receivers and replace **YOUR_PACKAGE_NAME** with your application’s package name  between the <application></application> tags
 ```
 <receiver
     android:name="com.songline.uninstall.receivers.UninstallGCMReceiver"
@@ -138,11 +131,11 @@ If you want to use multiple receivers, the AndroidManifest.xml must appear, as f
 ```
 Note : Both, your push notifications and Uninstall.io push configuration shall work swiftly in parallel with no conflicts.
 
-3) Google Play Services Library Configuration .      
+- Google Play Services Library Configuration .      
      a) [Add Google Play Services to Eclipse.](http://hmkcode.com/adding-google-play-services-library-to-your-android-app)   
      b) [Add Google Play Services to Android Studio.](http://developer.android.com/google/play-services/setup.html)
 
-Note:: Google Play Services must be compiled against version 6.5 or above.
+Note:: Google Play Services must be compiled against version 7.0 or above.
 	
 
 #### 4.Initialize the SDK In the MainActivity class.
