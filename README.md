@@ -74,7 +74,7 @@ Optional Permissions
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 ```
 
-- Add the following **InstallReferrerReceiver** receiver at top of the AndroidManifest file  between the <application></application> tags and other **INSTALL_REFERRER** receivers put below it. we provides a solution that broadcasts **INSTALL_REFERRER**  action to all other receivers automatically.
+- Add the following **InstallReferrerReceiver** receiver at top of the AndroidManifest file  between the ```<application></application> ``` tags and other **INSTALL_REFERRER** receivers put below it. we provides a solution that broadcasts **INSTALL_REFERRER**  action to all other receivers automatically.
 ```
 <!- Uninstall.io  provides a solution that broadcasts INSTALL_REFERRER to all other receivers automatically. add the following receiver as the FIRST receiver for INSTALL_REFERRER -->
 <receiver
@@ -110,7 +110,7 @@ Example : If you want to use multiple receivers, the AndroidManifest.xml must ap
 </receiver>
 ```
 
-- Add the following services, receivers and replace **YOUR_PACKAGE_NAME** with your application’s package name  between the <application></application> tags
+- Add the following services, receivers and replace **YOUR_PACKAGE_NAME** with your application’s package name  between the ```<application></application>``` tags
 ```
 <receiver
     android:name="com.songline.uninstall.receivers.UninstallGCMReceiver"
