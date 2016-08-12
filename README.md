@@ -189,16 +189,16 @@ editor.putBoolean("isFirstTimeInstall", false);
 editor.commit();
 }       
 ```
-##### - In-App Events
+##### -  In-App Events
 An In-App Event is an action a user takes in your application. we records the event using an Event Name and additional paramaeter you can passed with associated key:value-based Event Properties
  You could pass the In App events using the following code snippet. 
  
- 	- An example of passing In-App Events called **Add To Cart** without Properties. 
+ 	-  An example of passing In-App Events called **Add To Cart** without Properties. 
  		```
  		UninstallAnalytics.with(context).track("Added To Cart");
  		// NOTE: context is your activity context.
  		```
-	- An example of passing In-App Events called **Add To Cart** with Properties
+	-  An example of passing In-App Events called **Add To Cart** with Properties
  ```
  UninstallAnalytics.with(context).track("Added To Cart", new Properties().putValue("Shirt", "Shirt_ID"));
  // NOTE: context is your activity context.
