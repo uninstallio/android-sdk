@@ -167,8 +167,8 @@ Note : By default, this feature is enabled.
 
 You could pass various types of information to our backend systems e.g. Email id, your backend system's Userid or In App Events through our SDK's efficient event-capturing ability. 
 
-##### -  Unique User ID and Email ID for your app users - 
-Please pass the User ID assigned by your backend system for this user. Also pass the email (if available). This data will be used to synchronize the various ID’s between our and your backend systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. 
+ -  **Unique User ID**  and **Email ID** for your User Identify  
+    -  Please pass the User ID assigned by your backend system for this user. Also pass the email (if available). This data will be used to synchronize the various ID’s between our and your backend systems and also to take relevant actions. This information has to be passed only once in the lifetime of the app and not everytime. 
 
 Please pass the UserID and Email ID using the sample code shown below: 
 
@@ -189,20 +189,20 @@ editor.putBoolean("isFirstTimeInstall", false);
 editor.commit();
 }       
 ```
-##### -  In-App Events
-An In-App Event is an action a user takes in your application. we records the event using an Event Name and additional paramaeter you can passed with associated key:value-based Event Properties
- You could pass the In App events using the following code snippet. 
+-  In-App Events
+	-  An In-App Event is an action a user takes in your application. we records the event using an Event Name and additional paramaeter you can passed with associated key:value-based Event Properties.
  
- 	-  An example of passing In-App Events called **Add To Cart** without Properties. 
+ 		-  An example of passing In-App Events called **Add To Cart** without Properties. 
  		```
- 		UninstallAnalytics.with(context).track("Added To Cart");
- 		// NOTE: context is your activity context.
+ 			UninstallAnalytics.with(context).track("Added To Cart");
+ 			// NOTE: context is your activity context.
  		```
-	-  An example of passing In-App Events called **Add To Cart** with Properties
- ```
- UninstallAnalytics.with(context).track("Added To Cart", new Properties().putValue("Shirt", "Shirt_ID"));
- // NOTE: context is your activity context.
-```
+		-  An example of passing In-App Events called **Add To Cart** with Properties.
+		```
+ 			UninstallAnalytics.with(context).track("Added To Cart", new Properties().putValue("Shirt", "Shirt_ID"));
+			 // NOTE: context is your activity context.
+		```
+
 ####6.Ignore GCM message from Uninstall.io    
   
 Add below code snippet at beginning of the following functions, Class which handle the GCM messages (Either by Play service or GCM jar respective order) respective order.     
