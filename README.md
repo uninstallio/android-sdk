@@ -22,7 +22,7 @@ This guide will provide you step by step details on how to integrate the SDK in 
 
 add following code to build.gradle(app) file.
 
-```ruby
+```Gradle
 dependencies {
   ...
 compile 'com.songline.uninstall:app:12.3.+'
@@ -34,7 +34,7 @@ compile 'com.songline.uninstall:app:12.3.+'
 
 #####Download And Add UninstalliO_12.3.jar SDK file to project.
 
-```ruby
+```Shell
 https://github.com/uninstallio/android-sdk/archive/master.zip
 ```
 Unzip the "android-sdk-master.zip" file. 
@@ -49,7 +49,7 @@ If you are using Android Studio, then follow the below steps to add the jar file
 
 In eclipse, goto project's root folder --> res folder --> values folder --> strings.xml file. Add the following lines in the file.
 
-```ruby
+```XML
 <string name="uninstall_token">TOKEN_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 <string name="uninstall_secret">APP_SECRET_GIVEN_BY_UNINSTALL_SEPARATELY</string>
 ```
@@ -61,7 +61,7 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 
 1) Permissions: Add the following permissions in the file and replace **YOUR_PACKAGE_NAME** with your application's package name. 
 
-```ruby
+```XML
 <permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE"
      android:protectionLevel="signature" />
 <uses-permission android:name="android.permission.INTERNET" />
@@ -70,7 +70,7 @@ After adding the JAR into your project, modify your AndroidManifest.xml file as 
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 Optional Permissions 
-```ruby
+```XML
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -80,7 +80,7 @@ Optional Permissions
 
 2) Uninstall Service and Receivers: Add the following xml code inside "application" tag and replace **YOUR_PACKAGE_NAME** with your application’s package name
 
-```ruby
+```XML
 <!- Uninstall.io  provides a solution that broadcasts INSTALL_REFERRER to all other receivers automatically. add the following receiver as the FIRST receiver for INSTALL_REFERRER -->
 <receiver
     android:name="com.songline.uninstall.receivers.InstallReferrerReceiver"
@@ -92,7 +92,7 @@ Optional Permissions
 ```
 
 If you want to use multiple receivers, the AndroidManifest.xml must appear, as follows:
-```ruby
+```XML
 <!—Uninstall.io Install Receiver is first and will broadcast to all receivers placed below it -->
 
 <receiver android:name="com.songline.uninstall.receivers.InstallReferrerReceiver" android:exported="true">
@@ -116,7 +116,7 @@ If you want to use multiple receivers, the AndroidManifest.xml must appear, as f
 ```
 
  Add below Receiver and Services to your AndroidManifest.xml .
-```ruby
+```XML
 <receiver
     android:name="com.songline.uninstall.receivers.UninstallGCMReceiver"
     android:permission="com.google.android.c2dm.permission.SEND" >
@@ -147,13 +147,13 @@ Note:: Google Play Services must be compiled against version 6.5 or above.
 
 a) Add the below import statement in your Launcher Activity of your application
 
-```ruby
+```Java
 import com.songline.uninstall.UninstallSession;
 ```
 
 b) Add the below code inside the onCreate method of your Launcher Activity
 
-```ruby
+```Java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -163,7 +163,7 @@ protected void onCreate(Bundle savedInstanceState) {
 ``` 
        
 c) Capture email id : If you do not wish to fetch email id using the SDK, please add the below code snippet before the SDK is initialized  -> i.e. before this line  ``` UninstallSession.init(context, 1);  ```
- ```ruby   
+ ```Java   
 UninstallSession.fetchEmailId(false);
 ```
 
@@ -178,7 +178,7 @@ Please pass the User ID assigned by your backend system for this user. Also pass
 
 Please pass the UserID and Email using the sample code shown below: 
 
-```ruby
+```Java
 SharedPreferences sharedPreferences = getSharedPreferences(Constants.UNINSTALL_SHARED_PREFERENCES, Context.MODE_PRIVATE);
 boolean isFirstTimeInstall = sharedPreferences.getBoolean("isFirstTimeInstall", true);
 if (isFirstTimeInstall) {
@@ -198,7 +198,7 @@ editor.commit();
 ##### 2) In-App Events - 
  You could pass the In App events using the following code snippet. 
 
- ```ruby
+ ```Java
  UninstallAnalytics.with(context).track("Viewed Product", new Properties().putValue("Shirt", "Shirt_ID"));
  // NOTE: context is your activity context.
 ```
@@ -206,7 +206,7 @@ editor.commit();
   
 Add below code snippet at beginning of the following functions, Class which handle the **Push Notification** extending   IntentService or GCMListenerService or BroadcastReceiver.      
 a) onHandleIntent(Intent intent)  
-```ruby
+```Java
 @Override
 protected void onHandleIntent(Intent intent) {
 
@@ -217,7 +217,7 @@ protected void onHandleIntent(Intent intent) {
  }
 ```
 b) onMessageReceived(String s, Bundle data)
-```ruby
+```Java
 @Override
     public void onMessageReceived(String s, Bundle data) {
         if (data.containsKey("is_notiphi")) {
@@ -228,7 +228,7 @@ b) onMessageReceived(String s, Bundle data)
 ```
 
 c) onReceive(Context context, Intent intent)
- ```ruby
+ ```Java
   @Override
     public void onReceive(Context context, Intent intent) {
     	 if (intent.getStringExtra("is_notiphi") != null) {
@@ -241,7 +241,7 @@ c) onReceive(Context context, Intent intent)
 
 If you’re using GCM for registration then you have to put below snippet code to the receiver which will receive the token.
 
-```ruby
+```Java
 @Override
   public void onReceive(Context context, Intent intent) {
     if (intent.getStringExtra("registration_id").contains("|ID|")) {
