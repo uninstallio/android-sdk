@@ -221,7 +221,6 @@ b) onMessageReceived(String s, Bundle data)
 @Override
     public void onMessageReceived(String s, Bundle data) {
         if (data.containsKey("is_notiphi")) {
-            Log.d(TAG, "onMessageReceived:  here in ");
             return;
         }
         // Your code
